@@ -6,13 +6,13 @@ import Footer from "@/components/Footer/Footer";
 export default function Home() {
   return (
     <body>
-    <div className="wrapper">
-      <div className="container">
-        <Main></Main>
-        <Bar></Bar>
-        <Footer />
+      <div className={styles.wrapper}>
+        <div className={styles.container}>
+          <Main />
+          <Bar />
+          <Footer />
+        </div>
       </div>
-    </div>
-  </body>
+    </body>
   );
 }
