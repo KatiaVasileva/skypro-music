@@ -1,7 +1,10 @@
+import { title } from "process";
 import styles from "./CenterBlock.module.css";
 import Sprite from "./img/icon/IconSearch";
 
 function CenterBlock() {
+  const classNames = require("classnames");
+
   return (
     <div className={styles.main}>
       <div className={styles.search}>
@@ -16,23 +19,21 @@ function CenterBlock() {
           name="search"
         />
       </div>
-      <h2 className="centerblock__h2">Треки</h2>
-      <div className="centerblock__filter filter">
-        <div className="filter__title">Искать по:</div>
-        <div className="filter__button button-author _btn-text">
-          исполнителю
-        </div>
-        <div className="filter__button button-year _btn-text">году выпуска</div>
-        <div className="filter__button button-genre _btn-text">жанру</div>
+      <h2 className={styles.title}>Треки</h2>
+      <div className={styles.filter}>
+        <div className={styles.filterTitle}>Искать по:</div>
+        <div className={styles.filterButton}>исполнителю</div>
+        <div className={styles.filterButton}>году выпуска</div>
+        <div className={styles.filterButton}>жанру</div>
       </div>
-      <div className="centerblock__content playlist-content">
-        <div className="content__title playlist-title">
-          <div className="playlist-title__col col01">Трек</div>
-          <div className="playlist-title__col col02">Исполнитель</div>
-          <div className="playlist-title__col col03">Альбом</div>
-          <div className="playlist-title__col col04">
-            <svg className="playlist-title__svg">
-              <use xlinkHref="img/icon/sprite.svg#icon-watch"></use>
+      <div className={styles.content}>
+        <div className={styles.contentTitle}>
+          <div className={classNames(styles.playlistColumn, styles.playlistColumn01)}>Трек</div>
+          <div className={classNames(styles.playlistColumn, styles.playlistColumn02)}>Исполнитель</div>
+          <div className={classNames(styles.playlistColumn, styles.playlistColumn03)}>Альбом</div>
+          <div className={classNames(styles.playlistColumn, styles.playlistColumn04)}>
+            <svg className={styles.playlistTitleSvg}>
+              <use href="#icon-watch"></use>
             </svg>
           </div>
         </div>
