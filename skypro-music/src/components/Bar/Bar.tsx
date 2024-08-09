@@ -1,24 +1,28 @@
+import Sprite from "../Icon/IconSearch";
+import styles from "./Bar.module.css";
+
 function Bar() {
   return (
-    <div className="bar">
-      <div className="bar__content">
-        <div className="bar__player-progress"></div>
-        <div className="bar__player-block">
-          <div className="bar__player player">
-            <div className="player__controls">
-              <div className="player__btn-prev">
-                <svg className="player__btn-prev-svg">
-                  <use xlinkHref="img/icon/sprite.svg#icon-prev"></use>
+    <div className={styles.bar}>
+      <div className={styles.content}>
+        <div className={styles.playerProgress}></div>
+        <div className={styles.playerBlock}>
+          <div className={styles.player}>
+            <div className={styles.controls}>
+              <Sprite />
+              <div className={styles.buttonPrev}>
+                <svg className={styles.buttonPrevSvg}>
+                  <use href="#icon-prev"></use>
                 </svg>
               </div>
-              <div className="player__btn-play _btn">
-                <svg className="player__btn-play-svg">
-                  <use xlinkHref="img/icon/sprite.svg#icon-play"></use>
+              <div className={styles.buttonPlay}>
+                <svg className={styles.buttonPlaySvg}>
+                  <use href="#icon-play"></use>
                 </svg>
               </div>
-              <div className="player__btn-next">
-                <svg className="player__btn-next-svg">
-                  <use xlinkHref="img/icon/sprite.svg#icon-next"></use>
+              <div className={styles.buttonNext}>
+                <svg className={styles.buttonNextSvg}>
+                  <use href="#icon-next"></use>
                 </svg>
               </div>
               <div className="player__btn-repeat _btn-icon">
