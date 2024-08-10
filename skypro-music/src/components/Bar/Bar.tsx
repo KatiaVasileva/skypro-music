@@ -25,61 +25,61 @@ function Bar() {
                   <use href="#icon-next"></use>
                 </svg>
               </div>
-              <div className="player__btn-repeat _btn-icon">
-                <svg className="player__btn-repeat-svg">
-                  <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>
+              <div className={styles.buttonRepeat}>
+                <svg className={styles.buttonRepeatSvg}>
+                  <use href="#icon-repeat"></use>
                 </svg>
               </div>
-              <div className="player__btn-shuffle _btn-icon">
-                <svg className="player__btn-shuffle-svg">
-                  <use xlinkHref="img/icon/sprite.svg#icon-shuffle"></use>
+              <div className={styles.buttonShuffle}>
+                <svg className={styles.buttonShuffleSvg}>
+                  <use href="#icon-shuffle"></use>
                 </svg>
               </div>
             </div>
 
-            <div className="player__track-play track-play">
-              <div className="track-play__contain">
-                <div className="track-play__image">
-                  <svg className="track-play__svg">
-                    <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+            <div className={styles.trackPlay}>
+              <div className={styles.trackPlayContainer}>
+                <div className={styles.trackPlayImage}>
+                  <svg className={styles.trackPlayImageSvg}>
+                    <use href="#icon-note"></use>
                   </svg>
                 </div>
-                <div className="track-play__author">
-                  <a className="track-play__author-link" href="http://">
+                <div className={styles.trackPlayAuthor}>
+                  <a className={styles.trackPlayAuthorLink} href="http://">
                     Ты та...
                   </a>
                 </div>
-                <div className="track-play__album">
-                  <a className="track-play__album-link" href="http://">
+                <div className={styles.trackPlayAlbum}>
+                  <a className={styles.trackPlayAlbumLink} href="http://">
                     Баста
                   </a>
                 </div>
               </div>
 
-              <div className="track-play__like-dis">
-                <div className="track-play__like _btn-icon">
-                  <svg className="track-play__like-svg">
-                    <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
+              <div className={styles.trackPlayLikeDis}>
+                <div className={styles.trackPlayLike}>
+                  <svg className={styles.trackPlayLikeSvg}>
+                    <use href="#icon-like"></use>
                   </svg>
                 </div>
-                <div className="track-play__dislike _btn-icon">
-                  <svg className="track-play__dislike-svg">
-                    <use xlinkHref="img/icon/sprite.svg#icon-dislike"></use>
+                <div className={styles.trackPlayDislike}>
+                  <svg className={styles.trackPlayDislikeSvg}>
+                    <use href="#icon-dislike"></use>
                   </svg>
                 </div>
               </div>
             </div>
           </div>
-          <div className="bar__volume-block volume">
-            <div className="volume__content">
-              <div className="volume__image">
-                <svg className="volume__svg">
-                  <use xlinkHref="img/icon/sprite.svg#icon-volume"></use>
+          <div className={styles.volumeBlock}>
+            <div className={styles.volumeContent}>
+              <div className={styles.volumeImage}>
+                <svg className={styles.volumeSvg}>
+                  <use href="#icon-volume"></use>
                 </svg>
               </div>
-              <div className="volume__progress _btn">
+              <div className={styles.volumeProgress}>
                 <input
-                  className="volume__progress-line _btn"
+                  className={styles.volumeProgressLine}
                   type="range"
                   name="range"
                 />
