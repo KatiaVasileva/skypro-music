@@ -1,3 +1,4 @@
+import Icon from "../Icon/Icon";
 import styles from "./CenterBlock.module.css";
 
 function CenterBlock() {
@@ -6,9 +7,7 @@ function CenterBlock() {
   return (
     <div className={styles.main}>
       <div className={styles.search}>
-        <svg className={styles.searchSvg}>
-          <use xlinkHref="/img/icon/sprite.svg#icon-search" />
-        </svg>
+        <Icon iconClass={styles.searchSvg} name="icon-search" />
         <input
           className={styles.searchText}
           type="search"
@@ -55,20 +54,18 @@ function CenterBlock() {
               styles.playlistColumn04
             )}
           >
-            <svg className={styles.playlistTitleSvg}>
-              <use xlinkHref="/img/icon/sprite.svg#icon-watch"></use>
-            </svg>
+            <Icon iconClass={styles.playlistTitleSvg} name="icon-watch" />
           </div>
         </div>
         <div className={styles.playlistContent}>
           <div className={styles.playlistItem}>
             <div className={styles.playlistTrack}>
               <div className={styles.trackTitle}>
-                <div className={styles.trackTitleImage}>
-                  <svg className={styles.trackTitleSvg}>
-                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
-                  </svg>
-                </div>
+                <Icon
+                  wrapperClass={styles.trackTitleImage}
+                  iconClass={styles.trackTitleSvg}
+                  name="icon-note"
+                />
                 <div>
                   <a className={styles.trackTitleLink} href="http://">
                     Guilt <span className={styles.trackTitleSpan}></span>
@@ -85,10 +82,8 @@ function CenterBlock() {
                   Welcome Reality
                 </a>
               </div>
+              <Icon iconClass={styles.trackTimeSvg} name="icon-like" />
               <div>
-                <svg className={styles.trackTimeSvg}>
-                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
-                </svg>
                 <span className={styles.trackTimeText}>4:44</span>
               </div>
             </div>
@@ -97,11 +92,11 @@ function CenterBlock() {
           <div className={styles.playlistItem}>
             <div className={styles.playlistTrack}>
               <div className={styles.trackTitle}>
-                <div className={styles.trackTitleImage}>
-                  <svg className={styles.trackTitleSvg}>
-                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
-                  </svg>
-                </div>
+                <Icon
+                  wrapperClass={styles.trackTitleImage}
+                  iconClass={styles.trackTitleSvg}
+                  name="icon-note"
+                />
                 <div>
                   <a className={styles.trackTitleLink} href="http://">
                     Elektro <span className={styles.trackTitleSpan}></span>
@@ -118,10 +113,8 @@ function CenterBlock() {
                   Elektro
                 </a>
               </div>
+              <Icon iconClass={styles.trackTimeSvg} name="icon-like" />
               <div>
-                <svg className={styles.trackTimeSvg}>
-                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
-                </svg>
                 <span className={styles.trackTimeText}>2:22</span>
               </div>
             </div>
@@ -130,11 +123,11 @@ function CenterBlock() {
           <div className={styles.playlistItem}>
             <div className={styles.playlistTrack}>
               <div className={styles.trackTitle}>
-                <div className={styles.trackTitleImage}>
-                  <svg className={styles.trackTitleSvg}>
-                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
-                  </svg>
-                </div>
+                <Icon
+                  wrapperClass={styles.trackTitleImage}
+                  iconClass={styles.trackTitleSvg}
+                  name="icon-note"
+                />
                 <div>
                   <a className={styles.trackTitleLink} href="http://">
                     I’m Fire <span className={styles.trackTitleSpan}></span>
@@ -151,10 +144,8 @@ function CenterBlock() {
                   I’m Fire
                 </a>
               </div>
+              <Icon iconClass={styles.trackTimeSvg} name="icon-like" />
               <div>
-                <svg className={styles.trackTimeSvg}>
-                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
-                </svg>
                 <span className={styles.trackTimeText}>2:22</span>
               </div>
             </div>
@@ -163,11 +154,11 @@ function CenterBlock() {
           <div className={styles.playlistItem}>
             <div className={styles.playlistTrack}>
               <div className={styles.trackTitle}>
-                <div className={styles.trackTitleImage}>
-                  <svg className={styles.trackTitleSvg}>
-                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
-                  </svg>
-                </div>
+                <Icon
+                  wrapperClass={styles.trackTitleImage}
+                  iconClass={styles.trackTitleSvg}
+                  name="icon-note"
+                />
                 <div>
                   <a className={styles.trackTitleLink} href="http://">
                     Non Stop
@@ -185,10 +176,8 @@ function CenterBlock() {
                   Non Stop
                 </a>
               </div>
+              <Icon iconClass={styles.trackTimeSvg} name="icon-like" />
               <div>
-                <svg className={styles.trackTimeSvg}>
-                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
-                </svg>
                 <span className={styles.trackTimeText}>4:12</span>
               </div>
             </div>
@@ -197,11 +186,11 @@ function CenterBlock() {
           <div className={styles.playlistItem}>
             <div className={styles.playlistTrack}>
               <div className={styles.trackTitle}>
-                <div className={styles.trackTitleImage}>
-                  <svg className={styles.trackTitleSvg}>
-                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
-                  </svg>
-                </div>
+                <Icon
+                  wrapperClass={styles.trackTitleImage}
+                  iconClass={styles.trackTitleSvg}
+                  name="icon-note"
+                />
                 <div>
                   <a className={styles.trackTitleLink} href="http://">
                     Run Run
@@ -219,10 +208,8 @@ function CenterBlock() {
                   Run Run
                 </a>
               </div>
+              <Icon iconClass={styles.trackTimeSvg} name="icon-like" />
               <div>
-                <svg className={styles.trackTimeSvg}>
-                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
-                </svg>
                 <span className={styles.trackTimeText}>2:54</span>
               </div>
             </div>
@@ -231,11 +218,11 @@ function CenterBlock() {
           <div className={styles.playlistItem}>
             <div className={styles.playlistTrack}>
               <div className={styles.trackTitle}>
-                <div className={styles.trackTitleImage}>
-                  <svg className={styles.trackTitleSvg}>
-                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
-                  </svg>
-                </div>
+                <Icon
+                  wrapperClass={styles.trackTitleImage}
+                  iconClass={styles.trackTitleSvg}
+                  name="icon-note"
+                />
                 <div>
                   <a className={styles.trackTitleLink} href="http://">
                     Eyes on Fire
@@ -255,10 +242,8 @@ function CenterBlock() {
                   Eyes on Fire
                 </a>
               </div>
+              <Icon iconClass={styles.trackTimeSvg} name="icon-like" />
               <div>
-                <svg className={styles.trackTimeSvg}>
-                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
-                </svg>
                 <span className={styles.trackTimeText}>5:20</span>
               </div>
             </div>
@@ -267,11 +252,11 @@ function CenterBlock() {
           <div className={styles.playlistItem}>
             <div className={styles.playlistTrack}>
               <div className={styles.trackTitle}>
-                <div className={styles.trackTitleImage}>
-                  <svg className={styles.trackTitleSvg}>
-                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
-                  </svg>
-                </div>
+                <Icon
+                  wrapperClass={styles.trackTitleImage}
+                  iconClass={styles.trackTitleSvg}
+                  name="icon-note"
+                />
                 <div>
                   <a className={styles.trackTitleLink} href="http://">
                     Mucho Bien
@@ -291,10 +276,8 @@ function CenterBlock() {
                   Mucho Bien
                 </a>
               </div>
+              <Icon iconClass={styles.trackTimeSvg} name="icon-like" />
               <div>
-                <svg className={styles.trackTimeSvg}>
-                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
-                </svg>
                 <span className={styles.trackTimeText}>3:41</span>
               </div>
             </div>
@@ -303,11 +286,11 @@ function CenterBlock() {
           <div className={styles.playlistItem}>
             <div className={styles.playlistTrack}>
               <div className={styles.trackTitle}>
-                <div className={styles.trackTitleImage}>
-                  <svg className={styles.trackTitleSvg}>
-                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
-                  </svg>
-                </div>
+                <Icon
+                  wrapperClass={styles.trackTitleImage}
+                  iconClass={styles.trackTitleSvg}
+                  name="icon-note"
+                />
                 <div>
                   <a className={styles.trackTitleLink} href="http://">
                     Knives n Cherries
@@ -325,10 +308,8 @@ function CenterBlock() {
                   Captivating
                 </a>
               </div>
+              <Icon iconClass={styles.trackTimeSvg} name="icon-like" />
               <div>
-                <svg className={styles.trackTimeSvg}>
-                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
-                </svg>
                 <span className={styles.trackTimeText}>1:48</span>
               </div>
             </div>
@@ -337,11 +318,11 @@ function CenterBlock() {
           <div className={styles.playlistItem}>
             <div className={styles.playlistTrack}>
               <div className={styles.trackTitle}>
-                <div className={styles.trackTitleImage}>
-                  <svg className={styles.trackTitleSvg}>
-                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
-                  </svg>
-                </div>
+                <Icon
+                  wrapperClass={styles.trackTitleImage}
+                  iconClass={styles.trackTitleSvg}
+                  name="icon-note"
+                />
                 <div>
                   <a className={styles.trackTitleLink} href="http://">
                     Knives n Cherries
@@ -359,175 +340,8 @@ function CenterBlock() {
                   Captivating
                 </a>
               </div>
+              <Icon iconClass={styles.trackTimeSvg} name="icon-like" />
               <div>
-                <svg className={styles.trackTimeSvg}>
-                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
-                </svg>
-                <span className={styles.trackTimeText}>1:48</span>
-              </div>
-            </div>
-          </div>
-          <div className={styles.playlistItem}>
-            <div className={styles.playlistTrack}>
-              <div className={styles.trackTitle}>
-                <div className={styles.trackTitleImage}>
-                  <svg className={styles.trackTitleSvg}>
-                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
-                  </svg>
-                </div>
-                <div>
-                  <a className={styles.trackTitleLink} href="http://">
-                    Knives n Cherries
-                    <span className={styles.trackTitleSpan}></span>
-                  </a>
-                </div>
-              </div>
-              <div className={styles.trackAuthor}>
-                <a className={styles.trackAuthorLink} href="http://">
-                  minthaze
-                </a>
-              </div>
-              <div className={styles.trackAlbum}>
-                <a className={styles.trackAlbumLink} href="http://">
-                  Captivating
-                </a>
-              </div>
-              <div>
-                <svg className={styles.trackTimeSvg}>
-                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
-                </svg>
-                <span className={styles.trackTimeText}>1:48</span>
-              </div>
-            </div>
-          </div>
-          <div className={styles.playlistItem}>
-            <div className={styles.playlistTrack}>
-              <div className={styles.trackTitle}>
-                <div className={styles.trackTitleImage}>
-                  <svg className={styles.trackTitleSvg}>
-                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
-                  </svg>
-                </div>
-                <div>
-                  <a className={styles.trackTitleLink} href="http://">
-                    Knives n Cherries
-                    <span className={styles.trackTitleSpan}></span>
-                  </a>
-                </div>
-              </div>
-              <div className={styles.trackAuthor}>
-                <a className={styles.trackAuthorLink} href="http://">
-                  minthaze
-                </a>
-              </div>
-              <div className={styles.trackAlbum}>
-                <a className={styles.trackAlbumLink} href="http://">
-                  Captivating
-                </a>
-              </div>
-              <div>
-                <svg className={styles.trackTimeSvg}>
-                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
-                </svg>
-                <span className={styles.trackTimeText}>1:48</span>
-              </div>
-            </div>
-          </div>
-          <div className={styles.playlistItem}>
-            <div className={styles.playlistTrack}>
-              <div className={styles.trackTitle}>
-                <div className={styles.trackTitleImage}>
-                  <svg className={styles.trackTitleSvg}>
-                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
-                  </svg>
-                </div>
-                <div>
-                  <a className={styles.trackTitleLink} href="http://">
-                    Knives n Cherries
-                    <span className={styles.trackTitleSpan}></span>
-                  </a>
-                </div>
-              </div>
-              <div className={styles.trackAuthor}>
-                <a className={styles.trackAuthorLink} href="http://">
-                  minthaze
-                </a>
-              </div>
-              <div className={styles.trackAlbum}>
-                <a className={styles.trackAlbumLink} href="http://">
-                  Captivating
-                </a>
-              </div>
-              <div>
-                <svg className={styles.trackTimeSvg}>
-                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
-                </svg>
-                <span className={styles.trackTimeText}>1:48</span>
-              </div>
-            </div>
-          </div>
-          <div className={styles.playlistItem}>
-            <div className={styles.playlistTrack}>
-              <div className={styles.trackTitle}>
-                <div className={styles.trackTitleImage}>
-                  <svg className={styles.trackTitleSvg}>
-                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
-                  </svg>
-                </div>
-                <div>
-                  <a className={styles.trackTitleLink} href="http://">
-                    Knives n Cherries
-                    <span className={styles.trackTitleSpan}></span>
-                  </a>
-                </div>
-              </div>
-              <div className={styles.trackAuthor}>
-                <a className={styles.trackAuthorLink} href="http://">
-                  minthaze
-                </a>
-              </div>
-              <div className={styles.trackAlbum}>
-                <a className={styles.trackAlbumLink} href="http://">
-                  Captivating
-                </a>
-              </div>
-              <div>
-                <svg className={styles.trackTimeSvg}>
-                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
-                </svg>
-                <span className={styles.trackTimeText}>1:48</span>
-              </div>
-            </div>
-          </div>
-          <div className={styles.playlistItem}>
-            <div className={styles.playlistTrack}>
-              <div className={styles.trackTitle}>
-                <div className={styles.trackTitleImage}>
-                  <svg className={styles.trackTitleSvg}>
-                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
-                  </svg>
-                </div>
-                <div>
-                  <a className={styles.trackTitleLink} href="http://">
-                    Knives n Cherries
-                    <span className={styles.trackTitleSpan}></span>
-                  </a>
-                </div>
-              </div>
-              <div className={styles.trackAuthor}>
-                <a className={styles.trackAuthorLink} href="http://">
-                  minthaze
-                </a>
-              </div>
-              <div className={styles.trackAlbum}>
-                <a className={styles.trackAlbumLink} href="http://">
-                  Captivating
-                </a>
-              </div>
-              <div>
-                <svg className={styles.trackTimeSvg}>
-                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
-                </svg>
                 <span className={styles.trackTimeText}>1:48</span>
               </div>
             </div>
@@ -536,11 +350,171 @@ function CenterBlock() {
           <div className={styles.playlistItem}>
             <div className={styles.playlistTrack}>
               <div className={styles.trackTitle}>
-                <div className={styles.trackTitleImage}>
-                  <svg className={styles.trackTitleSvg}>
-                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
-                  </svg>
+                <Icon
+                  wrapperClass={styles.trackTitleImage}
+                  iconClass={styles.trackTitleSvg}
+                  name="icon-note"
+                />
+                <div>
+                  <a className={styles.trackTitleLink} href="http://">
+                    Knives n Cherries
+                    <span className={styles.trackTitleSpan}></span>
+                  </a>
                 </div>
+              </div>
+              <div className={styles.trackAuthor}>
+                <a className={styles.trackAuthorLink} href="http://">
+                  minthaze
+                </a>
+              </div>
+              <div className={styles.trackAlbum}>
+                <a className={styles.trackAlbumLink} href="http://">
+                  Captivating
+                </a>
+              </div>
+              <Icon iconClass={styles.trackTimeSvg} name="icon-like" />
+              <div>
+                <span className={styles.trackTimeText}>1:48</span>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.playlistItem}>
+            <div className={styles.playlistTrack}>
+              <div className={styles.trackTitle}>
+                <Icon
+                  wrapperClass={styles.trackTitleImage}
+                  iconClass={styles.trackTitleSvg}
+                  name="icon-note"
+                />
+                <div>
+                  <a className={styles.trackTitleLink} href="http://">
+                    Knives n Cherries
+                    <span className={styles.trackTitleSpan}></span>
+                  </a>
+                </div>
+              </div>
+              <div className={styles.trackAuthor}>
+                <a className={styles.trackAuthorLink} href="http://">
+                  minthaze
+                </a>
+              </div>
+              <div className={styles.trackAlbum}>
+                <a className={styles.trackAlbumLink} href="http://">
+                  Captivating
+                </a>
+              </div>
+              <Icon iconClass={styles.trackTimeSvg} name="icon-like" />
+              <div>
+                <span className={styles.trackTimeText}>1:48</span>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.playlistItem}>
+            <div className={styles.playlistTrack}>
+              <div className={styles.trackTitle}>
+                <Icon
+                  wrapperClass={styles.trackTitleImage}
+                  iconClass={styles.trackTitleSvg}
+                  name="icon-note"
+                />
+                <div>
+                  <a className={styles.trackTitleLink} href="http://">
+                    Knives n Cherries
+                    <span className={styles.trackTitleSpan}></span>
+                  </a>
+                </div>
+              </div>
+              <div className={styles.trackAuthor}>
+                <a className={styles.trackAuthorLink} href="http://">
+                  minthaze
+                </a>
+              </div>
+              <div className={styles.trackAlbum}>
+                <a className={styles.trackAlbumLink} href="http://">
+                  Captivating
+                </a>
+              </div>
+              <Icon iconClass={styles.trackTimeSvg} name="icon-like" />
+              <div>
+                <span className={styles.trackTimeText}>1:48</span>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.playlistItem}>
+            <div className={styles.playlistTrack}>
+              <div className={styles.trackTitle}>
+                <Icon
+                  wrapperClass={styles.trackTitleImage}
+                  iconClass={styles.trackTitleSvg}
+                  name="icon-note"
+                />
+                <div>
+                  <a className={styles.trackTitleLink} href="http://">
+                    Knives n Cherries
+                    <span className={styles.trackTitleSpan}></span>
+                  </a>
+                </div>
+              </div>
+              <div className={styles.trackAuthor}>
+                <a className={styles.trackAuthorLink} href="http://">
+                  minthaze
+                </a>
+              </div>
+              <div className={styles.trackAlbum}>
+                <a className={styles.trackAlbumLink} href="http://">
+                  Captivating
+                </a>
+              </div>
+              <Icon iconClass={styles.trackTimeSvg} name="icon-like" />
+              <div>
+                <span className={styles.trackTimeText}>1:48</span>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.playlistItem}>
+            <div className={styles.playlistTrack}>
+              <div className={styles.trackTitle}>
+                <Icon
+                  wrapperClass={styles.trackTitleImage}
+                  iconClass={styles.trackTitleSvg}
+                  name="icon-note"
+                />
+                <div>
+                  <a className={styles.trackTitleLink} href="http://">
+                    Knives n Cherries
+                    <span className={styles.trackTitleSpan}></span>
+                  </a>
+                </div>
+              </div>
+              <div className={styles.trackAuthor}>
+                <a className={styles.trackAuthorLink} href="http://">
+                  minthaze
+                </a>
+              </div>
+              <div className={styles.trackAlbum}>
+                <a className={styles.trackAlbumLink} href="http://">
+                  Captivating
+                </a>
+              </div>
+              <Icon iconClass={styles.trackTimeSvg} name="icon-like" />
+              <div>
+                <span className={styles.trackTimeText}>1:48</span>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.playlistItem}>
+            <div className={styles.playlistTrack}>
+              <div className={styles.trackTitle}>
+                <Icon
+                  wrapperClass={styles.trackTitleImage}
+                  iconClass={styles.trackTitleSvg}
+                  name="icon-note"
+                />
                 <div>
                   <a className={styles.trackTitleLink} href="http://">
                     How Deep Is Your Love
@@ -558,10 +532,8 @@ function CenterBlock() {
                   How Deep Is Your Love
                 </a>
               </div>
+              <Icon iconClass={styles.trackTimeSvg} name="icon-like" />
               <div>
-                <svg className={styles.trackTimeSvg}>
-                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
-                </svg>
                 <span className={styles.trackTimeText}>3:32</span>
               </div>
             </div>
@@ -570,11 +542,11 @@ function CenterBlock() {
           <div className={styles.playlistItem}>
             <div className={styles.playlistTrack}>
               <div className={styles.trackTitle}>
-                <div className={styles.trackTitleImage}>
-                  <svg className={styles.trackTitleSvg}>
-                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
-                  </svg>
-                </div>
+                <Icon
+                  wrapperClass={styles.trackTitleImage}
+                  iconClass={styles.trackTitleSvg}
+                  name="icon-note"
+                />
                 <div>
                   <a className={styles.trackTitleLink} href="http://">
                     Morena <span className={styles.trackTitleSpan}></span>
@@ -591,10 +563,8 @@ function CenterBlock() {
                   Soundz Made in Romania
                 </a>
               </div>
+              <Icon iconClass={styles.trackTimeSvg} name="icon-like" />
               <div>
-                <svg className={styles.trackTimeSvg}>
-                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
-                </svg>
                 <span className={styles.trackTimeText}>3:36</span>
               </div>
             </div>
@@ -603,11 +573,11 @@ function CenterBlock() {
           <div className={styles.playlistItem}>
             <div className={styles.playlistTrack}>
               <div className={styles.trackTitle}>
-                <div className={styles.trackTitleImage}>
-                  <svg className={styles.trackTitleSvg}>
-                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
-                  </svg>
-                </div>
+                <Icon
+                  wrapperClass={styles.trackTitleImage}
+                  iconClass={styles.trackTitleSvg}
+                  name="icon-note"
+                />
                 <div>
                   <a className={styles.trackTitleLink} href="http://">
                     <span className={styles.trackTitleSpan}></span>
@@ -620,11 +590,9 @@ function CenterBlock() {
               <div className={styles.trackAlbum}>
                 <a className={styles.trackAlbumLink} href="http://"></a>
               </div>
+              <Icon iconClass={styles.trackTimeSvg} name="icon-like" />
               <div>
-                <svg className={styles.trackTimeSvg}>
-                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
-                </svg>
-                <span className={styles.trackTimeText}></span>
+                <span className={styles.trackTimeText}>5:13</span>
               </div>
             </div>
           </div>

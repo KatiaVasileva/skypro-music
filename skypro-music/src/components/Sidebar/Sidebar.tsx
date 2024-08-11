@@ -1,16 +1,13 @@
 import Image from "next/image";
 import styles from "./Sidebar.module.css";
+import Icon from "../Icon/Icon";
 
 function Sidebar() {
   return (
     <div className={styles.sidebar}>
       <div className={styles.personal}>
         <p className={styles.personalName}>Sergey.Ivanov</p>
-        <div className={styles.icon}>
-          <svg>
-            <use xlinkHref="/img/icon/sprite.svg#logout"></use>
-          </svg>
-        </div>
+        <Icon wrapperClass={styles.icon} name="logout" />
       </div>
       <div className={styles.block}>
         <div className={styles.list}>

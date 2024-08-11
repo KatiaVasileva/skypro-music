@@ -1,3 +1,4 @@
+import Icon from "../Icon/Icon";
 import styles from "./Bar.module.css";
 
 function Bar() {
@@ -8,40 +9,40 @@ function Bar() {
         <div className={styles.playerBlock}>
           <div className={styles.player}>
             <div className={styles.controls}>
-              <div className={styles.buttonPrev}>
-                <svg className={styles.buttonPrevSvg}>
-                  <use xlinkHref="/img/icon/sprite.svg#icon-prev"></use>
-                </svg>
-              </div>
-              <div className={styles.buttonPlay}>
-                <svg className={styles.buttonPlaySvg}>
-                  <use xlinkHref="/img/icon/sprite.svg#icon-play"></use>
-                </svg>
-              </div>
-              <div className={styles.buttonNext}>
-                <svg className={styles.buttonNextSvg}>
-                  <use xlinkHref="/img/icon/sprite.svg#icon-next"></use>
-                </svg>
-              </div>
-              <div className={styles.buttonRepeat}>
-                <svg className={styles.buttonRepeatSvg}>
-                  <use xlinkHref="/img/icon/sprite.svg#icon-repeat"></use>
-                </svg>
-              </div>
-              <div className={styles.buttonShuffle}>
-                <svg className={styles.buttonShuffleSvg}>
-                  <use xlinkHref="/img/icon/sprite.svg#icon-shuffle"></use>
-                </svg>
-              </div>
+              <Icon
+                wrapperClass={styles.buttonPrev}
+                iconClass={styles.buttonPrevSvg}
+                name="icon-prev"
+              />
+              <Icon
+                wrapperClass={styles.buttonPlay}
+                iconClass={styles.buttonPlaySvg}
+                name="icon-play"
+              />
+              <Icon
+                wrapperClass={styles.buttonNext}
+                iconClass={styles.buttonNextSvg}
+                name="icon-next"
+              />
+              <Icon
+                wrapperClass={styles.buttonRepeat}
+                iconClass={styles.buttonRepeatSvg}
+                name="icon-repeat"
+              />
+              <Icon
+                wrapperClass={styles.buttonShuffle}
+                iconClass={styles.buttonShuffleSvg}
+                name="icon-shuffle"
+              />
             </div>
 
             <div className={styles.trackPlay}>
               <div className={styles.trackPlayContainer}>
-                <div className={styles.trackPlayImage}>
-                  <svg className={styles.trackPlayImageSvg}>
-                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
-                  </svg>
-                </div>
+                <Icon
+                  wrapperClass={styles.trackPlayImage}
+                  iconClass={styles.trackPlayImageSvg}
+                  name="icon-note"
+                />
                 <div className={styles.trackPlayAuthor}>
                   <a className={styles.trackPlayAuthorLink} href="http://">
                     Ты та...
@@ -55,26 +56,26 @@ function Bar() {
               </div>
 
               <div className={styles.trackPlayLikeDis}>
-                <div className={styles.trackPlayLike}>
-                  <svg className={styles.trackPlayLikeSvg}>
-                    <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
-                  </svg>
-                </div>
-                <div className={styles.trackPlayDislike}>
-                  <svg className={styles.trackPlayDislikeSvg}>
-                    <use xlinkHref="/img/icon/sprite.svg#icon-dislike"></use>
-                  </svg>
-                </div>
+                <Icon
+                  wrapperClass={styles.trackPlayLike}
+                  iconClass={styles.trackPlayLikeSvg}
+                  name="icon-like"
+                />
+                <Icon
+                  wrapperClass={styles.trackPlayDislike}
+                  iconClass={styles.trackPlayDislikeSvg}
+                  name="icon-dislike"
+                />
               </div>
             </div>
           </div>
           <div className={styles.volumeBlock}>
             <div className={styles.volumeContent}>
-              <div className={styles.volumeImage}>
-                <svg className={styles.volumeSvg}>
-                  <use xlinkHref="/img/icon/sprite.svg#icon-volume"></use>
-                </svg>
-              </div>
+              <Icon
+                wrapperClass={styles.volumeImage}
+                iconClass={styles.volumeSvg}
+                name="icon-volume"
+              />
               <div className={styles.volumeProgress}>
                 <input
                   className={styles.volumeProgressLine}
