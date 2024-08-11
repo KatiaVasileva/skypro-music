@@ -1,5 +1,4 @@
 import Image from "next/image";
-import logo from "./img/logo.png";
 import styles from "./Nav.module.css"
 
 function Nav() {
@@ -8,7 +7,7 @@ function Nav() {
       <div className={styles.logo}>
         <Image
           className={styles.image}
-          src={logo}
+          src="/img/logo.png"
           alt="logo"
           width={113.33}
           height={17}

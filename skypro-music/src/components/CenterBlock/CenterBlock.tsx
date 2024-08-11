@@ -1,4 +1,3 @@
-import Sprite from "@/public/Icon/IconSearch";
 import styles from "./CenterBlock.module.css";
 
 function CenterBlock() {
@@ -7,9 +6,8 @@ function CenterBlock() {
   return (
     <div className={styles.main}>
       <div className={styles.search}>
-        <Sprite />
         <svg className={styles.searchSvg}>
-          <use href="#icon-search" />
+          <use xlinkHref="/img/icon/sprite.svg#icon-search" />
         </svg>
         <input
           className={styles.searchText}
@@ -58,7 +56,7 @@ function CenterBlock() {
             )}
           >
             <svg className={styles.playlistTitleSvg}>
-              <use href="#icon-watch"></use>
+              <use xlinkHref="/img/icon/sprite.svg#icon-watch"></use>
             </svg>
           </div>
         </div>
@@ -68,7 +66,7 @@ function CenterBlock() {
               <div className={styles.trackTitle}>
                 <div className={styles.trackTitleImage}>
                   <svg className={styles.trackTitleSvg}>
-                    <use href="#icon-note"></use>
+                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
                   </svg>
                 </div>
                 <div>
@@ -89,7 +87,7 @@ function CenterBlock() {
               </div>
               <div>
                 <svg className={styles.trackTimeSvg}>
-                  <use href="#icon-like"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
                 </svg>
                 <span className={styles.trackTimeText}>4:44</span>
               </div>
@@ -101,7 +99,7 @@ function CenterBlock() {
               <div className={styles.trackTitle}>
                 <div className={styles.trackTitleImage}>
                   <svg className={styles.trackTitleSvg}>
-                    <use href="#icon-note"></use>
+                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
                   </svg>
                 </div>
                 <div>
@@ -122,7 +120,7 @@ function CenterBlock() {
               </div>
               <div>
                 <svg className={styles.trackTimeSvg}>
-                  <use href="#icon-like"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
                 </svg>
                 <span className={styles.trackTimeText}>2:22</span>
               </div>
@@ -134,7 +132,7 @@ function CenterBlock() {
               <div className={styles.trackTitle}>
                 <div className={styles.trackTitleImage}>
                   <svg className={styles.trackTitleSvg}>
-                    <use href="#icon-note"></use>
+                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
                   </svg>
                 </div>
                 <div>
@@ -155,7 +153,7 @@ function CenterBlock() {
               </div>
               <div>
                 <svg className={styles.trackTimeSvg}>
-                  <use href="#icon-like"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
                 </svg>
                 <span className={styles.trackTimeText}>2:22</span>
               </div>
@@ -167,7 +165,7 @@ function CenterBlock() {
               <div className={styles.trackTitle}>
                 <div className={styles.trackTitleImage}>
                   <svg className={styles.trackTitleSvg}>
-                    <use href="#icon-note"></use>
+                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
                   </svg>
                 </div>
                 <div>
@@ -189,7 +187,7 @@ function CenterBlock() {
               </div>
               <div>
                 <svg className={styles.trackTimeSvg}>
-                  <use href="#icon-like"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
                 </svg>
                 <span className={styles.trackTimeText}>4:12</span>
               </div>
@@ -201,7 +199,7 @@ function CenterBlock() {
               <div className={styles.trackTitle}>
                 <div className={styles.trackTitleImage}>
                   <svg className={styles.trackTitleSvg}>
-                    <use href="#icon-note"></use>
+                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
                   </svg>
                 </div>
                 <div>
@@ -223,7 +221,7 @@ function CenterBlock() {
               </div>
               <div>
                 <svg className={styles.trackTimeSvg}>
-                  <use href="#icon-like"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
                 </svg>
                 <span className={styles.trackTimeText}>2:54</span>
               </div>
@@ -235,7 +233,7 @@ function CenterBlock() {
               <div className={styles.trackTitle}>
                 <div className={styles.trackTitleImage}>
                   <svg className={styles.trackTitleSvg}>
-                    <use href="#icon-note"></use>
+                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
                   </svg>
                 </div>
                 <div>
@@ -259,7 +257,7 @@ function CenterBlock() {
               </div>
               <div>
                 <svg className={styles.trackTimeSvg}>
-                  <use href="#icon-like"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
                 </svg>
                 <span className={styles.trackTimeText}>5:20</span>
               </div>
@@ -271,7 +269,7 @@ function CenterBlock() {
               <div className={styles.trackTitle}>
                 <div className={styles.trackTitleImage}>
                   <svg className={styles.trackTitleSvg}>
-                    <use href="#icon-note"></use>
+                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
                   </svg>
                 </div>
                 <div>
@@ -295,7 +293,7 @@ function CenterBlock() {
               </div>
               <div>
                 <svg className={styles.trackTimeSvg}>
-                  <use href="#icon-like"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
                 </svg>
                 <span className={styles.trackTimeText}>3:41</span>
               </div>
@@ -307,7 +305,7 @@ function CenterBlock() {
               <div className={styles.trackTitle}>
                 <div className={styles.trackTitleImage}>
                   <svg className={styles.trackTitleSvg}>
-                    <use href="#icon-note"></use>
+                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
                   </svg>
                 </div>
                 <div>
@@ -329,7 +327,7 @@ function CenterBlock() {
               </div>
               <div>
                 <svg className={styles.trackTimeSvg}>
-                  <use href="#icon-like"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
                 </svg>
                 <span className={styles.trackTimeText}>1:48</span>
               </div>
@@ -341,7 +339,7 @@ function CenterBlock() {
               <div className={styles.trackTitle}>
                 <div className={styles.trackTitleImage}>
                   <svg className={styles.trackTitleSvg}>
-                    <use href="#icon-note"></use>
+                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
                   </svg>
                 </div>
                 <div>
@@ -363,7 +361,7 @@ function CenterBlock() {
               </div>
               <div>
                 <svg className={styles.trackTimeSvg}>
-                  <use href="#icon-like"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
                 </svg>
                 <span className={styles.trackTimeText}>1:48</span>
               </div>
@@ -374,7 +372,7 @@ function CenterBlock() {
               <div className={styles.trackTitle}>
                 <div className={styles.trackTitleImage}>
                   <svg className={styles.trackTitleSvg}>
-                    <use href="#icon-note"></use>
+                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
                   </svg>
                 </div>
                 <div>
@@ -396,7 +394,7 @@ function CenterBlock() {
               </div>
               <div>
                 <svg className={styles.trackTimeSvg}>
-                  <use href="#icon-like"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
                 </svg>
                 <span className={styles.trackTimeText}>1:48</span>
               </div>
@@ -407,7 +405,7 @@ function CenterBlock() {
               <div className={styles.trackTitle}>
                 <div className={styles.trackTitleImage}>
                   <svg className={styles.trackTitleSvg}>
-                    <use href="#icon-note"></use>
+                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
                   </svg>
                 </div>
                 <div>
@@ -429,7 +427,7 @@ function CenterBlock() {
               </div>
               <div>
                 <svg className={styles.trackTimeSvg}>
-                  <use href="#icon-like"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
                 </svg>
                 <span className={styles.trackTimeText}>1:48</span>
               </div>
@@ -440,7 +438,7 @@ function CenterBlock() {
               <div className={styles.trackTitle}>
                 <div className={styles.trackTitleImage}>
                   <svg className={styles.trackTitleSvg}>
-                    <use href="#icon-note"></use>
+                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
                   </svg>
                 </div>
                 <div>
@@ -462,7 +460,7 @@ function CenterBlock() {
               </div>
               <div>
                 <svg className={styles.trackTimeSvg}>
-                  <use href="#icon-like"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
                 </svg>
                 <span className={styles.trackTimeText}>1:48</span>
               </div>
@@ -473,7 +471,7 @@ function CenterBlock() {
               <div className={styles.trackTitle}>
                 <div className={styles.trackTitleImage}>
                   <svg className={styles.trackTitleSvg}>
-                    <use href="#icon-note"></use>
+                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
                   </svg>
                 </div>
                 <div>
@@ -495,7 +493,7 @@ function CenterBlock() {
               </div>
               <div>
                 <svg className={styles.trackTimeSvg}>
-                  <use href="#icon-like"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
                 </svg>
                 <span className={styles.trackTimeText}>1:48</span>
               </div>
@@ -506,7 +504,7 @@ function CenterBlock() {
               <div className={styles.trackTitle}>
                 <div className={styles.trackTitleImage}>
                   <svg className={styles.trackTitleSvg}>
-                    <use href="#icon-note"></use>
+                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
                   </svg>
                 </div>
                 <div>
@@ -528,7 +526,7 @@ function CenterBlock() {
               </div>
               <div>
                 <svg className={styles.trackTimeSvg}>
-                  <use href="#icon-like"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
                 </svg>
                 <span className={styles.trackTimeText}>1:48</span>
               </div>
@@ -540,7 +538,7 @@ function CenterBlock() {
               <div className={styles.trackTitle}>
                 <div className={styles.trackTitleImage}>
                   <svg className={styles.trackTitleSvg}>
-                    <use href="#icon-note"></use>
+                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
                   </svg>
                 </div>
                 <div>
@@ -562,7 +560,7 @@ function CenterBlock() {
               </div>
               <div>
                 <svg className={styles.trackTimeSvg}>
-                  <use href="#icon-like"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
                 </svg>
                 <span className={styles.trackTimeText}>3:32</span>
               </div>
@@ -574,7 +572,7 @@ function CenterBlock() {
               <div className={styles.trackTitle}>
                 <div className={styles.trackTitleImage}>
                   <svg className={styles.trackTitleSvg}>
-                    <use href="#icon-note"></use>
+                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
                   </svg>
                 </div>
                 <div>
@@ -595,7 +593,7 @@ function CenterBlock() {
               </div>
               <div>
                 <svg className={styles.trackTimeSvg}>
-                  <use href="#icon-like"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
                 </svg>
                 <span className={styles.trackTimeText}>3:36</span>
               </div>
@@ -607,7 +605,7 @@ function CenterBlock() {
               <div className={styles.trackTitle}>
                 <div className={styles.trackTitleImage}>
                   <svg className={styles.trackTitleSvg}>
-                    <use href="#icon-note"></use>
+                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
                   </svg>
                 </div>
                 <div>
@@ -624,7 +622,7 @@ function CenterBlock() {
               </div>
               <div>
                 <svg className={styles.trackTimeSvg}>
-                  <use href="#icon-like"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
                 </svg>
                 <span className={styles.trackTimeText}></span>
               </div>

@@ -1,4 +1,3 @@
-import Sprite from "@/public/Icon/IconSearch";
 import styles from "./Bar.module.css";
 
 function Bar() {
@@ -9,30 +8,29 @@ function Bar() {
         <div className={styles.playerBlock}>
           <div className={styles.player}>
             <div className={styles.controls}>
-              <Sprite />
               <div className={styles.buttonPrev}>
                 <svg className={styles.buttonPrevSvg}>
-                  <use href="#icon-prev"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-prev"></use>
                 </svg>
               </div>
               <div className={styles.buttonPlay}>
                 <svg className={styles.buttonPlaySvg}>
-                  <use href="#icon-play"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-play"></use>
                 </svg>
               </div>
               <div className={styles.buttonNext}>
                 <svg className={styles.buttonNextSvg}>
-                  <use href="#icon-next"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-next"></use>
                 </svg>
               </div>
               <div className={styles.buttonRepeat}>
                 <svg className={styles.buttonRepeatSvg}>
-                  <use href="#icon-repeat"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-repeat"></use>
                 </svg>
               </div>
               <div className={styles.buttonShuffle}>
                 <svg className={styles.buttonShuffleSvg}>
-                  <use href="#icon-shuffle"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-shuffle"></use>
                 </svg>
               </div>
             </div>
@@ -41,7 +39,7 @@ function Bar() {
               <div className={styles.trackPlayContainer}>
                 <div className={styles.trackPlayImage}>
                   <svg className={styles.trackPlayImageSvg}>
-                    <use href="#icon-note"></use>
+                    <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
                   </svg>
                 </div>
                 <div className={styles.trackPlayAuthor}>
@@ -59,12 +57,12 @@ function Bar() {
               <div className={styles.trackPlayLikeDis}>
                 <div className={styles.trackPlayLike}>
                   <svg className={styles.trackPlayLikeSvg}>
-                    <use href="#icon-like"></use>
+                    <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
                   </svg>
                 </div>
                 <div className={styles.trackPlayDislike}>
                   <svg className={styles.trackPlayDislikeSvg}>
-                    <use href="#icon-dislike"></use>
+                    <use xlinkHref="/img/icon/sprite.svg#icon-dislike"></use>
                   </svg>
                 </div>
               </div>
@@ -74,7 +72,7 @@ function Bar() {
             <div className={styles.volumeContent}>
               <div className={styles.volumeImage}>
                 <svg className={styles.volumeSvg}>
-                  <use href="#icon-volume"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#icon-volume"></use>
                 </svg>
               </div>
               <div className={styles.volumeProgress}>
