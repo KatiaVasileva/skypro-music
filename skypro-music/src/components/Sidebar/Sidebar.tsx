@@ -3,7 +3,7 @@ import playlist01 from "./img/playlist01.png";
 import playlist02 from "./img/playlist02.png";
 import playlist03 from "./img/playlist03.png";
 import styles from "./Sidebar.module.css";
-import Sprite from "../Icon/IconSearch";
+import Sprite from "@/public/Icon/IconSearch";
 
 function Sidebar() {
   return (

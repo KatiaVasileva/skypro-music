@@ -1,4 +1,4 @@
-import Sprite from "../Icon/IconSearch";
+import Sprite from "@/public/Icon/IconSearch";
 import styles from "./Bar.module.css";
 
 function Bar() {

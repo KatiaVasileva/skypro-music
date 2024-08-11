@@ -1,5 +1,5 @@
+import Sprite from "@/public/Icon/IconSearch";
 import styles from "./CenterBlock.module.css";
-import Sprite from "../Icon/IconSearch";
 
 function CenterBlock() {
   const classNames = require("classnames");
