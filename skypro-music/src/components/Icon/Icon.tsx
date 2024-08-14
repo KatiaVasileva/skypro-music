@@ -1,9 +1,4 @@
-type IconProps = {
-  wrapperClass?: string;
-  iconClass?: string;
-  name: string;
-  onClick?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-};
+import { IconProps } from "@/types/IconProps.types";
 
 function Icon({ wrapperClass = "", iconClass, name, onClick }: IconProps) {
   return (
