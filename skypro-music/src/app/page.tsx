@@ -5,7 +5,7 @@ import Footer from "@/components/Footer/Footer";
 
 export default function Home() {
   return (
-    <body>
+    <body suppressHydrationWarning={true}>
       <div className={styles.wrapper}>
         <div className={styles.container}>
           <Main />
