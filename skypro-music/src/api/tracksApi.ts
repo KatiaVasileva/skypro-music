@@ -6,8 +6,8 @@ export async function getAllTracks() {
     method: "GET",
   });
 
-  if (!response.ok) {
-    throw new Error("Ошибка при получении данных");
+  if (response.status === 500) {
+    throw new Error ("Ошибка при получении данных");
   }
 
   return await response.json();

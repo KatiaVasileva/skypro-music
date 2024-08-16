@@ -3,12 +3,16 @@
 import { getAllTracks } from "@/api/tracksApi";
 import Icon from "../Icon/Icon";
 import styles from "./CenterBlock.module.css";
-import { Key, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { Track } from "@/types/Track.types";
+import Error from "@/app/error";
 
 function CenterBlock() {
   const classNames = require("classnames");
 
-  const [tracks, setTracks] = useState<any>([]);
+  const [tracks, setTracks] = useState<Array<Track>>([]);
+  const [getAllTracksError, setGetAllTracksError] = useState<boolean>(false);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
 
   useEffect(() => {
     getAllTracks()
@@ -16,9 +20,20 @@ function CenterBlock() {
         setTracks(data.data);
       })
       .catch(() => {
-        console.log("Не удалось загрузить данные, попробуйте позже.");
+        setGetAllTracksError(true);
       });
   }, [setTracks]);
+
+  const reset = () => {
+    getAllTracks()
+      .then((data) => {
+        setGetAllTracksError(false);
+        setTracks(data.data);
+      })
+      .catch(() => {
+        setGetAllTracksError(true);
+      });
+  };
 
   return (
     <div className={styles.main}>
@@ -31,13 +46,23 @@ function CenterBlock() {
           name="search"
         />
       </div>
+
       <h2 className={styles.title}>Треки</h2>
       <div className={styles.filter}>
         <div className={styles.filterTitle}>Искать по:</div>
-        <div className={styles.filterButton}>исполнителю</div>
-        <div className={styles.filterButton}>году выпуска</div>
-        <div className={styles.filterButton}>жанру</div>
+        <div className={styles.filterButton} onClick={() => setActiveIndex(1)}>
+          исполнителю
+        </div>
+        <div className={styles.filterButton} onClick={() => setActiveIndex(2)}>
+          году выпуска
+        </div>
+        <div className={styles.filterButton} onClick={() => setActiveIndex(3)}>
+          жанру
+        </div>
       </div>
+
+      {activeIndex === 1 && <div></div>}
+
       <div className={styles.content}>
         <div className={styles.contentTitle}>
           <div
@@ -73,15 +98,11 @@ function CenterBlock() {
             <Icon iconClass={styles.playlistTitleSvg} name="icon-watch" />
           </div>
         </div>
-        <div className={styles.playlistContent}>
-          {tracks.map(
-            (track: {
-              _id: Key;
-              name: string;
-              author: string;
-              album: string;
-              duration_in_seconds: number;
-            }) => (
+
+        {getAllTracksError && <Error error="Request failed" reset={reset} />}
+        {!getAllTracksError && (
+          <div className={styles.playlistContent}>
+            {tracks.map((track: Track) => (
               <div className={styles.playlistItem} key={track._id}>
                 <div className={styles.playlistTrack}>
                   <div className={styles.trackTitle}>
@@ -110,14 +131,15 @@ function CenterBlock() {
                   <Icon iconClass={styles.trackTimeSvg} name="icon-like" />
                   <div>
                     <span className={styles.trackTimeText}>
-                      {Math.floor(track.duration_in_seconds / 60)}:{track.duration_in_seconds % 60}
+                      {Math.floor(track.duration_in_seconds / 60)}:
+                      {track.duration_in_seconds % 60}
                     </span>
                   </div>
                 </div>
               </div>
-            )
-          )}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
