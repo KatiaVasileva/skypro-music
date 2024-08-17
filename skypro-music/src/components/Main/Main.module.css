@@ -10,4 +10,7 @@
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
+    overflow-y: auto;
+    scrollbar-color: #4E4E4E #000000;
+    scrollbar-width: thin;
   }

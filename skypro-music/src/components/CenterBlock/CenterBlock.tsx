@@ -35,6 +35,21 @@ function CenterBlock() {
       });
   };
 
+  const performers = tracks
+    .map((track) => track.author)
+    .filter((performer) => performer !== "-")
+    .reduce((acc: Array<string>, performer: string) => {
+      return acc.includes(performer) ? acc : [...acc, performer];
+    }, []);
+
+  console.log(tracks);
+
+  const genres = tracks
+    .map((track) => track.genre[0])
+    .reduce((acc: Array<string>, genre: string) => {
+      return acc.includes(genre) ? acc : [...acc, genre];
+    }, []);
+
   return (
     <div className={styles.main}>
       <div className={styles.search}>
@@ -50,18 +65,86 @@ function CenterBlock() {
       <h2 className={styles.title}>Треки</h2>
       <div className={styles.filter}>
         <div className={styles.filterTitle}>Искать по:</div>
-        <div className={styles.filterButton} onClick={() => setActiveIndex(1)}>
+        <div
+          className={activeIndex === 1 ? styles.filterButtonActive : styles.filterButton}
+          onClick={() =>
+            activeIndex === 1 ? setActiveIndex(0) : setActiveIndex(1)
+          }
+        >
           исполнителю
         </div>
-        <div className={styles.filterButton} onClick={() => setActiveIndex(2)}>
+        <div
+          className={activeIndex === 2 ? styles.filterButtonActive : styles.filterButton}
+          onClick={() =>
+            activeIndex === 2 ? setActiveIndex(0) : setActiveIndex(2)
+          }
+        >
           году выпуска
         </div>
-        <div className={styles.filterButton} onClick={() => setActiveIndex(3)}>
+        <div
+          className={activeIndex === 3 ? styles.filterButtonActive : styles.filterButton}
+          onClick={() =>
+            activeIndex === 3 ? setActiveIndex(0) : setActiveIndex(3)
+          }
+        >
           жанру
         </div>
       </div>
 
-      {activeIndex === 1 && <div></div>}
+      {activeIndex === 1 && (
+        <div
+          className={classNames(
+            styles.popupContainer,
+            styles.popupContainerAuthor
+          )}
+        >
+          <div className={styles.popupBox}>
+            <div className={styles.popupContent}>
+              {performers.map((performer) => (
+                <p className={styles.popupText} key={Math.random()}>
+                  {performer}
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {activeIndex === 2 && (
+        <div
+          className={classNames(
+            styles.popupContainer,
+            styles.popupContainerYear
+          )}
+        >
+          <div className={styles.popupBoxYear}>
+            <div className={styles.popupContentYear}>
+              <p className={styles.popupText}>По умолчанию</p>
+              <p className={styles.popupText}>Сначала новые</p>
+              <p className={styles.popupText}>Сначала старые</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {activeIndex === 3 && (
+        <div
+          className={classNames(
+            styles.popupContainer,
+            styles.popupContainerGenre
+          )}
+        >
+          <div className={styles.popupBox}>
+            <div className={styles.popupContent}>
+              {genres.map((genre) => (
+                <p className={styles.popupText} key={Math.random()}>
+                  {genre}
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className={styles.content}>
         <div className={styles.contentTitle}>

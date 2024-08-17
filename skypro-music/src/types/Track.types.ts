@@ -6,4 +6,6 @@ export type Track = {
   author: string;
   album: string;
   duration_in_seconds: number;
+  release_date: Date;
+  genre: Array<string>;
 };
