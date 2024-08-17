@@ -35,16 +35,14 @@ function CenterBlock() {
       });
   };
 
-  const performers = tracks
+  const performers : Array<string> = tracks
     .map((track) => track.author)
-    .filter((performer) => performer !== "-")
+    .filter((performer : string) => performer !== "-")
     .reduce((acc: Array<string>, performer: string) => {
       return acc.includes(performer) ? acc : [...acc, performer];
     }, []);
 
-  console.log(tracks);
-
-  const genres = tracks
+  const genres : Array<string> = tracks
     .map((track) => track.genre[0])
     .reduce((acc: Array<string>, genre: string) => {
       return acc.includes(genre) ? acc : [...acc, genre];
