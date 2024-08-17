@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import styles from "./error.module.css";
-import Link from "next/link";
 
 function Error({
   error,
