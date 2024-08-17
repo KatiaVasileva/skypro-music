@@ -35,14 +35,14 @@ function CenterBlock() {
       });
   };
 
-  const performers : Array<string> = tracks
+  const performers: Array<string> = tracks
     .map((track) => track.author)
-    .filter((performer : string) => performer !== "-")
+    .filter((performer: string) => performer !== "-")
     .reduce((acc: Array<string>, performer: string) => {
       return acc.includes(performer) ? acc : [...acc, performer];
     }, []);
 
-  const genres : Array<string> = tracks
+  const genres: Array<string> = tracks
     .map((track) => track.genre[0])
     .reduce((acc: Array<string>, genre: string) => {
       return acc.includes(genre) ? acc : [...acc, genre];
@@ -64,7 +64,9 @@ function CenterBlock() {
       <div className={styles.filter}>
         <div className={styles.filterTitle}>Искать по:</div>
         <div
-          className={activeIndex === 1 ? styles.filterButtonActive : styles.filterButton}
+          className={
+            activeIndex === 1 ? styles.filterButtonActive : styles.filterButton
+          }
           onClick={() =>
             activeIndex === 1 ? setActiveIndex(0) : setActiveIndex(1)
           }
@@ -72,7 +74,9 @@ function CenterBlock() {
           исполнителю
         </div>
         <div
-          className={activeIndex === 2 ? styles.filterButtonActive : styles.filterButton}
+          className={
+            activeIndex === 2 ? styles.filterButtonActive : styles.filterButton
+          }
           onClick={() =>
             activeIndex === 2 ? setActiveIndex(0) : setActiveIndex(2)
           }
@@ -80,7 +84,9 @@ function CenterBlock() {
           году выпуска
         </div>
         <div
-          className={activeIndex === 3 ? styles.filterButtonActive : styles.filterButton}
+          className={
+            activeIndex === 3 ? styles.filterButtonActive : styles.filterButton
+          }
           onClick={() =>
             activeIndex === 3 ? setActiveIndex(0) : setActiveIndex(3)
           }
@@ -99,7 +105,7 @@ function CenterBlock() {
           <div className={styles.popupBox}>
             <div className={styles.popupContent}>
               {performers.map((performer) => (
-                <p className={styles.popupText} key={Math.random()}>
+                <p className={styles.popupText} key={performer}>
                   {performer}
                 </p>
               ))}
@@ -135,7 +141,7 @@ function CenterBlock() {
           <div className={styles.popupBox}>
             <div className={styles.popupContent}>
               {genres.map((genre) => (
-                <p className={styles.popupText} key={Math.random()}>
+                <p className={styles.popupText} key={genre}>
                   {genre}
                 </p>
               ))}
@@ -180,7 +186,12 @@ function CenterBlock() {
           </div>
         </div>
 
-        {getAllTracksError && <Error error="Request failed" reset={reset} />}
+        {getAllTracksError && (
+          <div className={styles.main}>
+            <Error error="Request failed" reset={reset} />
+          </div>
+        )}
+
         {!getAllTracksError && (
           <div className={styles.playlistContent}>
             {tracks.map((track: Track) => (
