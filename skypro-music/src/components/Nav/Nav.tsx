@@ -5,7 +5,7 @@ import styles from "./Nav.module.css";
 import React, { useState } from "react";
 
 function Nav() {
-  const [isBurgerClicked, setIsBurgerClicked] = useState<boolean>(false);
+  const [isBurgerClicked, setIsBurgerClicked] = useState(false);
 
   const handleBurgerClick: React.MouseEventHandler<HTMLDivElement> = () => {
     setIsBurgerClicked((prevState) => !prevState);
