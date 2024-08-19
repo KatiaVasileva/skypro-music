@@ -12,6 +12,8 @@
 
 .image {
     color: #181818;
+    height: 17px;
+    width: auto;
 }
 
 .burger {

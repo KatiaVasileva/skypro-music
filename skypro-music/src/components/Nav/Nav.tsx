@@ -19,7 +19,7 @@ function Nav() {
           src="/img/logo.png"
           alt="logo"
           width={113.33}
-          height={17}
+          height={43}
         />
       </div>
       <div className={styles.burger} onClick={handleBurgerClick}>
