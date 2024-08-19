@@ -3,11 +3,11 @@ import styles from "./Main.module.css";
 import CenterBlock from "../CenterBlock/CenterBlock";
 import Sidebar from "../Sidebar/Sidebar";
 import { getAllTracks } from "@/api/tracksApi";
+import { Track } from "@/types/Track.types";
 
 async function Main() {
   try {
-    const data = await getAllTracks();
-    const allTracks = data.data;
+    const allTracks: Array<Track> = await getAllTracks();
     return (
       <main className={styles.main}>
         <Nav />
@@ -15,8 +15,10 @@ async function Main() {
         <Sidebar />
       </main>
     );
-  } catch (error) {
-    console.error(error);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
   }
 }
 

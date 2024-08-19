@@ -7,9 +7,8 @@ export async function getAllTracks() {
   });
 
   if (response.status === 500) {
-    throw new Error ("Ошибка при получении данных");
+    throw new Error("Ошибка при получении данных");
   }
-
-  return await response.json();
+  const data = await response.json();
+  return data.data;
 }
-
