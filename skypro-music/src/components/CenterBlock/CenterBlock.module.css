@@ -128,10 +128,14 @@
     border-color: #ad61ff;
 }
 
+.popup {
+    position: relative;
+}
+
 .popupContainer {
     position: absolute;
     width: 248px;
-    height: 305px;
+    max-height: 305px;
     background-color: #313131;
     border-radius: 12px;
     display: flex;
@@ -155,7 +159,7 @@
 
 .popupBox, .popupBoxYear {
     width: 180px;
-    height: 237px;
+    max-height: 237px;
     display: flex;
     margin-top: 20px;
     overflow-y: hidden;
@@ -172,7 +176,7 @@
 
 .popupContent, .popupContentYear {
     width: 152px;
-    height: 232px;
+    max-height: 232px;
     display: flex;
     flex-direction: column;
     gap: 24px;

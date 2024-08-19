@@ -96,55 +96,61 @@ function CenterBlock() {
       </div>
 
       {activeIndex === 1 && (
-        <div
-          className={classNames(
-            styles.popupContainer,
-            styles.popupContainerAuthor
-          )}
-        >
-          <div className={styles.popupBox}>
-            <div className={styles.popupContent}>
-              {performers.map((performer) => (
-                <p className={styles.popupText} key={performer}>
-                  {performer}
-                </p>
-              ))}
+        <div className={styles.popup}>
+          <div
+            className={classNames(
+              styles.popupContainer,
+              styles.popupContainerAuthor
+            )}
+          >
+            <div className={styles.popupBox}>
+              <div className={styles.popupContent}>
+                {performers.map((performer) => (
+                  <p className={styles.popupText} key={performer}>
+                    {performer}
+                  </p>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       )}
 
       {activeIndex === 2 && (
-        <div
-          className={classNames(
-            styles.popupContainer,
-            styles.popupContainerYear
-          )}
-        >
-          <div className={styles.popupBoxYear}>
-            <div className={styles.popupContentYear}>
-              <p className={styles.popupText}>По умолчанию</p>
-              <p className={styles.popupText}>Сначала новые</p>
-              <p className={styles.popupText}>Сначала старые</p>
+        <div className={styles.popup}>
+          <div
+            className={classNames(
+              styles.popupContainer,
+              styles.popupContainerYear
+            )}
+          >
+            <div className={styles.popupBoxYear}>
+              <div className={styles.popupContentYear}>
+                <p className={styles.popupText}>По умолчанию</p>
+                <p className={styles.popupText}>Сначала новые</p>
+                <p className={styles.popupText}>Сначала старые</p>
+              </div>
             </div>
           </div>
         </div>
       )}
 
       {activeIndex === 3 && (
-        <div
-          className={classNames(
-            styles.popupContainer,
-            styles.popupContainerGenre
-          )}
-        >
-          <div className={styles.popupBox}>
-            <div className={styles.popupContent}>
-              {genres.map((genre) => (
-                <p className={styles.popupText} key={genre}>
-                  {genre}
-                </p>
-              ))}
+        <div className={styles.popup}>
+          <div
+            className={classNames(
+              styles.popupContainer,
+              styles.popupContainerGenre
+            )}
+          >
+            <div className={styles.popupBox}>
+              <div className={styles.popupContent}>
+                {genres.map((genre) => (
+                  <p className={styles.popupText} key={genre}>
+                    {genre}
+                  </p>
+                ))}
+              </div>
             </div>
           </div>
         </div>
