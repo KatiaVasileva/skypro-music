@@ -4,10 +4,9 @@ import Icon from "../Icon/Icon";
 import styles from "./CenterBlock.module.css";
 import { useEffect, useState } from "react";
 import { Track } from "@/types/Track.types";
+import classNames from "classnames";
 
 const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
-  const classNames = require("classnames");
-
   const [tracks, setTracks] = useState<Array<Track>>([]);
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
