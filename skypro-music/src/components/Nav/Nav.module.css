@@ -5,8 +5,6 @@
 }
 
 .logo {
-    width: 113.33px;
-    height: 43px;
     padding: 13px 0 13px 0;
     background-color: transparent;
     margin-bottom: 20px;
@@ -14,8 +12,10 @@
 
 .image {
     color: #181818;
+    height: 17px;
+    width: auto;
 }
-
+ 
 .burger {
     width: 20px;
     height: 36px;
@@ -30,6 +30,7 @@
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
+    cursor: pointer;
 }
 
 .burgerLine {

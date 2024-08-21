@@ -97,7 +97,7 @@
     margin-right: 15px;
 }
 
-.filterButton {
+.filterButton, .filterButtonActive {
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -119,6 +119,81 @@
     &:active {
         border-color: #ad61ff;
         color: #ad61ff;
+        cursor: pointer;
+    }
+}
+
+.filterButtonActive {
+    color: #ad61ff;
+    border-color: #ad61ff;
+}
+
+.popup {
+    position: relative;
+}
+
+.popupContainer {
+    position: absolute;
+    width: 248px;
+    max-height: 305px;
+    background-color: #313131;
+    border-radius: 12px;
+    display: flex;
+    margin-top: -40px;
+    z-index: 1;
+}
+
+.popupContainerAuthor {
+    margin-left: 100px;
+}
+
+.popupContainerYear {
+    margin-left: 262px;
+    height: 196px;
+    width: 221px;
+}
+
+.popupContainerGenre {
+    margin-left: 425px;
+}
+
+.popupBox, .popupBoxYear {
+    width: 180px;
+    max-height: 237px;
+    display: flex;
+    margin-top: 20px;
+    overflow-y: hidden;
+    overflow-y: auto;
+    margin: 34px 34px;
+    scrollbar-color: #ffffff #4B4949;
+    scrollbar-width: thin;
+}
+
+.popupBoxYear {
+    height: 128px;
+    width: 153px;
+}
+
+.popupContent, .popupContentYear {
+    width: 152px;
+    max-height: 232px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.popupContentYear {
+    height: 128px;
+}
+
+.popupText {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+
+    &:hover {
+        color: #B672FF;
+        text-decoration: underline;
         cursor: pointer;
     }
 }
