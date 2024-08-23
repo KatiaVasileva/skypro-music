@@ -1,10 +1,34 @@
+"use client";
+
+import { useTrackContext } from "@/hooks/useTrackContext";
 import Icon from "../Icon/Icon";
 import styles from "./Bar.module.css";
+import { TrackContextType } from "@/context/TrackContext";
+import { useRef, useState } from "react";
 
 function Bar() {
+  const { currentTrack } = useTrackContext() as TrackContextType;
+
+  const audioRef = useRef(null);
+
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const currentTrackSource = currentTrack?.track_file;
+
+  const togglePlay = () => {
+    const audio = audioRef.current;
+    if (isPlaying) {
+      audio!.pause();
+    } else {
+      audio!.play();
+    }
+    setIsPlaying((prev) => !prev);
+  };
+
   return (
     <div className={styles.bar}>
       <div className={styles.content}>
+        <audio ref={audioRef} src={currentTrackSource}></audio>
         <div className={styles.playerProgress}></div>
         <div className={styles.playerBlock}>
           <div className={styles.player}>
@@ -14,11 +38,28 @@ function Bar() {
                 iconClass={styles.buttonPrevSvg}
                 name="icon-prev"
               />
-              <Icon
-                wrapperClass={styles.buttonPlay}
-                iconClass={styles.buttonPlaySvg}
-                name="icon-play"
-              />
+              {!isPlaying && (
+                <Icon
+                  wrapperClass={styles.buttonPlay}
+                  iconClass={styles.buttonPlaySvg}
+                  name="icon-play"
+                  onClick={() => {
+                    setIsPlaying(true);
+                    audioRef.current!.play();
+                  }}
+                />
+              )}
+              {isPlaying && (
+                <Icon
+                  wrapperClass={styles.buttonPause}
+                  iconClass={styles.buttonPauseSvg}
+                  name="icon-pause"
+                  onClick={() => {
+                    setIsPlaying(false);
+                    audioRef.current!.pause();
+                  }}
+                />
+              )}
               <Icon
                 wrapperClass={styles.buttonNext}
                 iconClass={styles.buttonNextSvg}
@@ -43,14 +84,18 @@ function Bar() {
                   iconClass={styles.trackPlayImageSvg}
                   name="icon-note"
                 />
-                <div className={styles.trackPlayAuthor}>
-                  <a className={styles.trackPlayAuthorLink} href="http://">
-                    Ты та...
+                <div className={styles.trackPlayName}>
+                  <a
+                    className={styles.trackPlayNameLink}
+                    href="#"
+                    onClick={togglePlay}
+                  >
+                    {currentTrack?.name}
                   </a>
                 </div>
-                <div className={styles.trackPlayAlbum}>
-                  <a className={styles.trackPlayAlbumLink} href="http://">
-                    Баста
+                <div className={styles.trackPlayAuthor}>
+                  <a className={styles.trackPlayAuthorLink} href="#">
+                    {currentTrack?.author}
                   </a>
                 </div>
               </div>

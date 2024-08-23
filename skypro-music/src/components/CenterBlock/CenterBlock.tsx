@@ -5,10 +5,13 @@ import styles from "./CenterBlock.module.css";
 import { useEffect, useState } from "react";
 import { Track } from "@/types/Track.types";
 import classNames from "classnames";
+import { useTrackContext } from "@/hooks/useTrackContext";
+import { TrackContextType } from "@/context/TrackContext";
 
 const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
   const [tracks, setTracks] = useState<Array<Track>>([]);
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const { currentTrack, setCurrentTrack } = useTrackContext() as TrackContextType;
 
   useEffect(() => {
     setTracks(allTracks);
@@ -26,6 +29,14 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
     .reduce((acc: Array<string>, genre: string) => {
       return acc.includes(genre) ? acc : [...acc, genre];
     }, []);
+
+  const handleTrackNameClick = ({ id }: { id: number }) => {
+    const currentTracks: Array<Track> = tracks.filter(
+      (track) => track._id === id
+    );
+    setCurrentTrack(currentTracks[0]);
+    console.log(currentTrack);
+  };
 
   return (
     <div className={styles.main}>
@@ -182,7 +193,11 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
                     name="icon-note"
                   />
                   <div>
-                    <a className={styles.trackTitleLink} href="http://">
+                    <a
+                      className={styles.trackTitleLink}
+                      href="#"
+                      onClick={() => handleTrackNameClick({ id: track._id })}
+                    >
                       {track.name}{" "}
                       <span className={styles.trackTitleSpan}></span>
                     </a>

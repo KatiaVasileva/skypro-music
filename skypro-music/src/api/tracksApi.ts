@@ -12,3 +12,20 @@ export async function getAllTracks() {
   const data = await response.json();
   return data.data;
 }
+
+// Получить треки по id
+export async function getTrackById({id}: {id: number}) {
+  const response = await fetch(baseHost + "/catalog/track/" + id, {
+    method: "GET",
+  });
+
+  if (response.status === 500) {
+    throw new Error("Ошибка при получении данных");
+  } 
+
+  if (response.status === 404) {
+    throw new Error("Трек не найден");
+  }
+  const data = await response.json();
+  return data.data;
+}

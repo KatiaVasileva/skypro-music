@@ -34,6 +34,7 @@
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
+    background-color: #1C1C1C;
 }
 
 .player {
@@ -63,7 +64,7 @@
     padding: 0 27px 0 31px;
 }
 
-.buttonPrev, .buttonPlay, .buttonNext, .buttonRepeat, .buttonShuffle {
+.buttonPrev, .buttonPlay, .buttonPause, .buttonNext, .buttonRepeat, .buttonShuffle {
     padding: 5px;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -86,12 +87,12 @@
     height: 14px;
 }
 
-.buttonPlay {
+.buttonPlay, .buttonPause {
     margin-right: 23px;
     cursor: pointer;
 }
 
-.buttonPlaySvg {
+.buttonPlaySvg, .buttonPauseSvg {
     width: 22px;
     height: 20px;
     fill: #d9d9d9;
@@ -225,14 +226,14 @@
     stroke: #4e4e4e;
 }
 
-.trackPlayAuthor {
+.trackPlayName {
     grid-row: 1;
     grid-column: 2;
     grid-area: author;
-    min-width: 49px;
+    min-width: 260px;
 }
 
-.trackPlayAuthorLink {
+.trackPlayNameLink {
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -241,14 +242,14 @@
     white-space: nowrap;
 }
 
-.trackPlayAlbum {
+.trackPlayAuthor {
     grid-row: 2;
     grid-column: 2;
     grid-area: album;
-    min-width: 49px;
+    min-width: 260px;
 }
 
-.trackPlayAlbumLink {
+.trackPlayAuthorLink {
     font-style: normal;
     font-weight: 400;
     font-size: 13px;
