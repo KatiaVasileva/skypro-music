@@ -6,6 +6,7 @@ import { useTrackContext } from "@/hooks/useTrackContext";
 import { useEffect, useRef, useState } from "react";
 import Icon from "../Icon/Icon";
 import Image from "next/image";
+import ProgressBar from "../ProgressBar/ProgressBar";
 
 function Player() {
   const { currentTrack, isPlaying, setIsPlaying } =
@@ -15,6 +16,9 @@ function Player() {
 
   const [isRepeatActive, setIsRepeatActive] = useState(false);
   const [volume, setVolume] = useState(0.5);
+  const [currentTime, setCurrentTime] = useState(0);
+
+  const duration = audioRef.current?.duration || 0;
 
   useEffect(() => {
     audioRef.current!.volume = volume;
@@ -43,8 +47,16 @@ function Player() {
           ref={audioRef}
           src={currentTrack?.track_file}
           loop={isRepeatActive ? true : false}
+          onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
         />
-        <div className={styles.playerProgress}></div>
+        <div className={styles.playerProgress}>
+          <ProgressBar
+            max={duration}
+            value={currentTime}
+            step={0.01}
+            onChange={(e) => audioRef.current!.currentTime = Number(e.target.value)}
+          ></ProgressBar>
+        </div>
         <div className={styles.playerBlock}>
           <div className={styles.player}>
             <div className={styles.controls}>
@@ -156,7 +168,7 @@ function Player() {
                   max="1"
                   step="0.01"
                   value={volume}
-                  onChange={(e) => setVolume(Number(e.target.value))} 
+                  onChange={(e) => setVolume(Number(e.target.value))}
                 />
               </div>
             </div>

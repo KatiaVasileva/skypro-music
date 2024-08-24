@@ -16,11 +16,11 @@
     flex-direction: column;
 }
 
-.playerProgress {
+/* .playerProgress {
     width: 100%;
     height: 5px;
     background: #2e2e2e;
-}
+} */
 
 .playerBlock {
     height: 73px;
