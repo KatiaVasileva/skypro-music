@@ -69,14 +69,22 @@
     align-items: center;
 }
 
-.buttonPrevSvg {
-    width: 15px;
-    height: 14px;
-}
-
-.buttonPlay, .buttonPause, .buttonPrev {
+.buttonPlay, .buttonPause, .buttonPrev, .buttonNext {
+    width: 23px;
     margin-right: 23px;
     cursor: pointer;
+}
+
+.buttonNext {
+    margin-right: 28px;
+    fill: #a53939;
+}
+
+.buttonPrevSvg, .buttonNextSvg  {
+    width: 15px;
+    height: 14px;
+    fill: inherit;
+    stroke: #d9d9d9;
 }
 
 .buttonPlaySvg {
@@ -89,19 +97,6 @@
     width: 15px;
     height: 19px;
     fill: #d9d9d9;
-}
-
-.buttonNext {
-    margin-right: 28px;
-    fill: #a53939;
-    cursor: pointer;
-}
-
-.buttonNextSvg {
-    width: 15px;
-    height: 14px;
-    fill: inherit;
-    stroke: #d9d9d9;
 }
 
 .buttonRepeat {
@@ -251,6 +246,11 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+}
+
+.trackTimeFigures {
+    width: 33px;
+    margin: 5px;
 }
 
 .trackPlayLikeDis {

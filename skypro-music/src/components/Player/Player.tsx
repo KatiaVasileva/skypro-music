@@ -141,7 +141,12 @@ function Player() {
               </div>
 
               <div className={styles.trackTime}>
-                <p>{formatTime(currentTime)} / {formatTime(duration)}
+                <p className={styles.trackTimeFigures}>
+                  {formatTime(currentTime)}
+                </p>{" "}
+                /{" "}
+                <p className={styles.trackTimeFigures}>
+                  {formatTime(duration)}
                 </p>
               </div>
 
@@ -159,6 +164,7 @@ function Player() {
               </div>
             </div>
           </div>
+          
           <div className={styles.volumeBlock}>
             <div className={styles.volumeContent}>
               <Icon
