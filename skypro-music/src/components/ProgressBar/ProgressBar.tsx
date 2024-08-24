@@ -1,12 +1,5 @@
-import { ChangeEventHandler } from "react";
 import styles from "./ProgressBar.module.css";
-
-type ProgressBarProps = {
-    max: number;
-    value: number;
-    step: number;
-    onChange: ChangeEventHandler<HTMLInputElement>;
-}
+import { ProgressBarProps } from "@/types/Player.types";
 
 function ProgressBar({ max, value, step, onChange }: ProgressBarProps) {
   return (

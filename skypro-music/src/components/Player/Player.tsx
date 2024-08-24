@@ -40,6 +40,10 @@ function Player() {
     setIsRepeatActive((prev) => !prev);
   };
 
+  const handleNotImplementedButtons = () => {
+    alert("Еще не реализовано");
+  }
+
   return (
     <div className={styles.bar}>
       <div className={styles.content}>
@@ -66,6 +70,7 @@ function Player() {
                 wrapperClass={styles.buttonPrev}
                 iconClass={styles.buttonPrevSvg}
                 name="icon-prev"
+                onClick={handleNotImplementedButtons}
               />
               {!isPlaying && (
                 <Icon
@@ -99,6 +104,7 @@ function Player() {
                 wrapperClass={styles.buttonNext}
                 iconClass={styles.buttonNextSvg}
                 name="icon-next"
+                onClick={handleNotImplementedButtons}
               />
               <Icon
                 wrapperClass={styles.buttonRepeat}
@@ -114,6 +120,7 @@ function Player() {
                 wrapperClass={styles.buttonShuffle}
                 iconClass={styles.buttonShuffleSvg}
                 name="icon-shuffle"
+                onClick={handleNotImplementedButtons}
               />
             </div>
 
@@ -164,7 +171,7 @@ function Player() {
               </div>
             </div>
           </div>
-          
+
           <div className={styles.volumeBlock}>
             <div className={styles.volumeContent}>
               <Icon
