@@ -3,7 +3,7 @@
 import styles from "./Player.module.css";
 import { TrackContextType } from "@/context/TrackContext";
 import { useTrackContext } from "@/hooks/useTrackContext";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Icon from "../Icon/Icon";
 
 function Player() {
@@ -12,22 +12,31 @@ function Player() {
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  const [isRepeatActive, setIsRepeatActive] = useState(false);
+
   const togglePlay = () => {
-    if (isPlaying && audioRef.current) {
-      audioRef.current.pause();
+    if (isPlaying) {
+      audioRef.current!.pause();
     }
-    if (!isPlaying && audioRef.current) {    
-      audioRef.current.play();
+    if (!isPlaying) {
+      audioRef.current!.play();
     }
     setIsPlaying(isPlaying ? false : true);
   };
 
-  console.log(isPlaying);
+  const toggleRepeat = () => {
+    setIsRepeatActive((prev) => !prev);
+  };
 
   return (
     <div className={styles.bar}>
       <div className={styles.content}>
-        <audio controls ref={audioRef} src={currentTrack?.track_file} />
+        <audio
+          controls
+          ref={audioRef}
+          src={currentTrack?.track_file}
+          loop={isRepeatActive ? true : false}
+        />
         <div className={styles.playerProgress}></div>
         <div className={styles.playerBlock}>
           <div className={styles.player}>
@@ -96,8 +105,13 @@ function Player() {
               />
               <Icon
                 wrapperClass={styles.buttonRepeat}
-                iconClass={styles.buttonRepeatSvg}
+                iconClass={
+                  isRepeatActive
+                    ? styles.buttonRepeatSvgActive
+                    : styles.buttonRepeatSvg
+                }
                 name="icon-repeat"
+                onClick={toggleRepeat}
               />
               <Icon
                 wrapperClass={styles.buttonShuffle}
