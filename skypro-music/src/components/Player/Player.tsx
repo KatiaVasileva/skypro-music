@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import Icon from "../Icon/Icon";
 import Image from "next/image";
 import ProgressBar from "../ProgressBar/ProgressBar";
+import { formatTime } from "@/utils/helpers";
 
 function Player() {
   const { currentTrack, isPlaying, setIsPlaying } =
@@ -43,7 +44,6 @@ function Player() {
     <div className={styles.bar}>
       <div className={styles.content}>
         <audio
-          controls
           ref={audioRef}
           src={currentTrack?.track_file}
           loop={isRepeatActive ? true : false}
@@ -54,7 +54,9 @@ function Player() {
             max={duration}
             value={currentTime}
             step={0.01}
-            onChange={(e) => audioRef.current!.currentTime = Number(e.target.value)}
+            onChange={(e) =>
+              (audioRef.current!.currentTime = Number(e.target.value))
+            }
           ></ProgressBar>
         </div>
         <div className={styles.playerBlock}>
@@ -136,6 +138,11 @@ function Player() {
                     {currentTrack?.author}
                   </a>
                 </div>
+              </div>
+
+              <div className={styles.trackTime}>
+                <p>{formatTime(currentTime)} / {formatTime(duration)}
+                </p>
               </div>
 
               <div className={styles.trackPlayLikeDis}>

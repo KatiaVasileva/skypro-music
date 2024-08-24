@@ -7,6 +7,7 @@ import { Track } from "@/types/Track.types";
 import classNames from "classnames";
 import { useTrackContext } from "@/hooks/useTrackContext";
 import { TrackContextType } from "@/context/TrackContext";
+import { formatTime } from "@/utils/helpers";
 
 const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
   const [tracks, setTracks] = useState<Array<Track>>([]);
@@ -217,8 +218,7 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
                 <Icon iconClass={styles.trackTimeSvg} name="icon-like" />
                 <div>
                   <span className={styles.trackTimeText}>
-                    {Math.floor(track.duration_in_seconds / 60)}:
-                    {track.duration_in_seconds % 60}
+                    {formatTime(track.duration_in_seconds)}
                   </span>
                 </div>
               </div>
