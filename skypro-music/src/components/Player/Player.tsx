@@ -5,6 +5,7 @@ import { TrackContextType } from "@/context/TrackContext";
 import { useTrackContext } from "@/hooks/useTrackContext";
 import { useRef, useState } from "react";
 import Icon from "../Icon/Icon";
+import Image from "next/image";
 
 function Player() {
   const { currentTrack, isPlaying, setIsPlaying } =
@@ -21,6 +22,7 @@ function Player() {
     if (!isPlaying) {
       audioRef.current!.play();
     }
+    // check
     setIsPlaying(isPlaying ? false : true);
   };
 
@@ -65,38 +67,14 @@ function Player() {
                     audioRef.current!.pause();
                   }}
                 >
-                  <svg className={styles.buttonPauseSvg}>
-                    <use xlinkHref="/img/icon/pause.svg"></use>
-                  </svg>
+                  <Image
+                    src="/img/icon/pause.svg"
+                    alt=""
+                    width={15}
+                    height={19}
+                  />
                 </div>
               )}
-
-              {/* {isPlaying && (
-                <Image
-                  className={styles.buttonPause}
-                  src="/img/icon-pause.png"
-                  alt="pause"
-                  width={15}
-                  height={19}
-                  onClick={() => {
-                    setIsPlaying(false);
-                    audioRef.current!.pause();
-                  }}
-                  onClick={() => {
-                    setIsPlaying(false);
-                    audioRef.current!.pause();
-                  }
-                />
-                <Icon
-                  wrapperClass={styles.buttonPause}
-                  iconClass={styles.buttonPauseSvg}
-                  name="icon-pause"
-                  onClick={() => {
-                    setIsPlaying(false);
-                    audioRef.current!.pause();
-                  }}
-                />
-              )} */}
 
               <Icon
                 wrapperClass={styles.buttonNext}
