@@ -11,7 +11,8 @@ import { TrackContextType } from "@/context/TrackContext";
 const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
   const [tracks, setTracks] = useState<Array<Track>>([]);
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const { currentTrack, setCurrentTrack } = useTrackContext() as TrackContextType;
+  const { setCurrentTrack, setIsPlaying } =
+    useTrackContext() as TrackContextType;
 
   useEffect(() => {
     setTracks(allTracks);
@@ -35,7 +36,7 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
       (track) => track._id === id
     );
     setCurrentTrack(currentTracks[0]);
-    console.log(currentTrack);
+    setIsPlaying(false);
   };
 
   return (
@@ -184,7 +185,11 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
 
         <div className={styles.playlistContent}>
           {tracks.map((track: Track) => (
-            <div className={styles.playlistItem} key={track._id}>
+            <div
+              className={styles.playlistItem}
+              key={track._id}
+              onClick={() => handleTrackNameClick({ id: track._id })}
+            >
               <div className={styles.playlistTrack}>
                 <div className={styles.trackTitle}>
                   <Icon
@@ -193,11 +198,7 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
                     name="icon-note"
                   />
                   <div>
-                    <a
-                      className={styles.trackTitleLink}
-                      href="#"
-                      onClick={() => handleTrackNameClick({ id: track._id })}
-                    >
+                    <a className={styles.trackTitleLink} href="#">
                       {track.name}{" "}
                       <span className={styles.trackTitleSpan}></span>
                     </a>

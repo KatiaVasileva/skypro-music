@@ -5,6 +5,7 @@ import Footer from "@/components/Footer/Footer";
 import TrackProvider from "@/context/TrackContext";
 
 export default function Home() {
+
   return (
     <TrackProvider>
       <body suppressHydrationWarning={true}>
