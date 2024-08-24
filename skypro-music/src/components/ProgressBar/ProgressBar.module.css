@@ -12,7 +12,7 @@
     background: #2e2e2e;
     position: relative;
     overflow: hidden;
-    transition: height 0.2s;
+    transition: 1s;
 
     background: linear-gradient(to right, var(--progress-color) var(--value), var(--progress-bg-color) var(--value));
 }
@@ -28,12 +28,12 @@
 }
 
 .progressBar::-webkit-slider-thumb {
+    --thumb-height: 1px;
+    --thumb-width: 1px;
+    position: relative;
     -webkit-appearance: none;
-    appearance: none;
-    width: 50px;
-    height: 5px;
-    border-radius: 20px;
-    background: var(--progress-color);
+    width: var(--thumb-width, var(--thumb-height));
+    box-shadow: calc(-100vmax - var(--thumb-width, var(--thumb-height))) 0 0 100vmax var(--progress-color);
 }
 
 /* Стили для Firefox */
@@ -48,4 +48,4 @@
     width: 25px;
     border-radius: 50%;
     background: var(--progress-color);
-}   
+}
