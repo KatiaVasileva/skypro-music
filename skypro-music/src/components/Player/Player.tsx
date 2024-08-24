@@ -3,7 +3,7 @@
 import styles from "./Player.module.css";
 import { TrackContextType } from "@/context/TrackContext";
 import { useTrackContext } from "@/hooks/useTrackContext";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Icon from "../Icon/Icon";
 import Image from "next/image";
 
@@ -14,6 +14,11 @@ function Player() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const [isRepeatActive, setIsRepeatActive] = useState(false);
+  const [volume, setVolume] = useState(0.5);
+
+  useEffect(() => {
+    audioRef.current!.volume = volume;
+  }, [volume]);
 
   const togglePlay = () => {
     if (isPlaying) {
@@ -147,6 +152,11 @@ function Player() {
                   className={styles.volumeProgressLine}
                   type="range"
                   name="range"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  value={volume}
+                  onChange={(e) => setVolume(Number(e.target.value))} 
                 />
               </div>
             </div>
