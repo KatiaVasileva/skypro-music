@@ -7,7 +7,7 @@ export type TrackContextType = {
   currentTrack?: Track;
   setCurrentTrack: (track: Track) => void;
   isPlaying: boolean;
-  setIsPlaying: (isPlaying: boolean) => void;
+  setIsPlaying: (isPlaying: boolean | ((prevState: boolean) => boolean)) => void;
 };
 
 export const TrackContext = React.createContext<TrackContextType | null>(null);

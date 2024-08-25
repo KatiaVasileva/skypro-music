@@ -35,11 +35,11 @@ function Player() {
     } else {
       audioRef.current!.play();
     }
-    setIsPlaying(isPlaying ? false : true);
+    setIsPlaying((prevState) => !prevState);
   };
 
   const toggleRepeat = () => {
-    setIsRepeatActive((prev) => !prev);
+    setIsRepeatActive((prevState) => !prevState);
   };
 
   const handleNotImplementedButtons = () => {
