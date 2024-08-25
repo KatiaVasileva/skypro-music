@@ -4,15 +4,14 @@ import Icon from "../Icon/Icon";
 import styles from "./CenterBlock.module.css";
 import { useEffect, useState } from "react";
 import { Track } from "@/types/Track.types";
-import classNames from "classnames";
 import { useTrackContext } from "@/hooks/useTrackContext";
 import { TrackContextType } from "@/context/TrackContext";
 import { formatTime } from "@/utils/helpers";
 import TrackTitle from "../TrackTitle/TrackTitle";
+import Filter from "../Filter/Filter";
 
 const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
   const [tracks, setTracks] = useState<Array<Track>>([]);
-  const [activeIndex, setActiveIndex] = useState<number>(0);
   const { setCurrentTrack, setIsPlaying } =
     useTrackContext() as TrackContextType;
 
@@ -54,104 +53,10 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
       </div>
 
       <h2 className={styles.title}>Треки</h2>
-      <div className={styles.filter}>
-        <div className={styles.filterTitle}>Искать по:</div>
-        <div
-          className={
-            activeIndex === 1 ? styles.filterButtonActive : styles.filterButton
-          }
-          onClick={() =>
-            activeIndex === 1 ? setActiveIndex(0) : setActiveIndex(1)
-          }
-        >
-          исполнителю
-        </div>
-        <div
-          className={
-            activeIndex === 2 ? styles.filterButtonActive : styles.filterButton
-          }
-          onClick={() =>
-            activeIndex === 2 ? setActiveIndex(0) : setActiveIndex(2)
-          }
-        >
-          году выпуска
-        </div>
-        <div
-          className={
-            activeIndex === 3 ? styles.filterButtonActive : styles.filterButton
-          }
-          onClick={() =>
-            activeIndex === 3 ? setActiveIndex(0) : setActiveIndex(3)
-          }
-        >
-          жанру
-        </div>
-      </div>
-
-      {activeIndex === 1 && (
-        <div className={styles.popup}>
-          <div
-            className={classNames(
-              styles.popupContainer,
-              styles.popupContainerAuthor
-            )}
-          >
-            <div className={styles.popupBox}>
-              <div className={styles.popupContent}>
-                {performers.map((performer) => (
-                  <p className={styles.popupText} key={performer}>
-                    {performer}
-                  </p>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {activeIndex === 2 && (
-        <div className={styles.popup}>
-          <div
-            className={classNames(
-              styles.popupContainer,
-              styles.popupContainerYear
-            )}
-          >
-            <div className={styles.popupBoxYear}>
-              <div className={styles.popupContentYear}>
-                <p className={styles.popupText}>По умолчанию</p>
-                <p className={styles.popupText}>Сначала новые</p>
-                <p className={styles.popupText}>Сначала старые</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {activeIndex === 3 && (
-        <div className={styles.popup}>
-          <div
-            className={classNames(
-              styles.popupContainer,
-              styles.popupContainerGenre
-            )}
-          >
-            <div className={styles.popupBox}>
-              <div className={styles.popupContent}>
-                {genres.map((genre) => (
-                  <p className={styles.popupText} key={genre}>
-                    {genre}
-                  </p>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
+      <Filter performers={performers} genres={genres}/>
+      
       <div className={styles.content}>
         <TrackTitle />
-
         <div className={styles.playlistContent}>
           {tracks.map((track: Track) => (
             <div
