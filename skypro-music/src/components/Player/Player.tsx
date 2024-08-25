@@ -22,17 +22,19 @@ function Player() {
   const duration = audioRef.current?.duration || 0;
 
   useEffect(() => {
+    audioRef.current!.play();
+  }, [currentTrack]);
+
+  useEffect(() => {
     audioRef.current!.volume = volume;
   }, [volume]);
 
   const togglePlay = () => {
     if (isPlaying) {
       audioRef.current!.pause();
-    }
-    if (!isPlaying) {
+    } else {
       audioRef.current!.play();
     }
-    // check
     setIsPlaying(isPlaying ? false : true);
   };
 
@@ -42,7 +44,7 @@ function Player() {
 
   const handleNotImplementedButtons = () => {
     alert("Еще не реализовано");
-  }
+  };
 
   return (
     <div className={styles.bar}>

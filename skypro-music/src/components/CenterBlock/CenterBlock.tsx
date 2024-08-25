@@ -8,6 +8,7 @@ import classNames from "classnames";
 import { useTrackContext } from "@/hooks/useTrackContext";
 import { TrackContextType } from "@/context/TrackContext";
 import { formatTime } from "@/utils/helpers";
+import TrackTitle from "../TrackTitle/TrackTitle";
 
 const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
   const [tracks, setTracks] = useState<Array<Track>>([]);
@@ -37,7 +38,7 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
       (track) => track._id === id
     );
     setCurrentTrack(currentTracks[0]);
-    setIsPlaying(false);
+    setIsPlaying(true);
   };
 
   return (
@@ -149,40 +150,7 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
       )}
 
       <div className={styles.content}>
-        <div className={styles.contentTitle}>
-          <div
-            className={classNames(
-              styles.playlistColumn,
-              styles.playlistColumn01
-            )}
-          >
-            Трек
-          </div>
-          <div
-            className={classNames(
-              styles.playlistColumn,
-              styles.playlistColumn02
-            )}
-          >
-            Исполнитель
-          </div>
-          <div
-            className={classNames(
-              styles.playlistColumn,
-              styles.playlistColumn03
-            )}
-          >
-            Альбом
-          </div>
-          <div
-            className={classNames(
-              styles.playlistColumn,
-              styles.playlistColumn04
-            )}
-          >
-            <Icon iconClass={styles.playlistTitleSvg} name="icon-watch" />
-          </div>
-        </div>
+        <TrackTitle />
 
         <div className={styles.playlistContent}>
           {tracks.map((track: Track) => (
