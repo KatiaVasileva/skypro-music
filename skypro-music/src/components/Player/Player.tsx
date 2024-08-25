@@ -55,7 +55,7 @@ function Player() {
           loop={isRepeatActive ? true : false}
           onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
         />
-        <div className={styles.playerProgress}>
+        <div>
           <ProgressBar
             max={duration}
             value={currentTime}
@@ -65,6 +65,7 @@ function Player() {
             }
           ></ProgressBar>
         </div>
+        
         <div className={styles.playerBlock}>
           <div className={styles.player}>
             <div className={styles.controls}>
