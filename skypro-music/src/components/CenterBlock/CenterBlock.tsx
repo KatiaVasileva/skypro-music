@@ -6,9 +6,9 @@ import { useEffect, useState } from "react";
 import { Track } from "@/types/Track.types";
 import { useTrackContext } from "@/hooks/useTrackContext";
 import { TrackContextType } from "@/context/TrackContext";
-import { formatTime } from "@/utils/helpers";
 import TrackTitle from "../TrackTitle/TrackTitle";
 import Filter from "../Filter/Filter";
+import TrackItem from "../TrackItem/TrackItem";
 
 const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
   const [tracks, setTracks] = useState<Array<Track>>([]);
@@ -32,14 +32,6 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
       return acc.includes(genre) ? acc : [...acc, genre];
     }, []);
 
-  const handleTrackNameClick = ({ id }: { id: number }) => {
-    const currentTracks: Array<Track> = tracks.filter(
-      (track) => track._id === id
-    );
-    setCurrentTrack(currentTracks[0]);
-    setIsPlaying(true);
-  };
-
   return (
     <div className={styles.main}>
       <div className={styles.search}>
@@ -53,49 +45,18 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
       </div>
 
       <h2 className={styles.title}>Треки</h2>
-      <Filter performers={performers} genres={genres}/>
-      
+      <Filter performers={performers} genres={genres} />
+
       <div className={styles.content}>
         <TrackTitle />
         <div className={styles.playlistContent}>
           {tracks.map((track: Track) => (
-            <div
-              className={styles.playlistItem}
+            <TrackItem
               key={track._id}
-              onClick={() => handleTrackNameClick({ id: track._id })}
-            >
-              <div className={styles.playlistTrack}>
-                <div className={styles.trackTitle}>
-                  <Icon
-                    wrapperClass={styles.trackTitleImage}
-                    iconClass={styles.trackTitleSvg}
-                    name="icon-note"
-                  />
-                  <div>
-                    <a className={styles.trackTitleLink} href="#">
-                      {track.name}{" "}
-                      <span className={styles.trackTitleSpan}></span>
-                    </a>
-                  </div>
-                </div>
-                <div className={styles.trackAuthor}>
-                  <a className={styles.trackAuthorLink} href="http://">
-                    {track.author}
-                  </a>
-                </div>
-                <div className={styles.trackAlbum}>
-                  <a className={styles.trackAlbumLink} href="http://">
-                    {track.album}
-                  </a>
-                </div>
-                <Icon iconClass={styles.trackTimeSvg} name="icon-like" />
-                <div>
-                  <span className={styles.trackTimeText}>
-                    {formatTime(track.duration_in_seconds)}
-                  </span>
-                </div>
-              </div>
-            </div>
+              track={track}
+              setCurrentTrack={setCurrentTrack}
+              setIsPlaying={setIsPlaying}
+            />
           ))}
         </div>
       </div>
