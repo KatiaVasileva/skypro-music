@@ -1,11 +1,7 @@
 import { useState } from "react";
 import styles from "./Filter.module.css";
 import classNames from "classnames";
-
-type FilterProps = {
-  performers: Array<string>;
-  genres: Array<string>;
-};
+import { FilterProps } from "@/types/FilterProps.types";
 
 function Filter({ performers, genres }: FilterProps) {
   const [activeIndex, setActiveIndex] = useState<number>(0);
