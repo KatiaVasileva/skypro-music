@@ -1,7 +1,6 @@
 "use client";
 
 import styles from "./Player.module.css";
-import { TrackContextType } from "@/context/TrackContext";
 import { useTrackContext } from "@/hooks/useTrackContext";
 import { useEffect, useRef, useState } from "react";
 import Icon from "../Icon/Icon";
@@ -10,8 +9,7 @@ import ProgressBar from "../ProgressBar/ProgressBar";
 import { formatTime } from "@/utils/helpers";
 
 function Player() {
-  const { currentTrack, isPlaying, setIsPlaying } =
-    useTrackContext() as TrackContextType;
+  const { currentTrack, isPlaying, setIsPlaying } = useTrackContext();
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -65,7 +63,7 @@ function Player() {
             }
           ></ProgressBar>
         </div>
-        
+
         <div className={styles.playerBlock}>
           <div className={styles.player}>
             <div className={styles.controls}>
