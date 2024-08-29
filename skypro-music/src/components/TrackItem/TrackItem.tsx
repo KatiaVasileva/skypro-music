@@ -9,33 +9,47 @@ import { useAppDispatch } from "@/store/store";
 import { setPlayingState } from "@/store/features/playingSlice";
 import { setTrackState } from "@/store/features/trackSlice";
 
-function TrackItem({ track }: TrackItemProps) {
+type StatusProps = {
+  isDotActive: boolean;
+}
 
-//   const playingState = useAppSelector((state) => state.playing.playingState);
+function Dot({isDotActive} : StatusProps) {
+  return (
+    <div className={isDotActive ? styles.playingDotAnimated : styles.playingDotInactive}></div> 
+  );
+}
+
+function TrackItem({ track }: TrackItemProps) {
+  //   const playingState = useAppSelector((state) => state.playing.playingState);
   const dispatch = useAppDispatch();
 
   const [isCurrentTrackPlaying, setIsCurrentTrackPlaying] = useState(false);
   const [trackIndex, setTrackIndex] = useState(0);
 
-  const onClickTrack = () => {
-    dispatch(setTrackState(track));
-    dispatch(setPlayingState(true));
-    setTrackIndex(track._id);
-    setIsCurrentTrackPlaying(true);
-  };
+  // const onClickTrack = () => {
+  //   dispatch(setTrackState(track));
+  //   dispatch(setPlayingState(true));
+  //   setTrackIndex(track._id);
+  //   // setIsCurrentTrackPlaying(track._id === trackIndex);
+  // };
 
   return (
-    <div className={styles.playlistItem} key={track._id} onClick={onClickTrack}>
+    <div
+      className={styles.playlistItem}
+      key={track._id}
+      onClick={() => {
+        dispatch(setTrackState(track));
+        dispatch(setPlayingState(true));
+        setTrackIndex(track._id);
+      }}
+    >
       <div className={styles.playlistTrack}>
         <div className={styles.trackTitle}>
           <div className={styles.imageContainer}>
-            <div
-              className={
-                isCurrentTrackPlaying
-                  ? styles.playingDotAnimated
-                  : ""
-              }
-            ></div>
+            {/* {track._id === trackIndex && (
+              <div className={styles.playingDotAnimated}></div>
+            )} */}
+            <Dot isDotActive={trackIndex === track._id}/>
             <Icon
               wrapperClass={styles.trackTitleImage}
               iconClass={styles.trackTitleSvg}

@@ -2,22 +2,28 @@
 
 import Icon from "../Icon/Icon";
 import styles from "./CenterBlock.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Track } from "@/types/Track.types";
 import TrackTitle from "../TrackTitle/TrackTitle";
 import Filter from "../Filter/Filter";
-import TrackItem from "../TrackItem/TrackItem";
+// import TrackItem from "../TrackItem/TrackItem";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { setPlaylistState } from "@/store/features/playlistSlice";
+import { setTrackState } from "@/store/features/trackSlice";
+import { setPlayingState } from "@/store/features/playingSlice";
+import { formatTime } from "@/utils/helpers";
 
 const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
-
   const playlistState = useAppSelector((state) => state.playlist.playlistState);
+  const playingState = useAppSelector((state) => state.playing.playingState);
+
   const dispatch = useAppDispatch();
+
+  const [trackIndex, setTrackIndex] = useState(0);
 
   useEffect(() => {
     dispatch(setPlaylistState(allTracks));
-  }, [allTracks, setPlaylistState]);
+  }, [allTracks, dispatch]);
 
   const performers: Array<string> = playlistState
     .map((track) => track.author)
@@ -51,7 +57,53 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
         <TrackTitle />
         <div className={styles.playlistContent}>
           {playlistState.map((track: Track) => (
-            <TrackItem key={track._id} track={track} />
+            // <TrackItem key={track._id} track={track} />
+            <div
+              className={styles.playlistItem}
+              key={track._id}
+              onClick={() => {
+                dispatch(setTrackState(track));
+                dispatch(setPlayingState(true));
+                setTrackIndex(track._id);
+              }}
+            >
+              <div className={styles.playlistTrack}>
+                <div className={styles.trackTitle}>
+                  <div className={styles.imageContainer}>
+                    {track._id === trackIndex && (
+                      <div className={playingState ? styles.playingDotAnimated : styles.playingDot}></div>
+                    )}
+                    <Icon
+                      wrapperClass={styles.trackTitleImage}
+                      iconClass={styles.trackTitleSvg}
+                      name="icon-note"
+                    />
+                  </div>
+                  <div>
+                    <a className={styles.trackTitleLink} href="#">
+                      {track.name}{" "}
+                      <span className={styles.trackTitleSpan}></span>
+                    </a>
+                  </div>
+                </div>
+                <div className={styles.trackAuthor}>
+                  <a className={styles.trackAuthorLink} href="http://">
+                    {track.author}
+                  </a>
+                </div>
+                <div className={styles.trackAlbum}>
+                  <a className={styles.trackAlbumLink} href="http://">
+                    {track.album}
+                  </a>
+                </div>
+                <Icon iconClass={styles.trackTimeSvg} name="icon-like" />
+                <div>
+                  <span className={styles.trackTimeText}>
+                    {formatTime(track.duration_in_seconds)}
+                  </span>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </div>
