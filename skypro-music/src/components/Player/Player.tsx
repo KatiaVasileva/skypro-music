@@ -22,6 +22,7 @@ function Player() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const [isRepeatActive, setIsRepeatActive] = useState(false);
+  const [isShuffleActive, setIsShuffleActive] = useState(false);
   const [volume, setVolume] = useState(0.5);
   const [currentTime, setCurrentTime] = useState(0);
 
@@ -61,6 +62,10 @@ function Player() {
   const toggleRepeat = () => {
     setIsRepeatActive((prevState) => !prevState);
   };
+
+  const toggleShuffle = () => {
+    setIsShuffleActive((prevState) => !prevState);
+  }
 
   const handleButtonNextClick = () => {
     if (trackIndexState < playlistState.length - 1) {
@@ -155,9 +160,13 @@ function Player() {
               />
               <Icon
                 wrapperClass={styles.buttonShuffle}
-                iconClass={styles.buttonShuffleSvg}
+                iconClass={
+                  isShuffleActive
+                    ? styles.buttonShuffleSvgActive
+                    : styles.buttonShuffleSvg
+                }
                 name="icon-shuffle"
-                onClick={handleNotImplementedButtons}
+                onClick={toggleShuffle}
               />
             </div>
 

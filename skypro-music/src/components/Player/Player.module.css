@@ -80,7 +80,7 @@
     fill: #a53939;
 }
 
-.buttonPrevSvg, .buttonNextSvg  {
+.buttonPrevSvg, .buttonNextSvg {
     width: 15px;
     height: 14px;
     fill: inherit;
@@ -131,12 +131,6 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-
-    &:active {
-        fill: #696969;
-        stroke: #ffffff;
-        cursor: pointer;
-    }
 }
 
 .buttonShuffleSvg {
@@ -150,12 +144,14 @@
         stroke: #acacac;
         cursor: pointer;
     }
+}
 
-    &:active {
-        fill: transparent;
-        stroke: #ffffff;
-        cursor: pointer;
-    }
+.buttonShuffleSvgActive {
+    width: 19px;
+    height: 12px;
+    fill: #696969;
+    stroke: #ffffff;
+    cursor: pointer;
 }
 
 .trackPlay {
