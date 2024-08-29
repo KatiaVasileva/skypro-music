@@ -1,17 +1,22 @@
 "use client";
 
 import styles from "./Player.module.css";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Icon from "../Icon/Icon";
 import Image from "next/image";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import { formatTime } from "@/utils/helpers";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { setPlayingState, togglePlaying } from "@/store/features/playingSlice";
+import { setTrackIndexState, setTrackState } from "@/store/features/trackSlice";
 
 function Player() {
   const trackState = useAppSelector((state) => state.track.trackState);
   const playingState = useAppSelector((state) => state.playing.playingState);
+  const playlistState = useAppSelector((state) => state.playlist.playlistState);
+  const trackIndexState = useAppSelector(
+    (state) => state.track.trackIndexState
+  );
   const dispatch = useAppDispatch();
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -22,9 +27,23 @@ function Player() {
 
   const duration = audioRef.current?.duration || 0;
 
+  const handleEnded = useCallback(() => {
+    if (trackIndexState < playlistState.length - 1) {
+      dispatch(setTrackIndexState(trackIndexState + 1));
+      dispatch(setTrackState(playlistState[trackIndexState + 1]));
+    }
+  }, [trackIndexState, playlistState, dispatch]);
+
   useEffect(() => {
+    audioRef.current!.src = playlistState[trackIndexState].track_file;
+    audioRef.current!.addEventListener("ended", handleEnded);
     audioRef.current!.play();
-  }, [trackState]);
+
+    return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      audioRef.current!.removeEventListener("ended", handleEnded);
+    };
+  }, [trackIndexState, playlistState, handleEnded]);
 
   useEffect(() => {
     audioRef.current!.volume = volume;
@@ -41,6 +60,20 @@ function Player() {
 
   const toggleRepeat = () => {
     setIsRepeatActive((prevState) => !prevState);
+  };
+
+  const handleButtonNextClick = () => {
+    if (trackIndexState < playlistState.length - 1) {
+      dispatch(setTrackIndexState(trackIndexState + 1));
+      dispatch(setTrackState(playlistState[trackIndexState + 1]));
+    }
+  };
+
+  const handleButtonPrevClick = () => {
+    if (trackIndexState > 0) {
+      dispatch(setTrackIndexState(trackIndexState - 1));
+      dispatch(setTrackState(playlistState[trackIndexState - 1]));
+    }
   };
 
   const handleNotImplementedButtons = () => {
@@ -74,7 +107,7 @@ function Player() {
                 wrapperClass={styles.buttonPrev}
                 iconClass={styles.buttonPrevSvg}
                 name="icon-prev"
-                onClick={handleNotImplementedButtons}
+                onClick={handleButtonPrevClick}
               />
               {!playingState && (
                 <Icon
@@ -108,7 +141,7 @@ function Player() {
                 wrapperClass={styles.buttonNext}
                 iconClass={styles.buttonNextSvg}
                 name="icon-next"
-                onClick={handleNotImplementedButtons}
+                onClick={handleButtonNextClick}
               />
               <Icon
                 wrapperClass={styles.buttonRepeat}

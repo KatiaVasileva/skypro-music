@@ -9,17 +9,16 @@ import Filter from "../Filter/Filter";
 // import TrackItem from "../TrackItem/TrackItem";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { setPlaylistState } from "@/store/features/playlistSlice";
-import { setTrackState } from "@/store/features/trackSlice";
+import { setTrackIndexState, setTrackState } from "@/store/features/trackSlice";
 import { setPlayingState } from "@/store/features/playingSlice";
 import { formatTime } from "@/utils/helpers";
 
 const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
   const playlistState = useAppSelector((state) => state.playlist.playlistState);
   const playingState = useAppSelector((state) => state.playing.playingState);
+  const trackIndexState = useAppSelector((state) => state.track.trackIndexState);
 
   const dispatch = useAppDispatch();
-
-  const [trackIndex, setTrackIndex] = useState(0);
 
   useEffect(() => {
     dispatch(setPlaylistState(allTracks));
@@ -64,13 +63,13 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
               onClick={() => {
                 dispatch(setTrackState(track));
                 dispatch(setPlayingState(true));
-                setTrackIndex(track._id);
+                dispatch(setTrackIndexState(playlistState.indexOf(track)));
               }}
             >
               <div className={styles.playlistTrack}>
                 <div className={styles.trackTitle}>
                   <div className={styles.imageContainer}>
-                    {track._id === trackIndex && (
+                    {playlistState.indexOf(track) === trackIndexState && (
                       <div className={playingState ? styles.playingDotAnimated : styles.playingDot}></div>
                     )}
                     <Icon
