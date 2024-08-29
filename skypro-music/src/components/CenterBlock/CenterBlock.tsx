@@ -2,31 +2,31 @@
 
 import Icon from "../Icon/Icon";
 import styles from "./CenterBlock.module.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Track } from "@/types/Track.types";
-import { useTrackContext } from "@/hooks/useTrackContext";
-import { TrackContextType } from "@/context/TrackContext";
 import TrackTitle from "../TrackTitle/TrackTitle";
 import Filter from "../Filter/Filter";
 import TrackItem from "../TrackItem/TrackItem";
+import { useAppDispatch, useAppSelector } from "@/store/store";
+import { setPlaylistState } from "@/store/features/playlistSlice";
 
 const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
-  const [tracks, setTracks] = useState<Array<Track>>([]);
-  const { setCurrentTrack, setIsPlaying } =
-    useTrackContext() as TrackContextType;
+
+  const playlistState = useAppSelector((state) => state.playlist.playlistState);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    setTracks(allTracks);
-  }, [allTracks, setTracks]);
+    dispatch(setPlaylistState(allTracks));
+  }, [allTracks, setPlaylistState]);
 
-  const performers: Array<string> = tracks
+  const performers: Array<string> = playlistState
     .map((track) => track.author)
     .filter((performer: string) => performer !== "-")
     .reduce((acc: Array<string>, performer: string) => {
       return acc.includes(performer) ? acc : [...acc, performer];
     }, []);
 
-  const genres: Array<string> = tracks
+  const genres: Array<string> = playlistState
     .map((track) => track.genre[0])
     .reduce((acc: Array<string>, genre: string) => {
       return acc.includes(genre) ? acc : [...acc, genre];
@@ -50,13 +50,8 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
       <div className={styles.content}>
         <TrackTitle />
         <div className={styles.playlistContent}>
-          {tracks.map((track: Track) => (
-            <TrackItem
-              key={track._id}
-              track={track}
-              setCurrentTrack={setCurrentTrack}
-              setIsPlaying={setIsPlaying}
-            />
+          {playlistState.map((track: Track) => (
+            <TrackItem key={track._id} track={track} />
           ))}
         </div>
       </div>

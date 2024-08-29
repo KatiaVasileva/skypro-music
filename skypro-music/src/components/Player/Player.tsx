@@ -1,15 +1,18 @@
 "use client";
 
 import styles from "./Player.module.css";
-import { useTrackContext } from "@/hooks/useTrackContext";
 import { useEffect, useRef, useState } from "react";
 import Icon from "../Icon/Icon";
 import Image from "next/image";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import { formatTime } from "@/utils/helpers";
+import { useAppDispatch, useAppSelector } from "@/store/store";
+import { setPlayingState, togglePlaying } from "@/store/features/playingSlice";
 
 function Player() {
-  const { currentTrack, isPlaying, setIsPlaying } = useTrackContext();
+  const trackState = useAppSelector((state) => state.track.trackState);
+  const playingState = useAppSelector((state) => state.playing.playingState);
+  const dispatch = useAppDispatch();
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -21,19 +24,19 @@ function Player() {
 
   useEffect(() => {
     audioRef.current!.play();
-  }, [currentTrack]);
+  }, [trackState]);
 
   useEffect(() => {
     audioRef.current!.volume = volume;
   }, [volume]);
 
   const togglePlay = () => {
-    if (isPlaying) {
+    if (playingState) {
       audioRef.current!.pause();
     } else {
       audioRef.current!.play();
     }
-    setIsPlaying((prevState) => !prevState);
+    dispatch(togglePlaying());
   };
 
   const toggleRepeat = () => {
@@ -49,7 +52,7 @@ function Player() {
       <div className={styles.content}>
         <audio
           ref={audioRef}
-          src={currentTrack?.track_file}
+          src={trackState?.track_file}
           loop={isRepeatActive ? true : false}
           onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
         />
@@ -73,22 +76,22 @@ function Player() {
                 name="icon-prev"
                 onClick={handleNotImplementedButtons}
               />
-              {!isPlaying && (
+              {!playingState && (
                 <Icon
                   wrapperClass={styles.buttonPlay}
                   iconClass={styles.buttonPlaySvg}
                   name="icon-play"
                   onClick={() => {
-                    setIsPlaying(true);
+                    dispatch(setPlayingState(true));
                     audioRef.current!.play();
                   }}
                 />
               )}
-              {isPlaying && (
+              {playingState && (
                 <div
                   className={styles.buttonPause}
                   onClick={() => {
-                    setIsPlaying(false);
+                    dispatch(setPlayingState(false));
                     audioRef.current!.pause();
                   }}
                 >
@@ -138,12 +141,12 @@ function Player() {
                     href="#"
                     onClick={togglePlay}
                   >
-                    {currentTrack?.name}
+                    {trackState?.name}
                   </a>
                 </div>
                 <div className={styles.trackPlayAuthor}>
                   <a className={styles.trackPlayAuthorLink} href="#">
-                    {currentTrack?.author}
+                    {trackState?.author}
                   </a>
                 </div>
               </div>
