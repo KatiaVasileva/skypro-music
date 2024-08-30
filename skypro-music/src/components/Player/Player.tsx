@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Icon from "../Icon/Icon";
 import Image from "next/image";
 import ProgressBar from "../ProgressBar/ProgressBar";
-import { formatTime } from "@/utils/helpers";
+import { formatTime, getRandomOrNextTrackIndex, getRandomOrPrevTrackIndex } from "@/utils/helpers";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import {
   setPlayingState,
@@ -33,20 +33,16 @@ function Player() {
   const duration = audioRef.current?.duration || 0;
 
   const handleEnded = useCallback(() => {
-    if (trackIndexState < playlistState.length - 1) {
-      dispatch(setTrackIndexState(trackIndexState + 1));
-      dispatch(setTrackState(playlistState[trackIndexState + 1]));
-    }
+    const newTrackIndex = getRandomOrNextTrackIndex({
+      isShuffleActive: isShuffleActive,
+      playlist: playlistState,
+      trackIndex: trackIndexState,
+    });
+    dispatch(setTrackIndexState(newTrackIndex));
+    dispatch(setTrackState(playlistState[newTrackIndex]));
   }, [trackIndexState, playlistState, dispatch]);
 
   useEffect(() => {
-    // if (isShuffleActive) {
-    //   dispatch(
-    //     setTrackIndexState(Math.floor(Math.random() * playlistState.length))
-    //   );
-    //   dispatch(setTrackState(playlistState[trackIndexState]));
-    // }
-
     audioRef.current!.src = playlistState[trackIndexState].track_file;
     console.log(audioRef.current!.src);
     audioRef.current!.addEventListener("ended", handleEnded);
@@ -81,23 +77,23 @@ function Player() {
   };
 
   const handleButtonNextClick = () => {
-    const newIndex: number = isShuffleActive
-      ? Math.floor(Math.random() * playlistState.length)
-      : trackIndexState < playlistState.length - 1
-      ? trackIndexState + 1
-      : 0;
-    dispatch(setTrackIndexState(newIndex));
-    dispatch(setTrackState(playlistState[newIndex]));
+    const newTrackIndex: number = getRandomOrNextTrackIndex({
+      isShuffleActive: isShuffleActive,
+      playlist: playlistState,
+      trackIndex: trackIndexState,
+    });
+    dispatch(setTrackIndexState(newTrackIndex));
+    dispatch(setTrackState(playlistState[newTrackIndex]));
   };
 
   const handleButtonPrevClick = () => {
-    const newIndex: number = isShuffleActive
-      ? Math.floor(Math.random() * playlistState.length)
-      : trackIndexState > 0
-      ? trackIndexState - 1
-      : 0;
-    dispatch(setTrackIndexState(newIndex));
-    dispatch(setTrackState(playlistState[newIndex]));
+    const newTrackIndex: number = getRandomOrPrevTrackIndex({
+      isShuffleActive: isShuffleActive,
+      playlist: playlistState,
+      trackIndex: trackIndexState,
+    });
+    dispatch(setTrackIndexState(newTrackIndex));
+    dispatch(setTrackState(playlistState[newTrackIndex]));
   };
 
   return (
