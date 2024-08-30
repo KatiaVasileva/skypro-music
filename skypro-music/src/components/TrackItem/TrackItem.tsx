@@ -6,8 +6,7 @@ import { formatTime } from "@/utils/helpers";
 import { TrackItemProps } from "@/types/TrackItemProps.types";
 import { useState } from "react";
 import { useAppDispatch } from "@/store/store";
-import { setPlayingState } from "@/store/features/playingSlice";
-import { setTrackState } from "@/store/features/trackSlice";
+import { setPlayingState, setTrackState } from "@/store/features/trackSlice";
 
 type StatusProps = {
   isDotActive: boolean;

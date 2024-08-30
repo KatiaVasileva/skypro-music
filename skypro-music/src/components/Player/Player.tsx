@@ -7,12 +7,11 @@ import Image from "next/image";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import { formatTime } from "@/utils/helpers";
 import { useAppDispatch, useAppSelector } from "@/store/store";
-import { setPlayingState, togglePlaying } from "@/store/features/playingSlice";
-import { setTrackIndexState, setTrackState } from "@/store/features/trackSlice";
+import { setPlayingState, setTrackIndexState, setTrackState, togglePlaying } from "@/store/features/trackSlice";
 
 function Player() {
   const trackState = useAppSelector((state) => state.track.trackState);
-  const playingState = useAppSelector((state) => state.playing.playingState);
+  const playingState = useAppSelector((state) => state.track.playingState);
   const playlistState = useAppSelector((state) => state.playlist.playlistState);
   const trackIndexState = useAppSelector(
     (state) => state.track.trackIndexState

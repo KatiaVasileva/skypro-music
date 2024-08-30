@@ -1,7 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
 import { trackReducer } from "./features/trackSlice"
 import { playlistReducer } from "./features/playlistSlice"
-import { playingReducer } from "./features/playingSlice"
 import { TypedUseSelectorHook, useDispatch, useSelector, useStore } from "react-redux";
 
 export const makeStore = () => {
@@ -9,7 +8,6 @@ export const makeStore = () => {
         reducer: combineReducers({
             track: trackReducer,
             playlist: playlistReducer,
-            playing: playingReducer,
         }),
     });
 };

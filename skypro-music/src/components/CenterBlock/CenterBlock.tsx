@@ -9,13 +9,12 @@ import Filter from "../Filter/Filter";
 // import TrackItem from "../TrackItem/TrackItem";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { setPlaylistState } from "@/store/features/playlistSlice";
-import { setTrackIndexState, setTrackState } from "@/store/features/trackSlice";
-import { setPlayingState } from "@/store/features/playingSlice";
+import { setTrackIndexState, setTrackState, setPlayingState } from "@/store/features/trackSlice";
 import { formatTime } from "@/utils/helpers";
 
 const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
   const playlistState = useAppSelector((state) => state.playlist.playlistState);
-  const playingState = useAppSelector((state) => state.playing.playingState);
+  const playingState = useAppSelector((state) => state.track.playingState);
   const trackIndexState = useAppSelector((state) => state.track.trackIndexState);
 
   const dispatch = useAppDispatch();
@@ -25,14 +24,14 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
   }, [allTracks, dispatch]);
 
   const performers: Array<string> = playlistState
-    .map((track) => track.author)
+    .map((track: Track) => track.author)
     .filter((performer: string) => performer !== "-")
     .reduce((acc: Array<string>, performer: string) => {
       return acc.includes(performer) ? acc : [...acc, performer];
     }, []);
 
   const genres: Array<string> = playlistState
-    .map((track) => track.genre[0])
+    .map((track: Track) => track.genre[0])
     .reduce((acc: Array<string>, genre: string) => {
       return acc.includes(genre) ? acc : [...acc, genre];
     }, []);
