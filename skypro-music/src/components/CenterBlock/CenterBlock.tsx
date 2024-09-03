@@ -8,12 +8,11 @@ import TrackTitle from "../TrackTitle/TrackTitle";
 import Filter from "../Filter/Filter";
 // import TrackItem from "../TrackItem/TrackItem";
 import { useAppDispatch, useAppSelector } from "@/store/store";
-import { setPlaylistState } from "@/store/features/playlistSlice";
-import { setTrackIndexState, setTrackState, setPlayingState } from "@/store/features/trackSlice";
+import { setTrackIndexState, setTrackState, setPlayingState, setPlaylistState } from "@/store/features/trackSlice";
 import { formatTime } from "@/utils/helpers";
 
 const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
-  const playlistState = useAppSelector((state) => state.playlist.playlistState);
+  const playlistState = useAppSelector((state) => state.track.playlistState);
   const playingState = useAppSelector((state) => state.track.playingState);
   const trackIndexState = useAppSelector((state) => state.track.trackIndexState);
 

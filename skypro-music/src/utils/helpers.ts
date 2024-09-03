@@ -15,26 +15,3 @@ type GetIndexProps = {
   trackIndex: number;
 };
 
-export function getRandomOrNextTrackIndex({
-  isShuffleActive,
-  playlist,
-  trackIndex,
-}: GetIndexProps): number {
-  return isShuffleActive
-    ? Math.floor(Math.random() * playlist.length)
-    : trackIndex < playlist.length - 1
-    ? trackIndex + 1
-    : 0;
-}
-
-export function getRandomOrPrevTrackIndex({
-  isShuffleActive,
-  playlist,
-  trackIndex,
-}: GetIndexProps): number {
-  return isShuffleActive
-    ? Math.floor(Math.random() * playlist.length)
-    : trackIndex > 0
-    ? trackIndex - 1
-    : 0;
-}

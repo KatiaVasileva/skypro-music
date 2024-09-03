@@ -5,42 +5,42 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Icon from "../Icon/Icon";
 import Image from "next/image";
 import ProgressBar from "../ProgressBar/ProgressBar";
-import { formatTime, getRandomOrNextTrackIndex, getRandomOrPrevTrackIndex } from "@/utils/helpers";
+import { formatTime } from "@/utils/helpers";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import {
+  setNextTrack,
   setPlayingState,
   setTrackIndexState,
   setTrackState,
   togglePlaying,
+  setShuffleActiveState,
+  toggleShuffle,
+  setPrevTrack,
 } from "@/store/features/trackSlice";
 
 function Player() {
   const trackState = useAppSelector((state) => state.track.trackState);
   const playingState = useAppSelector((state) => state.track.playingState);
-  const playlistState = useAppSelector((state) => state.playlist.playlistState);
+  const playlistState = useAppSelector((state) => state.track.playlistState);
   const trackIndexState = useAppSelector(
     (state) => state.track.trackIndexState
+  );
+  const shuffleActiveState = useAppSelector(
+    (state) => state.track.shuffleActiveState
   );
   const dispatch = useAppDispatch();
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const [isRepeatActive, setIsRepeatActive] = useState(false);
-  const [isShuffleActive, setIsShuffleActive] = useState(false);
   const [volume, setVolume] = useState(0.5);
   const [currentTime, setCurrentTime] = useState(0);
 
   const duration = audioRef.current?.duration || 0;
 
   const handleEnded = useCallback(() => {
-    const newTrackIndex = getRandomOrNextTrackIndex({
-      isShuffleActive: isShuffleActive,
-      playlist: playlistState,
-      trackIndex: trackIndexState,
-    });
-    dispatch(setTrackIndexState(newTrackIndex));
-    dispatch(setTrackState(playlistState[newTrackIndex]));
-  }, [trackIndexState, playlistState, dispatch]);
+    dispatch(setNextTrack());
+  }, [dispatch]);
 
   useEffect(() => {
     audioRef.current!.src = playlistState[trackIndexState].track_file;
@@ -72,28 +72,16 @@ function Player() {
     setIsRepeatActive((prevState) => !prevState);
   };
 
-  const toggleShuffle = () => {
-    setIsShuffleActive((prevState) => !prevState);
+  const toggleShuffleButton = () => {
+    dispatch(toggleShuffle());
   };
 
   const handleButtonNextClick = () => {
-    const newTrackIndex: number = getRandomOrNextTrackIndex({
-      isShuffleActive: isShuffleActive,
-      playlist: playlistState,
-      trackIndex: trackIndexState,
-    });
-    dispatch(setTrackIndexState(newTrackIndex));
-    dispatch(setTrackState(playlistState[newTrackIndex]));
+    dispatch(setNextTrack());
   };
 
   const handleButtonPrevClick = () => {
-    const newTrackIndex: number = getRandomOrPrevTrackIndex({
-      isShuffleActive: isShuffleActive,
-      playlist: playlistState,
-      trackIndex: trackIndexState,
-    });
-    dispatch(setTrackIndexState(newTrackIndex));
-    dispatch(setTrackState(playlistState[newTrackIndex]));
+    dispatch(setPrevTrack());
   };
 
   return (
@@ -172,12 +160,12 @@ function Player() {
               <Icon
                 wrapperClass={styles.buttonShuffle}
                 iconClass={
-                  isShuffleActive
+                  shuffleActiveState
                     ? styles.buttonShuffleSvgActive
                     : styles.buttonShuffleSvg
                 }
                 name="icon-shuffle"
-                onClick={toggleShuffle}
+                onClick={toggleShuffleButton}
               />
             </div>
 

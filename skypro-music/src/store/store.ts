@@ -1,13 +1,11 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
 import { trackReducer } from "./features/trackSlice"
-import { playlistReducer } from "./features/playlistSlice"
 import { TypedUseSelectorHook, useDispatch, useSelector, useStore } from "react-redux";
 
 export const makeStore = () => {
     return configureStore({
         reducer: combineReducers({
             track: trackReducer,
-            playlist: playlistReducer,
         }),
     });
 };
