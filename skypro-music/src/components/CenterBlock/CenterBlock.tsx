@@ -8,18 +8,32 @@ import TrackTitle from "../TrackTitle/TrackTitle";
 import Filter from "../Filter/Filter";
 // import TrackItem from "../TrackItem/TrackItem";
 import { useAppDispatch, useAppSelector } from "@/store/store";
-import { setTrackIndexState, setTrackState, setPlayingState, setPlaylistState } from "@/store/features/trackSlice";
+// import { setPlaylistState } from "@/store/features/playlistSlice";
+import {
+  setTrackIndexState,
+  setTrackState,
+  setPlayingState,
+  setPlaylistState,
+} from "@/store/features/trackSlice";
 import { formatTime } from "@/utils/helpers";
 
 const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
   const playlistState = useAppSelector((state) => state.track.playlistState);
   const playingState = useAppSelector((state) => state.track.playingState);
-  const trackIndexState = useAppSelector((state) => state.track.trackIndexState);
+  const trackIndexState = useAppSelector(
+    (state) => state.track.trackIndexState
+  );
+  const shuffleActiveState = useAppSelector(
+    (state) => state.track.shuffleActiveState
+  );
+  const shuffledPlaylistState = useAppSelector(
+    (state) => state.track.shuffledPlaylistState
+  );
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setPlaylistState(allTracks));
+    dispatch(setPlaylistState({ tracks: allTracks }));
   }, [allTracks, dispatch]);
 
   const performers: Array<string> = playlistState
@@ -54,22 +68,44 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
         <TrackTitle />
         <div className={styles.playlistContent}>
           {playlistState.map((track: Track) => (
-            // <TrackItem key={track._id} track={track} />
             <div
               className={styles.playlistItem}
               key={track._id}
               onClick={() => {
                 dispatch(setTrackState(track));
                 dispatch(setPlayingState(true));
-                dispatch(setTrackIndexState(playlistState.indexOf(track)));
+                dispatch(
+                  setTrackIndexState(
+                    shuffleActiveState
+                      ? shuffledPlaylistState.indexOf(track)
+                      : playlistState.indexOf(track)
+                  )
+                );
               }}
             >
               <div className={styles.playlistTrack}>
                 <div className={styles.trackTitle}>
                   <div className={styles.imageContainer}>
-                    {playlistState.indexOf(track) === trackIndexState && (
-                      <div className={playingState ? styles.playingDotAnimated : styles.playingDot}></div>
-                    )}
+                    {shuffleActiveState
+                      ? shuffledPlaylistState.indexOf(track) ===
+                          trackIndexState && (
+                          <div
+                            className={
+                              playingState
+                                ? styles.playingDotAnimated
+                                : styles.playingDot
+                            }
+                          ></div>
+                        )
+                      : playlistState.indexOf(track) === trackIndexState && (
+                          <div
+                            className={
+                              playingState
+                                ? styles.playingDotAnimated
+                                : styles.playingDot
+                            }
+                          ></div>
+                        )}
                     <Icon
                       wrapperClass={styles.trackTitleImage}
                       iconClass={styles.trackTitleSvg}

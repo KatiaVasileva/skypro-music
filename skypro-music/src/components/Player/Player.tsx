@@ -10,12 +10,10 @@ import { useAppDispatch, useAppSelector } from "@/store/store";
 import {
   setNextTrack,
   setPlayingState,
-  setTrackIndexState,
-  setTrackState,
   togglePlaying,
-  setShuffleActiveState,
   toggleShuffle,
   setPrevTrack,
+  setPlaylistState,
 } from "@/store/features/trackSlice";
 
 function Player() {
@@ -27,6 +25,9 @@ function Player() {
   );
   const shuffleActiveState = useAppSelector(
     (state) => state.track.shuffleActiveState
+  );
+  const shuffledPlaylistState = useAppSelector(
+    (state) => state.track.shuffledPlaylistState
   );
   const dispatch = useAppDispatch();
 
@@ -43,14 +44,15 @@ function Player() {
   }, [dispatch]);
 
   useEffect(() => {
-    audioRef.current!.src = playlistState[trackIndexState].track_file;
+    audioRef.current!.src = shuffleActiveState
+      ? shuffledPlaylistState[trackIndexState].track_file
+      : playlistState[trackIndexState].track_file;
     console.log(audioRef.current!.src);
     audioRef.current!.addEventListener("ended", handleEnded);
 
     audioRef.current!.play();
 
     return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       audioRef.current!.removeEventListener("ended", handleEnded);
     };
   }, [trackIndexState, playlistState, handleEnded]);
@@ -74,6 +76,7 @@ function Player() {
 
   const toggleShuffleButton = () => {
     dispatch(toggleShuffle());
+    dispatch(setPlaylistState({ tracks: playlistState }));
   };
 
   const handleButtonNextClick = () => {
