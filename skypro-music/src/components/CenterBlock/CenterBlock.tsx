@@ -6,9 +6,7 @@ import { useEffect, useState } from "react";
 import { Track } from "@/types/Track.types";
 import TrackTitle from "../TrackTitle/TrackTitle";
 import Filter from "../Filter/Filter";
-// import TrackItem from "../TrackItem/TrackItem";
 import { useAppDispatch, useAppSelector } from "@/store/store";
-// import { setPlaylistState } from "@/store/features/playlistSlice";
 import {
   setTrackIndexState,
   setTrackState,
@@ -29,6 +27,7 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
   const shuffledPlaylistState = useAppSelector(
     (state) => state.track.shuffledPlaylistState
   );
+  const trackState = useAppSelector((state) => state.track.trackState);
 
   const dispatch = useAppDispatch();
 
@@ -86,26 +85,27 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
               <div className={styles.playlistTrack}>
                 <div className={styles.trackTitle}>
                   <div className={styles.imageContainer}>
-                    {shuffleActiveState
-                      ? shuffledPlaylistState.indexOf(track) ===
-                          trackIndexState && (
-                          <div
-                            className={
-                              playingState
-                                ? styles.playingDotAnimated
-                                : styles.playingDot
-                            }
-                          ></div>
-                        )
-                      : playlistState.indexOf(track) === trackIndexState && (
-                          <div
-                            className={
-                              playingState
-                                ? styles.playingDotAnimated
-                                : styles.playingDot
-                            }
-                          ></div>
-                        )}
+                    {!shuffleActiveState && playlistState.indexOf(track) === trackIndexState && (
+                      <div
+                        className={
+                          playingState
+                            ? styles.playingDotAnimated
+                            : styles.playingDot
+                        }
+                      ></div>
+                    )}
+                    {shuffleActiveState &&
+                      shuffledPlaylistState.indexOf(track) ===
+                        trackIndexState && (
+                        <div
+                          className={
+                            playingState
+                              ? styles.playingDotAnimated
+                              : styles.playingDot
+                          }
+                        ></div>
+                      )}
+
                     <Icon
                       wrapperClass={styles.trackTitleImage}
                       iconClass={styles.trackTitleSvg}

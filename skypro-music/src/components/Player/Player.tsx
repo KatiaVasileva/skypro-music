@@ -53,9 +53,11 @@ function Player() {
     audioRef.current!.play();
 
     return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       audioRef.current!.removeEventListener("ended", handleEnded);
     };
-  }, [trackIndexState, playlistState, handleEnded]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleEnded, playlistState, trackIndexState]);
 
   useEffect(() => {
     audioRef.current!.volume = volume;
@@ -77,6 +79,7 @@ function Player() {
   const toggleShuffleButton = () => {
     dispatch(toggleShuffle());
     dispatch(setPlaylistState({ tracks: playlistState }));
+    dispatch(setNextTrack());
   };
 
   const handleButtonNextClick = () => {

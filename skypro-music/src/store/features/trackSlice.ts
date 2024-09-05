@@ -26,19 +26,18 @@ const trackSlice = createSlice({
     setTrackState: (state, action: PayloadAction<Track>) => {
       state.trackState = action.payload;
     },
-    // setPlaylistState: (state, action: PayloadAction<Array<Track>>) => {
-    //   state.playlistState = action.payload;
-    // },
-    // setShuffledPlaylistState: (state, action: PayloadAction<Array<Track>>) => {
-    //   state.shuffledPlaylistState = [...action.payload].sort(() => 0.5 - Math.random());
-    // },
-    setPlaylistState: ((state, action: PayloadAction<{tracks: Array<Track>}>) => {
+    setPlaylistState: (
+      state,
+      action: PayloadAction<{ tracks: Array<Track> }>
+    ) => {
       if (state.shuffleActiveState) {
-        state.shuffledPlaylistState = [... action.payload.tracks].sort(() => 0.5 - Math.random());
+        state.shuffledPlaylistState = [...action.payload.tracks].sort(
+          () => 0.5 - Math.random()
+        );
       } else {
         state.playlistState = action.payload.tracks;
       }
-    }),
+    },
     setTrackIndexState: (state, action: PayloadAction<number>) => {
       state.trackIndexState = action.payload;
     },
@@ -55,37 +54,29 @@ const trackSlice = createSlice({
       state.shuffleActiveState = !state.shuffleActiveState;
     },
     setNextTrack: (state) => {
-      const playlist = state.shuffleActiveState? state.shuffledPlaylistState : state.playlistState;
-      
-      // const nextIndex = state.shuffleActiveState
-      //   ? Math.floor(Math.random() * playlist.length)
-      //   : state.trackIndexState < playlist.length - 1
-      //   ? state.trackIndexState + 1
-      //   : 0;
-      const nextIndex = state.trackIndexState < playlist.length - 1
-        ? state.trackIndexState + 1
-        : 0;
+      const playlist = state.shuffleActiveState
+        ? state.shuffledPlaylistState
+        : state.playlistState;
+      const nextIndex =
+        state.trackIndexState < playlist.length - 1
+          ? state.trackIndexState + 1
+          : 0;
       state.trackIndexState = nextIndex;
-      state.trackState = playlist[nextIndex]; 
+      state.trackState = playlist[nextIndex];
     },
     setPrevTrack: (state) => {
-      const playlist = state.shuffleActiveState? state.shuffledPlaylistState : state.playlistState;
-      // const nextIndex = state.shuffleActiveState
-      // ? Math.floor(Math.random() * playlist.length)
-      // : state.trackIndexState > 0
-      // ? state.trackIndexState - 1
-      // : 0;
-      const nextIndex = state.trackIndexState > 0
-      ? state.trackIndexState - 1
-      : 0;
+      const playlist = state.shuffleActiveState
+        ? state.shuffledPlaylistState
+        : state.playlistState;
+      const nextIndex =
+        state.trackIndexState > 0 ? state.trackIndexState - 1 : 0;
       state.trackIndexState = nextIndex;
-      state.trackState = playlist[nextIndex]; 
+      state.trackState = playlist[nextIndex];
     },
   },
 });
 
 export const {
-  // setCurrentTrack,
   setTrackState,
   setTrackIndexState,
   setPlayingState,
@@ -95,6 +86,5 @@ export const {
   setPrevTrack,
   setShuffleActiveState,
   toggleShuffle,
-  // setShuffledPlaylistState,
 } = trackSlice.actions;
 export const trackReducer = trackSlice.reducer;
