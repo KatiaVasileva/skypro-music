@@ -1,7 +1,28 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import { useAppDispatch } from "@/store/store";
+import { signin } from "@/api/userApi";
 
 export default function SignIn() {
+  const dispatch = useAppDispatch();
+
+  const handleSignIn = async ({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }) => {
+    try {
+      await dispatch(signin({ email, password })).unwrap();
+      console.log("Успешно!");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
+    }
+  };
+
   return (
     <body suppressHydrationWarning={true}>
       <div className={styles.wrapper}>
@@ -33,15 +54,19 @@ export default function SignIn() {
                 placeholder="Пароль"
               />
               <button className={styles.enterButton}>
-                <a className={styles.enterButtonLink} href="">Войти</a>
+                <a className={styles.enterButtonLink} href="">
+                  Войти
+                </a>
               </button>
               <button className={styles.signupButton}>
-                <a className={styles.signupButtonLink} href="">Зарегистрироваться</a>
+                <a className={styles.signupButtonLink} href="">
+                  Зарегистрироваться
+                </a>
               </button>
             </form>
           </div>
         </div>
-      </div>    
+      </div>
     </body>
   );
 }
