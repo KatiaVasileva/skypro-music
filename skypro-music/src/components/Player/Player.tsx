@@ -1,15 +1,35 @@
 "use client";
 
 import styles from "./Player.module.css";
-import { useTrackContext } from "@/hooks/useTrackContext";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Icon from "../Icon/Icon";
 import Image from "next/image";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import { formatTime } from "@/utils/helpers";
+import { useAppDispatch, useAppSelector } from "@/store/store";
+import {
+  setNextTrack,
+  setPlayingState,
+  togglePlaying,
+  toggleShuffle,
+  setPrevTrack,
+  setPlaylistState,
+} from "@/store/features/trackSlice";
 
 function Player() {
-  const { currentTrack, isPlaying, setIsPlaying } = useTrackContext();
+  const trackState = useAppSelector((state) => state.track.trackState);
+  const playingState = useAppSelector((state) => state.track.playingState);
+  const playlistState = useAppSelector((state) => state.track.playlistState);
+  const trackIndexState = useAppSelector(
+    (state) => state.track.trackIndexState
+  );
+  const shuffleActiveState = useAppSelector(
+    (state) => state.track.shuffleActiveState
+  );
+  const shuffledPlaylistState = useAppSelector(
+    (state) => state.track.shuffledPlaylistState
+  );
+  const dispatch = useAppDispatch();
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -19,29 +39,55 @@ function Player() {
 
   const duration = audioRef.current?.duration || 0;
 
+  const handleEnded = useCallback(() => {
+    dispatch(setNextTrack());
+  }, [dispatch]);
+
   useEffect(() => {
+    audioRef.current!.src = shuffleActiveState
+      ? shuffledPlaylistState[trackIndexState].track_file
+      : playlistState[trackIndexState].track_file;
+    console.log(audioRef.current!.src);
+    audioRef.current!.addEventListener("ended", handleEnded);
+
     audioRef.current!.play();
-  }, [currentTrack]);
+
+    return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      audioRef.current!.removeEventListener("ended", handleEnded);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleEnded, playlistState, trackIndexState]);
 
   useEffect(() => {
     audioRef.current!.volume = volume;
   }, [volume]);
 
   const togglePlay = () => {
-    if (isPlaying) {
+    if (playingState) {
       audioRef.current!.pause();
     } else {
       audioRef.current!.play();
     }
-    setIsPlaying((prevState) => !prevState);
+    dispatch(togglePlaying());
   };
 
   const toggleRepeat = () => {
     setIsRepeatActive((prevState) => !prevState);
   };
 
-  const handleNotImplementedButtons = () => {
-    alert("Еще не реализовано");
+  const toggleShuffleButton = () => {
+    dispatch(toggleShuffle());
+    dispatch(setPlaylistState({ tracks: playlistState }));
+    dispatch(setNextTrack());
+  };
+
+  const handleButtonNextClick = () => {
+    dispatch(setNextTrack());
+  };
+
+  const handleButtonPrevClick = () => {
+    dispatch(setPrevTrack());
   };
 
   return (
@@ -49,7 +95,7 @@ function Player() {
       <div className={styles.content}>
         <audio
           ref={audioRef}
-          src={currentTrack?.track_file}
+          src={trackState?.track_file}
           loop={isRepeatActive ? true : false}
           onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
         />
@@ -71,24 +117,24 @@ function Player() {
                 wrapperClass={styles.buttonPrev}
                 iconClass={styles.buttonPrevSvg}
                 name="icon-prev"
-                onClick={handleNotImplementedButtons}
+                onClick={handleButtonPrevClick}
               />
-              {!isPlaying && (
+              {!playingState && (
                 <Icon
                   wrapperClass={styles.buttonPlay}
                   iconClass={styles.buttonPlaySvg}
                   name="icon-play"
                   onClick={() => {
-                    setIsPlaying(true);
+                    dispatch(setPlayingState(true));
                     audioRef.current!.play();
                   }}
                 />
               )}
-              {isPlaying && (
+              {playingState && (
                 <div
                   className={styles.buttonPause}
                   onClick={() => {
-                    setIsPlaying(false);
+                    dispatch(setPlayingState(false));
                     audioRef.current!.pause();
                   }}
                 >
@@ -105,7 +151,7 @@ function Player() {
                 wrapperClass={styles.buttonNext}
                 iconClass={styles.buttonNextSvg}
                 name="icon-next"
-                onClick={handleNotImplementedButtons}
+                onClick={handleButtonNextClick}
               />
               <Icon
                 wrapperClass={styles.buttonRepeat}
@@ -119,9 +165,13 @@ function Player() {
               />
               <Icon
                 wrapperClass={styles.buttonShuffle}
-                iconClass={styles.buttonShuffleSvg}
+                iconClass={
+                  shuffleActiveState
+                    ? styles.buttonShuffleSvgActive
+                    : styles.buttonShuffleSvg
+                }
                 name="icon-shuffle"
-                onClick={handleNotImplementedButtons}
+                onClick={toggleShuffleButton}
               />
             </div>
 
@@ -138,12 +188,12 @@ function Player() {
                     href="#"
                     onClick={togglePlay}
                   >
-                    {currentTrack?.name}
+                    {trackState?.name}
                   </a>
                 </div>
                 <div className={styles.trackPlayAuthor}>
                   <a className={styles.trackPlayAuthorLink} href="#">
-                    {currentTrack?.author}
+                    {trackState?.author}
                   </a>
                 </div>
               </div>

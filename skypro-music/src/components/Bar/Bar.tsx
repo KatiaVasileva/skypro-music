@@ -1,12 +1,12 @@
 "use client"
 
-import { useTrackContext } from "@/hooks/useTrackContext";
 import Player from "../Player/Player";
+import { useAppSelector } from "@/store/store";
 
 function Bar() {
-  const { currentTrack } = useTrackContext();
+  const trackState = useAppSelector((state) => state.track.trackState);
 
-  return <>{currentTrack && <Player />}</>;
+  return <>{trackState && <Player />}</>;
 }
 
 export default Bar;
