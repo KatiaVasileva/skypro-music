@@ -44,7 +44,6 @@ export default function SignUp() {
   };
 
   return (
-    <body suppressHydrationWarning={true}>
       <div className={styles.wrapper}>
         <div className={styles.container}>
           <div className={styles.block}>
@@ -108,6 +107,5 @@ export default function SignUp() {
           </div>
         </div>
       </div>
-    </body>
   );
 }

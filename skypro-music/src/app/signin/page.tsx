@@ -4,7 +4,7 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import { useAppDispatch } from "@/store/store";
 import { ChangeEventHandler, MouseEventHandler, useState } from "react";
-import { signin } from "@/store/features/userSlice";
+import { setUser, signin } from "@/store/features/userSlice";
 import { useRouter } from "next/navigation";
 
 export default function SignIn() {
@@ -23,10 +23,12 @@ export default function SignIn() {
   const handleSignIn: MouseEventHandler<HTMLButtonElement> = async (event) => {
     event.preventDefault();
     try {
-      await dispatch(
+      const user = await dispatch(
         signin({ email: formData.email, password: formData.password })
       ).unwrap();
+      dispatch(setUser(user));
       router.push("/");
+      setFormData({email: "", password: ""});
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error(error.message);
@@ -35,7 +37,6 @@ export default function SignIn() {
   };
 
   return (
-    <body suppressHydrationWarning={true}>
       <div className={styles.wrapper}>
         <div className={styles.container}>
           <div className={styles.block}>
@@ -59,6 +60,7 @@ export default function SignIn() {
                 value={formData.email}
                 onChange={handleOnChange}
                 placeholder="Почта"
+                autoComplete="email"
               />
               <input
                 className={styles.input}
@@ -67,6 +69,7 @@ export default function SignIn() {
                 value={formData.password}
                 onChange={handleOnChange}
                 placeholder="Пароль"
+                autoComplete="current-password"
               />
               <button className={styles.enterButton} onClick={handleSignIn}>
                 <a className={styles.enterButtonLink} href="">
@@ -82,6 +85,5 @@ export default function SignIn() {
           </div>
         </div>
       </div>
-    </body>
   );
 }

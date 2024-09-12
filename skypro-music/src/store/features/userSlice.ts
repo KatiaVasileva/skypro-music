@@ -1,13 +1,18 @@
 import { login, LoginProps, register, RegisterProps } from "@/api/userApi";
 import { User } from "@/types/User.types";
+import { getUserFromLocalStorage, removeUserFromLocalStorage, saveUserToLocalStorage } from "@/utils/helpers";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type UserStateType = {
-  userState: User | null;
+  userState: User | null,
+  isAuthState: boolean;
 };
 
+const userFromLocalStorage: User | null = getUserFromLocalStorage();
+
 const initialState: UserStateType = {
-  userState: null,
+  userState: userFromLocalStorage,
+  isAuthState: false,
 };
 
 export const signup = createAsyncThunk(
@@ -28,8 +33,14 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    setUser: (state, action: PayloadAction<User>) => {
+      state.userState = action.payload;
+      saveUserToLocalStorage(state.userState);
+    },
     logout: (state) => {
       state.userState = null;
+      state.isAuthState = false;
+      removeUserFromLocalStorage();
     },
   },
   extraReducers: (builder) => {
@@ -49,5 +60,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { logout } = userSlice.actions;
+export const { setUser, logout } = userSlice.actions;
 export const userReducer = userSlice.reducer;
