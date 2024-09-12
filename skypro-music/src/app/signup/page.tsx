@@ -93,9 +93,11 @@ export default function SignUp() {
               placeholder="Повторите пароль"
               autoComplete="current-password"
             />
-            <div className={styles.errorBox}>
-              {errorMessage && <p className={styles.error}>{errorMessage}</p>}
-            </div>
+            {errorMessage && (
+              <div className={styles.errorBox}>
+                <p className={styles.error}>{errorMessage}</p>
+              </div>
+            )}
             <button className={styles.signupButton} onClick={handleSignUp}>
               <a className={styles.signupButtonLink} href="">
                 Зарегистрироваться

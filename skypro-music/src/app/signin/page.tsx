@@ -74,9 +74,12 @@ export default function SignIn() {
               placeholder="Пароль"
               autoComplete="current-password"
             />
-            <div className={styles.errorBox}>
-              {errorMessage && <p className={styles.error}>{errorMessage}</p>}
-            </div>
+            {errorMessage && (
+              <div className={styles.errorBox}>
+                <p className={styles.error}>{errorMessage}</p>
+              </div>
+            )}
+
             <button className={styles.enterButton} onClick={handleSignIn}>
               <a className={styles.enterButtonLink}>Войти</a>
             </button>
