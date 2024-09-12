@@ -1,7 +1,48 @@
+"use client";
+
 import Image from "next/image";
 import styles from "./page.module.css";
+import { useAppDispatch } from "@/store/store";
+import {
+  ChangeEventHandler,
+  MouseEventHandler,
+  useState,
+} from "react";
+import { signup } from "@/store/features/userSlice";
+import { useRouter } from "next/navigation";
 
 export default function SignUp() {
+  const dispatch = useAppDispatch();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    username: "",
+  });
+  const router = useRouter();
+
+  const handleOnChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSignUp: MouseEventHandler<HTMLButtonElement> = async (event) => {
+    event.preventDefault();
+    try {
+      await dispatch(
+        signup({
+          email: formData.email,
+          password: formData.password,
+          username: formData.username,
+        })
+      ).unwrap();
+      router.push("/signin");
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
+    }
+  };
+
   return (
     <body suppressHydrationWarning={true}>
       <div className={styles.wrapper}>
@@ -23,22 +64,42 @@ export default function SignUp() {
               <input
                 className={styles.inputFirstChild}
                 type="text"
-                name="login"
+                name="username"
+                value={formData.username}
+                placeholder="Имя пользователя"
+                onChange={handleOnChange}
+                autoComplete="username"
+              />
+              <input
+                className={styles.input}
+                type="text"
+                name="email"
+                value={formData.email}
                 placeholder="Почта"
+                onChange={handleOnChange}
+                autoComplete="email"
               />
               <input
                 className={styles.input}
                 type="password"
                 name="password"
+                value={formData.password}
+                onChange={handleOnChange}
                 placeholder="Пароль"
+                autoComplete="current-password"
               />
               <input
                 className={styles.input}
                 type="password"
                 name="password"
+                onChange={handleOnChange}
                 placeholder="Повторите пароль"
+                autoComplete="current-password"
               />
-              <button className={styles.signupButton}>
+              <button
+                className={styles.signupButton}
+                onClick={handleSignUp}
+              >
                 <a className={styles.signupButtonLink} href="">
                   Зарегистрироваться
                 </a>
