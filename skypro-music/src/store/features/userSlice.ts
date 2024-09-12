@@ -6,6 +6,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 type UserStateType = {
   userState: User | null,
   isAuthState: boolean;
+  errorMessage: string;
 };
 
 const userFromLocalStorage: User | null = getUserFromLocalStorage();
@@ -13,6 +14,7 @@ const userFromLocalStorage: User | null = getUserFromLocalStorage();
 const initialState: UserStateType = {
   userState: userFromLocalStorage,
   isAuthState: false,
+  errorMessage: "",
 };
 
 export const signup = createAsyncThunk(
@@ -49,13 +51,15 @@ const userSlice = createSlice({
         state.userState = action.payload;
       })
       .addCase(signup.rejected, (state, action) => {
-        console.error("Error:", action.error.message);
+        state.errorMessage = "Ошибка: " + action.error.message;
       })
       .addCase(signin.fulfilled, (state, action) => {
         state.userState = action.payload;
       })
       .addCase(signin.rejected, (state, action) => {
-        console.error("Error:", action.error.message);
+        const error = action.error;
+        console.log(error);
+        state.errorMessage = "Ошибка: " + action.error.message;
       });
   },
 });

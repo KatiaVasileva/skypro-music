@@ -20,7 +20,7 @@ export async function register({email, password, username}: RegisterProps) {
         },
     });
 
-    if (response.status === 400) {
+    if (response.status === 412) {
         throw new Error("Необходимо ввести все данные")
     }
     if (response.status === 403) {
@@ -44,7 +44,7 @@ export async function login({email, password}: LoginProps) {
         }
     });
 
-    if (response.status === 400) {
+    if (response.status === 412) {
         throw new Error("Необходимо ввести все данные")
     }
     if (response.status === 401) {

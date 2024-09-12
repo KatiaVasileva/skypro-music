@@ -22,7 +22,7 @@
 
 .formLogin {
     width: 366px;
-    height: 439px;
+    height: 469px;
     background-color: #ffffff;
     border-radius: 12px;
     display: -webkit-box;
@@ -105,7 +105,7 @@
     height: 52px;
     background-color: #580ea2;
     border-radius: 6px;
-    margin-top: 60px;
+    margin-top: 30px;
     margin-bottom: 20px;
     border: none;
     display: -webkit-box;
@@ -196,4 +196,16 @@
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
+}
+
+.errorBox {
+    margin-top: 20px;
+    height: 30px;
+}
+
+.error {
+    color: red;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
 }

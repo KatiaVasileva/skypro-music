@@ -2,18 +2,21 @@
 
 import Image from "next/image";
 import styles from "./page.module.css";
-import { useAppDispatch } from "@/store/store";
+import { useAppDispatch, useAppSelector } from "@/store/store";
 import { ChangeEventHandler, MouseEventHandler, useState } from "react";
 import { setUser, signin } from "@/store/features/userSlice";
 import { useRouter } from "next/navigation";
+import { error } from "console";
 
 export default function SignIn() {
   const dispatch = useAppDispatch();
+  const router = useRouter();
+  const errorMessage = useAppSelector((state) => state.user.errorMessage);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const router = useRouter();
 
   const handleOnChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const { name, value } = event.target;
@@ -28,62 +31,63 @@ export default function SignIn() {
       ).unwrap();
       dispatch(setUser(user));
       router.push("/");
-      setFormData({email: "", password: ""});
+      setFormData({ email: "", password: "" });
     } catch (error: unknown) {
       if (error instanceof Error) {
-        console.error(error.message);
+        console.error(errorMessage);
       }
     }
   };
 
   return (
-      <div className={styles.wrapper}>
-        <div className={styles.container}>
-          <div className={styles.block}>
-            <form className={styles.formLogin} action="#">
-              <a href="../">
-                <div className={styles.logo}>
-                  <Image
-                    className={styles.logoImage}
-                    src="/img/logo_modal.png"
-                    alt="logo"
-                    priority
-                    width={113.33}
-                    height={43}
-                  />
-                </div>
+    <div className={styles.wrapper}>
+      <div className={styles.container}>
+        <div className={styles.block}>
+          <form className={styles.formLogin} action="#">
+            <a href="../">
+              <div className={styles.logo}>
+                <Image
+                  className={styles.logoImage}
+                  src="/img/logo_modal.png"
+                  alt="logo"
+                  priority
+                  width={113.33}
+                  height={43}
+                />
+              </div>
+            </a>
+            <input
+              className={styles.inputFirstChild}
+              type="text"
+              name="email"
+              value={formData.email}
+              onChange={handleOnChange}
+              placeholder="Почта"
+              autoComplete="email"
+            />
+            <input
+              className={styles.input}
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleOnChange}
+              placeholder="Пароль"
+              autoComplete="current-password"
+            />
+            <div className={styles.errorBox}>
+              {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+            </div>
+            <button className={styles.enterButton} onClick={handleSignIn}>
+              <a className={styles.enterButtonLink}>Войти</a>
+            </button>
+            <button className={styles.signupButton}>
+              <a className={styles.signupButtonLink} href="/signup">
+                Зарегистрироваться
               </a>
-              <input
-                className={styles.inputFirstChild}
-                type="text"
-                name="email"
-                value={formData.email}
-                onChange={handleOnChange}
-                placeholder="Почта"
-                autoComplete="email"
-              />
-              <input
-                className={styles.input}
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleOnChange}
-                placeholder="Пароль"
-                autoComplete="current-password"
-              />
-              <button className={styles.enterButton} onClick={handleSignIn}>
-                <a className={styles.enterButtonLink} href="">
-                  Войти
-                </a>
-              </button>
-              <button className={styles.signupButton}>
-                <a className={styles.signupButtonLink} href="/signup">
-                  Зарегистрироваться
-                </a>
-              </button>
-            </form>
-          </div>
+            </button>
+          </form>
         </div>
       </div>
+    </div>
   );
 }
