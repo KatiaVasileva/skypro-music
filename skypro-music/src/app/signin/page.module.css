@@ -22,7 +22,7 @@
 
 .formLogin {
     width: 366px;
-    height: 469px;
+    height: 479px;
     background-color: #ffffff;
     border-radius: 12px;
     display: -webkit-box;
@@ -200,6 +200,7 @@
 
 .errorBox {
     margin-top: 20px;
+    margin-bottom: 25px;
     height: 30px;
 }
 

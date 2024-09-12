@@ -21,7 +21,7 @@ export async function register({email, password, username}: RegisterProps) {
     });
 
     if (response.status === 412) {
-        throw new Error("Необходимо ввести все данные")
+        throw new Error("Данные в неверном формате");
     }
     if (response.status === 403) {
         throw new Error("Введенный Email уже занят");
@@ -45,7 +45,7 @@ export async function login({email, password}: LoginProps) {
     });
 
     if (response.status === 412) {
-        throw new Error("Необходимо ввести все данные")
+        throw new Error("Данные в неверном формате")
     }
     if (response.status === 401) {
         throw new Error("Пользователь с таким email или паролем не найден");
