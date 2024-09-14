@@ -45,12 +45,12 @@ export const token = createAsyncThunk(
   }
 );
 
-export const refresh = createAsyncThunk(
-  "user/refresh",
-  async (refresh: string) => {
-    return await refreshToken(refresh);
-  }
-)
+// export const refresh = createAsyncThunk(
+//   "user/refresh",
+//   async (refresh: string) => {
+//     return await refreshToken(refresh);
+//   }
+// )
 
 const userSlice = createSlice({
   name: "user",

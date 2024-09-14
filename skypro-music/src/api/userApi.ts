@@ -66,14 +66,6 @@ export type GetTokenProps = {
   password: string;
 };
 
-// export type FetchWithAuthProps = {
-//   url: string;
-//   options: {
-//     headers: HeadersInit;
-//   };
-//   refresh: string;
-// };
-
 export async function fetchWithAuth(
   url: string,
   options: {

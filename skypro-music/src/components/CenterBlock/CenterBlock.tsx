@@ -15,7 +15,7 @@ import {
   toggleIsLiked,
 } from "@/store/features/trackSlice";
 import { formatTime } from "@/utils/helpers";
-import { addFavorite } from "@/api/tracksApi";
+import { addFavorite, removeFavorite } from "@/api/tracksApi";
 
 const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
   const playlistState = useAppSelector((state) => state.track.playlistState);
@@ -55,13 +55,22 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
 
   const handleLikeButton: MouseEventHandler<HTMLElement> = async (event) => {
     event.preventDefault();
+    if (!isLikedState) {
+      const data = await addFavorite({
+        id: trackState?._id,
+        access: tokens!.access,
+        refresh: tokens!.refresh,
+      });
+      console.log(data);
+    } else {
+      const data = await removeFavorite({
+        id: trackState?._id,
+        access: tokens!.access,
+        refresh: tokens!.refresh,
+      });
+      console.log(data);
+    }
     dispatch(toggleIsLiked());
-    const data = await addFavorite({
-      id: trackState?._id,
-      access: tokens!.access,
-      refresh: tokens!.refresh,
-    });
-    console.log(data);
   };
 
   return (
