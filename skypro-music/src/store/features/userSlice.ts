@@ -1,12 +1,18 @@
-import { login, LoginProps, register, RegisterProps } from "@/api/userApi";
+import { getToken, GetTokenProps, login, LoginProps, refreshToken, register, RegisterProps } from "@/api/userApi";
+import { Tokens } from "@/types/Tokens.types";
 import { User } from "@/types/User.types";
-import { getUserFromLocalStorage, removeUserFromLocalStorage, saveUserToLocalStorage } from "@/utils/helpers";
+import {
+  getUserFromLocalStorage,
+  removeUserFromLocalStorage,
+  saveUserToLocalStorage,
+} from "@/utils/helpers";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type UserStateType = {
-  userState: User | null,
+  userState: User | null;
   isAuthState: boolean;
   errorMessage: string;
+  tokens: Tokens | null;
 };
 
 const userFromLocalStorage: User | null = getUserFromLocalStorage();
@@ -15,6 +21,7 @@ const initialState: UserStateType = {
   userState: userFromLocalStorage,
   isAuthState: false,
   errorMessage: "",
+  tokens: null,
 };
 
 export const signup = createAsyncThunk(
@@ -31,6 +38,20 @@ export const signin = createAsyncThunk(
   }
 );
 
+export const token = createAsyncThunk(
+  "user/token",
+  async ({email, password} : GetTokenProps) => {
+    return await getToken({email, password});
+  }
+);
+
+export const refresh = createAsyncThunk(
+  "user/refresh",
+  async (refresh: string) => {
+    return await refreshToken(refresh);
+  }
+)
+
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -38,6 +59,9 @@ const userSlice = createSlice({
     setUser: (state, action: PayloadAction<User>) => {
       state.userState = action.payload;
       saveUserToLocalStorage(state.userState);
+    },
+    setTokens: (state, action: PayloadAction<Tokens>) => {
+      state.tokens = action.payload;
     },
     logout: (state) => {
       state.userState = null;
@@ -64,5 +88,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, logout } = userSlice.actions;
+export const { setUser, setTokens, logout } = userSlice.actions;
 export const userReducer = userSlice.reducer;

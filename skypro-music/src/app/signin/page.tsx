@@ -4,9 +4,8 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { ChangeEventHandler, MouseEventHandler, useState } from "react";
-import { setUser, signin } from "@/store/features/userSlice";
+import { setTokens, setUser, signin, token } from "@/store/features/userSlice";
 import { useRouter } from "next/navigation";
-import { error } from "console";
 
 export default function SignIn() {
   const dispatch = useAppDispatch();
@@ -37,6 +36,10 @@ export default function SignIn() {
         console.error(errorMessage);
       }
     }
+    const tokens = await dispatch(
+      token({ email: formData.email, password: formData.password })
+    ).unwrap();
+    dispatch(setTokens(tokens));
   };
 
   return (

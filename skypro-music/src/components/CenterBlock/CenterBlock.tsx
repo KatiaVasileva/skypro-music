@@ -2,7 +2,7 @@
 
 import Icon from "../Icon/Icon";
 import styles from "./CenterBlock.module.css";
-import { useEffect, useState } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import { Track } from "@/types/Track.types";
 import TrackTitle from "../TrackTitle/TrackTitle";
 import Filter from "../Filter/Filter";
@@ -12,8 +12,10 @@ import {
   setTrackState,
   setPlayingState,
   setPlaylistState,
+  toggleIsLiked,
 } from "@/store/features/trackSlice";
 import { formatTime } from "@/utils/helpers";
+import { addFavorite } from "@/api/tracksApi";
 
 const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
   const playlistState = useAppSelector((state) => state.track.playlistState);
@@ -28,6 +30,9 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
     (state) => state.track.shuffledPlaylistState
   );
   const trackState = useAppSelector((state) => state.track.trackState);
+  const isLikedState = useAppSelector((state) => state.track.isLiked);
+  const userState = useAppSelector((state) => state.user.userState);
+  const tokens = useAppSelector((state) => state.user.tokens);
 
   const dispatch = useAppDispatch();
 
@@ -47,6 +52,17 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
     .reduce((acc: Array<string>, genre: string) => {
       return acc.includes(genre) ? acc : [...acc, genre];
     }, []);
+
+  const handleLikeButton: MouseEventHandler<HTMLElement> = async (event) => {
+    event.preventDefault();
+    dispatch(toggleIsLiked());
+    const data = await addFavorite({
+      id: trackState?._id,
+      access: tokens!.access,
+      refresh: tokens!.refresh,
+    });
+    console.log(data);
+  };
 
   return (
     <div className={styles.main}>
@@ -85,15 +101,16 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
               <div className={styles.playlistTrack}>
                 <div className={styles.trackTitle}>
                   <div className={styles.imageContainer}>
-                    {!shuffleActiveState && playlistState.indexOf(track) === trackIndexState && (
-                      <div
-                        className={
-                          playingState
-                            ? styles.playingDotAnimated
-                            : styles.playingDot
-                        }
-                      ></div>
-                    )}
+                    {!shuffleActiveState &&
+                      playlistState.indexOf(track) === trackIndexState && (
+                        <div
+                          className={
+                            playingState
+                              ? styles.playingDotAnimated
+                              : styles.playingDot
+                          }
+                        ></div>
+                      )}
                     {shuffleActiveState &&
                       shuffledPlaylistState.indexOf(track) ===
                         trackIndexState && (
@@ -129,7 +146,40 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
                     {track.album}
                   </a>
                 </div>
-                <Icon iconClass={styles.trackTimeSvg} name="icon-like" />
+
+                {/* <Icon
+                  iconClass={
+                    isLiked ? styles.trackLikeSvgActive : styles.trackLikeSvg
+                  }
+                  name="icon-like"
+                  onClick={handleLikeButton}
+                /> */}
+
+                {!shuffleActiveState && (
+                  <Icon
+                    iconClass={
+                      isLikedState &&
+                      playlistState.indexOf(track) === trackIndexState
+                        ? styles.trackLikeSvgActive
+                        : styles.trackLikeSvg
+                    }
+                    name="icon-like"
+                    onClick={handleLikeButton}
+                  />
+                )}
+                {shuffleActiveState &&
+                  shuffledPlaylistState.indexOf(track) === trackIndexState && (
+                    <Icon
+                      iconClass={
+                        isLikedState
+                          ? styles.trackLikeSvgActive
+                          : styles.trackLikeSvg
+                      }
+                      name="icon-like"
+                      onClick={handleLikeButton}
+                    />
+                  )}
+
                 <div>
                   <span className={styles.trackTimeText}>
                     {formatTime(track.duration_in_seconds)}

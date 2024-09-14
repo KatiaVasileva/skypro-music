@@ -3,8 +3,10 @@
 import Image from "next/image";
 import styles from "./Nav.module.css";
 import React, { useState } from "react";
+import { useAppSelector } from "@/store/store";
 
 function Nav() {
+  const user = useAppSelector((state) => state.user.userState);
   const [isBurgerClicked, setIsBurgerClicked] = useState(false);
 
   const handleBurgerClick: React.MouseEventHandler<HTMLDivElement> = () => {
@@ -42,6 +44,7 @@ function Nav() {
             </li>
             <li className={styles.menuItem}>
               <a href="/signin" className={styles.menuLink}>
+                {/* {user ? "Выйти" : "Войти"} */}
                 Войти
               </a>
             </li>
