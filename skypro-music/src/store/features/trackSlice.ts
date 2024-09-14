@@ -7,6 +7,7 @@ type TrackStateType = {
   playingState: boolean;
   playlistState: Array<Track>;
   shuffledPlaylistState: Array<Track>;
+  myPlaylistState: Array<Track>;
   shuffleActiveState: boolean;
   isLiked: boolean;
   isMyPlaylistClicked: boolean;
@@ -18,6 +19,7 @@ const initialState: TrackStateType = {
   playingState: false,
   playlistState: [],
   shuffledPlaylistState: [],
+  myPlaylistState: [],
   shuffleActiveState: false,
   isLiked: false,
   isMyPlaylistClicked: false,
@@ -41,6 +43,9 @@ const trackSlice = createSlice({
       } else {
         state.playlistState = action.payload.tracks;
       }
+    },
+    setMyPlaylistState: (state, action: PayloadAction<Array<Track>>) => {
+      state.myPlaylistState = action.payload;
     },
     setTrackIndexState: (state, action: PayloadAction<number>) => {
       state.trackIndexState = action.payload;
@@ -94,6 +99,7 @@ export const {
   setPlayingState,
   togglePlaying,
   setPlaylistState,
+  setMyPlaylistState,
   setNextTrack,
   setPrevTrack,
   setShuffleActiveState,

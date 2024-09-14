@@ -2,8 +2,11 @@ import { getToken, GetTokenProps, login, LoginProps, refreshToken, register, Reg
 import { Tokens } from "@/types/Tokens.types";
 import { User } from "@/types/User.types";
 import {
+  getAccessTokenFromLocalStorage,
   getUserFromLocalStorage,
+  removeAccessTokenFromLocalStorage,
   removeUserFromLocalStorage,
+  saveAccessTokenToLocalStorage,
   saveUserToLocalStorage,
 } from "@/utils/helpers";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -41,16 +44,11 @@ export const signin = createAsyncThunk(
 export const token = createAsyncThunk(
   "user/token",
   async ({email, password} : GetTokenProps) => {
-    return await getToken({email, password});
+    const newToken = await getToken({email, password});
+    saveAccessTokenToLocalStorage(newToken.access);
+    return newToken;
   }
 );
-
-// export const refresh = createAsyncThunk(
-//   "user/refresh",
-//   async (refresh: string) => {
-//     return await refreshToken(refresh);
-//   }
-// )
 
 const userSlice = createSlice({
   name: "user",
@@ -60,13 +58,17 @@ const userSlice = createSlice({
       state.userState = action.payload;
       saveUserToLocalStorage(state.userState);
     },
-    setTokens: (state, action: PayloadAction<Tokens>) => {
-      state.tokens = action.payload;
+    setTokens: (state, action: PayloadAction<{access: string, referesh: string}>) => {
+      if (state.tokens) {
+        state.tokens.access = action.payload.access;
+        state.tokens.refresh = action.payload.referesh;
+      } 
     },
     logout: (state) => {
       state.userState = null;
       state.isAuthState = false;
       removeUserFromLocalStorage();
+      removeAccessTokenFromLocalStorage();
     },
   },
   extraReducers: (builder) => {

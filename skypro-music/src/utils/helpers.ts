@@ -30,3 +30,23 @@ export function removeUserFromLocalStorage() {
   window.localStorage.removeItem("user");
 }
 
+export function saveAccessTokenToLocalStorage(access: string) {
+  window.localStorage.setItem("access", JSON.stringify(access));
+}
+
+export function getAccessTokenFromLocalStorage() {
+  try {
+    const access = window.localStorage.getItem("access");
+    if (access) {
+      return JSON.parse(access);
+    }
+  } catch (error) {
+      if (error instanceof Error) {
+        console.error(error);      }
+  }
+}
+
+export function removeAccessTokenFromLocalStorage() {
+  window.localStorage.removeItem("access");
+}
+

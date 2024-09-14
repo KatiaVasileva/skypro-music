@@ -14,11 +14,12 @@ import {
   setPlaylistState,
   toggleIsLiked,
 } from "@/store/features/trackSlice";
-import { formatTime } from "@/utils/helpers";
+import { formatTime, getAccessTokenFromLocalStorage } from "@/utils/helpers";
 import { addFavorite, removeFavorite } from "@/api/tracksApi";
 
 const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
   const playlistState = useAppSelector((state) => state.track.playlistState);
+  const myPlaylistState = useAppSelector((state) => state.track.myPlaylistState);
   const playingState = useAppSelector((state) => state.track.playingState);
   const trackIndexState = useAppSelector(
     (state) => state.track.trackIndexState
@@ -33,8 +34,12 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
   const isLikedState = useAppSelector((state) => state.track.isLiked);
   const userState = useAppSelector((state) => state.user.userState);
   const tokens = useAppSelector((state) => state.user.tokens);
+  const refreshToken = useAppSelector((state) => state.user.tokens?.refresh);
 
   const dispatch = useAppDispatch();
+
+  console.log(myPlaylistState);
+
 
   useEffect(() => {
     dispatch(setPlaylistState({ tracks: allTracks }));
@@ -55,18 +60,23 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
 
   const handleLikeButton: MouseEventHandler<HTMLElement> = async (event) => {
     event.preventDefault();
+    const access = getAccessTokenFromLocalStorage();
+    if (!access) {
+      alert("Необходимо зарегистрироваться");
+      return;
+    }
     if (!isLikedState) {
       const data = await addFavorite({
         id: trackState?._id,
-        access: tokens!.access,
-        refresh: tokens!.refresh,
+        access: access,
+        refresh: refreshToken ? refreshToken : "",
       });
       console.log(data);
     } else {
       const data = await removeFavorite({
         id: trackState?._id,
-        access: tokens!.access,
-        refresh: tokens!.refresh,
+        access: access,
+        refresh: refreshToken ? refreshToken : "",
       });
       console.log(data);
     }

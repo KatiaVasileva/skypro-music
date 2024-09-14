@@ -6,11 +6,11 @@ import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { setIsMyPlaylistClicked } from "@/store/features/trackSlice";
 import { getFavorite } from "@/api/tracksApi";
+import { getAccessTokenFromLocalStorage } from "@/utils/helpers";
 
 function Nav() {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user.userState);
-  const tokens = useAppSelector((state) => state.user.tokens);
+  const refreshToken = useAppSelector((state) => state.user.tokens?.refresh);
   const [isBurgerClicked, setIsBurgerClicked] = useState(false);
 
   const handleBurgerClick: React.MouseEventHandler<HTMLDivElement> = () => {
@@ -21,12 +21,16 @@ function Nav() {
     HTMLAnchorElement
   > = async (event) => {
     event.preventDefault();
+    const access = getAccessTokenFromLocalStorage();
+    if (!access) {
+      alert("Необходимо зарегистрироваться");
+      return;
+    }
     dispatch(setIsMyPlaylistClicked(true));
     const data = await getFavorite({
-      access: tokens!.access,
-      refresh: tokens!.refresh,
+      access: access,
+      refresh: refreshToken ? refreshToken : "",
     });
-    console.log(data);
   };
 
   return (
