@@ -2,7 +2,7 @@
 
 import Icon from "../Icon/Icon";
 import styles from "./CenterBlock.module.css";
-import { MouseEventHandler, useEffect, useState } from "react";
+import { MouseEventHandler, useEffect } from "react";
 import { Track } from "@/types/Track.types";
 import TrackTitle from "../TrackTitle/TrackTitle";
 import Filter from "../Filter/Filter";
@@ -32,9 +32,8 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
   );
   const trackState = useAppSelector((state) => state.track.trackState);
   const isLikedState = useAppSelector((state) => state.track.isLiked);
-  const userState = useAppSelector((state) => state.user.userState);
-  const tokens = useAppSelector((state) => state.user.tokens);
   const refreshToken = useAppSelector((state) => state.user.tokens?.refresh);
+  const isMyPlaylistClicked = useAppSelector((state) => state.track.isMyPlaylistClicked);
 
   const dispatch = useAppDispatch();
 
@@ -95,7 +94,7 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
         />
       </div>
 
-      <h2 className={styles.title}>Треки</h2>
+      <h2 className={styles.title}>{isMyPlaylistClicked ? "Мои треки" : "Треки"}</h2>
       <Filter performers={performers} genres={genres} />
 
       <div className={styles.content}>

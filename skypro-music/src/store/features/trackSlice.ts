@@ -1,5 +1,6 @@
+import { getFavorite } from "@/api/tracksApi";
 import { Track } from "@/types/Track.types";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type TrackStateType = {
   trackState?: Track;
@@ -11,6 +12,7 @@ type TrackStateType = {
   shuffleActiveState: boolean;
   isLiked: boolean;
   isMyPlaylistClicked: boolean;
+  errorMessage: string;
 };
 
 const initialState: TrackStateType = {
@@ -23,7 +25,15 @@ const initialState: TrackStateType = {
   shuffleActiveState: false,
   isLiked: false,
   isMyPlaylistClicked: false,
+  errorMessage: "",
 };
+
+export const getFavoriteTracks = createAsyncThunk(
+  "track/favorite",
+  async ({ access, refresh }: {access: string, refresh: string}) => {
+    return await getFavorite({ access, refresh });
+  }
+);
 
 const trackSlice = createSlice({
   name: "track",
@@ -90,6 +100,15 @@ const trackSlice = createSlice({
     setIsMyPlaylistClicked: (state, action: PayloadAction<boolean>) => {
       state.isMyPlaylistClicked = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getFavoriteTracks.fulfilled, (state, action) => {
+        state.myPlaylistState = action.payload;
+      })
+      .addCase(getFavoriteTracks.rejected, (state, action) => {
+        state.errorMessage = "Ошибка: " + action.error.message;
+      });
   },
 });
 

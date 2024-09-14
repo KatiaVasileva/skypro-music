@@ -5,16 +5,25 @@ import styles from "./Nav.module.css";
 import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { setIsMyPlaylistClicked } from "@/store/features/trackSlice";
-import { getFavorite } from "@/api/tracksApi";
 import { getAccessTokenFromLocalStorage } from "@/utils/helpers";
+import { useRouter } from "next/navigation";
 
 function Nav() {
   const dispatch = useAppDispatch();
   const refreshToken = useAppSelector((state) => state.user.tokens?.refresh);
   const [isBurgerClicked, setIsBurgerClicked] = useState(false);
+  const router = useRouter();
 
   const handleBurgerClick: React.MouseEventHandler<HTMLDivElement> = () => {
     setIsBurgerClicked((prevState) => !prevState);
+  };
+
+  const handleMainClick: React.MouseEventHandler<HTMLAnchorElement> = (
+    event
+  ) => {
+    event.preventDefault();
+    dispatch(setIsMyPlaylistClicked(false));
+    router.push("/");
   };
 
   const handleMyPlaylistClick: React.MouseEventHandler<
@@ -27,10 +36,7 @@ function Nav() {
       return;
     }
     dispatch(setIsMyPlaylistClicked(true));
-    const data = await getFavorite({
-      access: access,
-      refresh: refreshToken ? refreshToken : "",
-    });
+    router.push("/favorite");
   };
 
   return (
@@ -53,7 +59,7 @@ function Nav() {
         <div className={styles.menu}>
           <ul className={styles.menuList}>
             <li className={styles.menuItem}>
-              <a href="#" className={styles.menuLink}>
+              <a href="#" className={styles.menuLink} onClick={handleMainClick}>
                 Главное
               </a>
             </li>
