@@ -23,7 +23,11 @@ type FavoriteRequestProps = {
 };
 
 // Добавить трек в избранное по id
-export async function addFavorite({ id, access, refresh }: FavoriteRequestProps) {
+export async function addFavorite({
+  id,
+  access,
+  refresh,
+}: FavoriteRequestProps) {
   const response = await fetchWithAuth(
     baseHost + "/catalog/track/" + id + "/favorite/",
     {
@@ -47,7 +51,11 @@ export async function addFavorite({ id, access, refresh }: FavoriteRequestProps)
 }
 
 // Удалить трек из избранного по id
-export async function removeFavorite({ id, access, refresh }: FavoriteRequestProps) {
+export async function removeFavorite({
+  id,
+  access,
+  refresh,
+}: FavoriteRequestProps) {
   const response = await fetchWithAuth(
     baseHost + "/catalog/track/" + id + "/favorite/",
     {
@@ -68,4 +76,34 @@ export async function removeFavorite({ id, access, refresh }: FavoriteRequestPro
 
   const data = await response.json();
   return data;
+}
+
+// Посмотреть избранное
+export async function getFavorite({
+  access,
+  refresh,
+}: {
+  access: string;
+  refresh: string;
+}) {
+  const response = await fetchWithAuth(
+    baseHost + "/catalog/track/favorite/all/",
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${access}`,
+      },
+    },
+    refresh
+  );
+
+  if (response.status === 401) {
+    throw new Error("Ошибка авторизации");
+  }
+  if (response.status === 500) {
+    throw new Error("Ошибка при получении данных");
+  }
+
+  const data = await response.json();
+  return data.data;
 }

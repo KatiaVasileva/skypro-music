@@ -3,14 +3,30 @@
 import Image from "next/image";
 import styles from "./Nav.module.css";
 import React, { useState } from "react";
-import { useAppSelector } from "@/store/store";
+import { useAppDispatch, useAppSelector } from "@/store/store";
+import { setIsMyPlaylistClicked } from "@/store/features/trackSlice";
+import { getFavorite } from "@/api/tracksApi";
 
 function Nav() {
+  const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.userState);
+  const tokens = useAppSelector((state) => state.user.tokens);
   const [isBurgerClicked, setIsBurgerClicked] = useState(false);
 
   const handleBurgerClick: React.MouseEventHandler<HTMLDivElement> = () => {
     setIsBurgerClicked((prevState) => !prevState);
+  };
+
+  const handleMyPlaylistClick: React.MouseEventHandler<
+    HTMLAnchorElement
+  > = async (event) => {
+    event.preventDefault();
+    dispatch(setIsMyPlaylistClicked(true));
+    const data = await getFavorite({
+      access: tokens!.access,
+      refresh: tokens!.refresh,
+    });
+    console.log(data);
   };
 
   return (
@@ -38,7 +54,11 @@ function Nav() {
               </a>
             </li>
             <li className={styles.menuItem}>
-              <a href="#" className={styles.menuLink}>
+              <a
+                href=""
+                className={styles.menuLink}
+                onClick={handleMyPlaylistClick}
+              >
                 Мой плейлист
               </a>
             </li>
