@@ -86,7 +86,7 @@ export async function fetchWithAuth(
     response = await fetch(url, options);
   }
 
-  if (!response.ok) {
+  if (response.status === 500) {
     throw new Error(response.statusText);
   }
 

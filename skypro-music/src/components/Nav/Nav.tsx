@@ -4,7 +4,7 @@ import Image from "next/image";
 import styles from "./Nav.module.css";
 import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/store";
-import { setIsMyPlaylistClicked } from "@/store/features/trackSlice";
+import { getTracks, setIsMyPlaylistClicked, setPlaylistState } from "@/store/features/trackSlice";
 import { getAccessTokenFromLocalStorage } from "@/utils/helpers";
 import { useRouter } from "next/navigation";
 
@@ -12,7 +12,8 @@ function Nav() {
   const dispatch = useAppDispatch();
   const refreshToken = useAppSelector((state) => state.user.tokens?.refresh);
   const [isBurgerClicked, setIsBurgerClicked] = useState(false);
-  const router = useRouter();
+  const myPlaylistState = useAppSelector((state) => state.track.myPlaylistState);
+  const playlistState = useAppSelector((state) => state.track.playlistState);
 
   const handleBurgerClick: React.MouseEventHandler<HTMLDivElement> = () => {
     setIsBurgerClicked((prevState) => !prevState);
@@ -23,7 +24,8 @@ function Nav() {
   ) => {
     event.preventDefault();
     dispatch(setIsMyPlaylistClicked(false));
-    router.push("/");
+    dispatch(getTracks()).unwrap();
+    dispatch(setPlaylistState({tracks: playlistState}));
   };
 
   const handleMyPlaylistClick: React.MouseEventHandler<
@@ -36,7 +38,7 @@ function Nav() {
       return;
     }
     dispatch(setIsMyPlaylistClicked(true));
-    router.push("/favorite");
+    dispatch(setPlaylistState({tracks: myPlaylistState}));
   };
 
   return (

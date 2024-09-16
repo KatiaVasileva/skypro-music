@@ -1,4 +1,10 @@
-import { getFavorite } from "@/api/tracksApi";
+import {
+  addFavorite,
+  FavoriteRequestProps,
+  getAllTracks,
+  getFavorite,
+  removeFavorite,
+} from "@/api/tracksApi";
 import { Track } from "@/types/Track.types";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -28,10 +34,32 @@ const initialState: TrackStateType = {
   errorMessage: "",
 };
 
+export const getTracks = createAsyncThunk("track/allTracks", async () => {
+  const allTracks = await getAllTracks();
+  return allTracks;
+});
+
 export const getFavoriteTracks = createAsyncThunk(
   "track/favorite",
-  async ({ access, refresh }: {access: string, refresh: string}) => {
-    return await getFavorite({ access, refresh });
+  async ({ access, refresh }: { access: string; refresh: string }) => {
+    const myTracks = await getFavorite({ access, refresh });
+    return myTracks;
+  }
+);
+
+export const addTrackInFavorite = createAsyncThunk(
+  "track/addFavorite",
+  async ({ id, access, refresh }: FavoriteRequestProps) => {
+    const likedTrack = await addFavorite({ id, access, refresh });
+    return likedTrack;
+  }
+);
+
+export const removeTrackFromFavorite = createAsyncThunk(
+  "track/removeFavorite",
+  async ({ id, access, refresh }: FavoriteRequestProps) => {
+    const dislikedTrack = await removeFavorite({ id, access, refresh });
+    return dislikedTrack;
   }
 );
 
@@ -95,14 +123,28 @@ const trackSlice = createSlice({
     toggleIsLiked: (state) => {
       if (state.trackState) {
         state.isLiked = !state.isLiked;
-      }  
+      }
     },
     setIsMyPlaylistClicked: (state, action: PayloadAction<boolean>) => {
       state.isMyPlaylistClicked = action.payload;
     },
+    setLike: (state, action: PayloadAction<Track>) => {
+      state.myPlaylistState.push(action.payload);
+    },
+    setDislike: (state, action: PayloadAction<Track>) => {
+      state.myPlaylistState = state.myPlaylistState.filter(
+        (track) => track._id !== action.payload._id
+      );
+    },
   },
   extraReducers: (builder) => {
     builder
+      .addCase(getTracks.fulfilled, (state, action) => {
+        state.playlistState = action.payload;
+      })
+      .addCase(getTracks.rejected, (state, action) => {
+        state.errorMessage = "Ошибка: " + action.error.message;
+      })
       .addCase(getFavoriteTracks.fulfilled, (state, action) => {
         state.myPlaylistState = action.payload;
       })

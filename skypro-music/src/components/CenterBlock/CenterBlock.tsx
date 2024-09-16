@@ -13,11 +13,14 @@ import {
   setPlayingState,
   setPlaylistState,
   toggleIsLiked,
+  setMyPlaylistState,
+  getFavoriteTracks,
+  getTracks,
 } from "@/store/features/trackSlice";
 import { formatTime, getAccessTokenFromLocalStorage } from "@/utils/helpers";
-import { addFavorite, removeFavorite } from "@/api/tracksApi";
+import { addFavorite, getAllTracks, removeFavorite } from "@/api/tracksApi";
 
-const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
+const CenterBlock = ({allTracks}: {allTracks: Array<Track>}) => {
   const playlistState = useAppSelector((state) => state.track.playlistState);
   const myPlaylistState = useAppSelector((state) => state.track.myPlaylistState);
   const playingState = useAppSelector((state) => state.track.playingState);
@@ -37,12 +40,14 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
 
   const dispatch = useAppDispatch();
 
+  const access = getAccessTokenFromLocalStorage();
+
+  let liked : boolean;
+  if (trackState) {
+    liked = myPlaylistState.includes(trackState);
+  }
+
   console.log(myPlaylistState);
-
-
-  useEffect(() => {
-    dispatch(setPlaylistState({ tracks: allTracks }));
-  }, [allTracks, dispatch]);
 
   const performers: Array<string> = playlistState
     .map((track: Track) => track.author)
@@ -100,7 +105,7 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
       <div className={styles.content}>
         <TrackTitle />
         <div className={styles.playlistContent}>
-          {playlistState.map((track: Track) => (
+          {allTracks.map((track: Track) => (
             <div
               className={styles.playlistItem}
               key={track._id}
@@ -165,15 +170,15 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
                   </a>
                 </div>
 
-                {/* <Icon
+                <Icon
                   iconClass={
-                    isLiked ? styles.trackLikeSvgActive : styles.trackLikeSvg
+                    liked ? styles.trackLikeSvgActive : styles.trackLikeSvg
                   }
                   name="icon-like"
                   onClick={handleLikeButton}
-                /> */}
+                />
 
-                {!shuffleActiveState && (
+                {/* {!shuffleActiveState && (
                   <Icon
                     iconClass={
                       isLikedState &&
@@ -196,7 +201,7 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
                       name="icon-like"
                       onClick={handleLikeButton}
                     />
-                  )}
+                  )} */}
 
                 <div>
                   <span className={styles.trackTimeText}>

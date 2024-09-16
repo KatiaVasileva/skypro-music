@@ -16,7 +16,7 @@ export async function getAllTracks(): Promise<Array<Track>> {
   return data.data;
 }
 
-type FavoriteRequestProps = {
+export type FavoriteRequestProps = {
   id: number | undefined;
   access: string;
   refresh: string;
