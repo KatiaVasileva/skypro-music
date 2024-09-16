@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 
 function Nav() {
   const dispatch = useAppDispatch();
-  const refreshToken = useAppSelector((state) => state.user.tokens?.refresh);
   const [isBurgerClicked, setIsBurgerClicked] = useState(false);
   const myPlaylistState = useAppSelector((state) => state.track.myPlaylistState);
   const playlistState = useAppSelector((state) => state.track.playlistState);

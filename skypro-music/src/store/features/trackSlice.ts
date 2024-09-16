@@ -49,16 +49,16 @@ export const getFavoriteTracks = createAsyncThunk(
 
 export const addTrackInFavorite = createAsyncThunk(
   "track/addFavorite",
-  async ({ id, access, refresh }: FavoriteRequestProps) => {
-    const likedTrack = await addFavorite({ id, access, refresh });
+  async ({ id, access }: FavoriteRequestProps) => {
+    const likedTrack = await addFavorite({ id, access });
     return likedTrack;
   }
 );
 
 export const removeTrackFromFavorite = createAsyncThunk(
   "track/removeFavorite",
-  async ({ id, access, refresh }: FavoriteRequestProps) => {
-    const dislikedTrack = await removeFavorite({ id, access, refresh });
+  async ({ id, access }: FavoriteRequestProps) => {
+    const dislikedTrack = await removeFavorite({ id, access });
     return dislikedTrack;
   }
 );
@@ -167,5 +167,7 @@ export const {
   toggleShuffle,
   toggleIsLiked,
   setIsMyPlaylistClicked,
+  setLike,
+  setDislike,
 } = trackSlice.actions;
 export const trackReducer = trackSlice.reducer;

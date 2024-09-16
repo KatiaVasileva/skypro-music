@@ -1,8 +1,7 @@
-import { getToken, GetTokenProps, login, LoginProps, refreshToken, register, RegisterProps } from "@/api/userApi";
+import { getToken, GetTokenProps, login, LoginProps, register, RegisterProps } from "@/api/userApi";
 import { Tokens } from "@/types/Tokens.types";
 import { User } from "@/types/User.types";
 import {
-  getAccessTokenFromLocalStorage,
   getUserFromLocalStorage,
   removeAccessTokenFromLocalStorage,
   removeUserFromLocalStorage,
@@ -58,10 +57,9 @@ const userSlice = createSlice({
       state.userState = action.payload;
       saveUserToLocalStorage(state.userState);
     },
-    setTokens: (state, action: PayloadAction<{access: string, referesh: string}>) => {
+    setTokens: (state, action: PayloadAction<Tokens>) => {
       if (state.tokens) {
-        state.tokens.access = action.payload.access;
-        state.tokens.refresh = action.payload.referesh;
+        state.tokens = action.payload;
       } 
     },
     logout: (state) => {
@@ -83,6 +81,14 @@ const userSlice = createSlice({
         state.userState = action.payload;
       })
       .addCase(signin.rejected, (state, action) => {
+        const error = action.error;
+        console.log(error);
+        state.errorMessage = "Ошибка: " + action.error.message;
+      })
+      .addCase(token.fulfilled, (state, action) => {
+        state.tokens = action.payload;
+      })
+      .addCase(token.rejected, (state, action) => {
         const error = action.error;
         console.log(error);
         state.errorMessage = "Ошибка: " + action.error.message;
