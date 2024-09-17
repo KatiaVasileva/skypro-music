@@ -15,7 +15,6 @@ import { logout } from "@/store/features/userSlice";
 function Nav() {
   const dispatch = useAppDispatch();
   const [isBurgerClicked, setIsBurgerClicked] = useState(false);
-  const [isEnterButtonPressed, setIsEnterButtonPressed] = useState(false);
   const myPlaylistState = useAppSelector(
     (state) => state.track.myPlaylistState
   );
