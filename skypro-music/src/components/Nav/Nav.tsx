@@ -4,13 +4,21 @@ import Image from "next/image";
 import styles from "./Nav.module.css";
 import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/store";
-import { getTracks, setIsMyPlaylistClicked, setPlaylistState } from "@/store/features/trackSlice";
+import {
+  getTracks,
+  setIsMyPlaylistClicked,
+  setPlaylistState,
+} from "@/store/features/trackSlice";
 import { getAccessTokenFromLocalStorage } from "@/utils/helpers";
+import { logout } from "@/store/features/userSlice";
 
 function Nav() {
   const dispatch = useAppDispatch();
   const [isBurgerClicked, setIsBurgerClicked] = useState(false);
-  const myPlaylistState = useAppSelector((state) => state.track.myPlaylistState);
+  const [isEnterButtonPressed, setIsEnterButtonPressed] = useState(false);
+  const myPlaylistState = useAppSelector(
+    (state) => state.track.myPlaylistState
+  );
   const playlistState = useAppSelector((state) => state.track.playlistState);
   const user = useAppSelector((state) => state.user.userState);
   const access = getAccessTokenFromLocalStorage();
@@ -25,7 +33,7 @@ function Nav() {
     event.preventDefault();
     dispatch(setIsMyPlaylistClicked(false));
     dispatch(getTracks()).unwrap();
-    dispatch(setPlaylistState({tracks: playlistState}));
+    dispatch(setPlaylistState({ tracks: playlistState }));
   };
 
   const handleMyPlaylistClick: React.MouseEventHandler<
@@ -37,7 +45,7 @@ function Nav() {
       return;
     }
     dispatch(setIsMyPlaylistClicked(true));
-    dispatch(setPlaylistState({tracks: myPlaylistState}));
+    dispatch(setPlaylistState({ tracks: myPlaylistState }));
   };
 
   return (
@@ -74,10 +82,16 @@ function Nav() {
               </a>
             </li>
             <li className={styles.menuItem}>
-              <a href="/signin" className={styles.menuLink}>
-                {/* {user ? "Выйти" : "Войти"} */}
-                Войти
-              </a>
+              {!user && (
+                <a href="/signin" className={styles.menuLink}>
+                  Войти
+                </a>
+              )}
+              {user && (
+                <a href="/" className={styles.menuLink} onClick={() => dispatch(logout())}>
+                  Выйти
+                </a>
+              )}
             </li>
           </ul>
         </div>
