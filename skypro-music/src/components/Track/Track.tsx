@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Track } from "@/types/Track.types";
 import styles from "./Track.module.css";
@@ -53,8 +53,6 @@ function TrackItem({ track, tracks }: TrackItemProps) {
   const handleLikeButton = async (event: React.MouseEvent<HTMLElement>) => {
     handleLike(event);
   };
-
-  console.log(myPlaylistState);
 
   return (
     <div
