@@ -1,16 +1,20 @@
+"use client"
+
 import { Track } from "@/types/Track.types";
 import styles from "./Track.module.css";
 import { useDispatch } from "react-redux";
 import {
+  getFavoriteTracks,
   setPlayingState,
   setPlaylistState,
   setTrackIndexState,
   setTrackState,
 } from "@/store/features/trackSlice";
-import { useAppSelector } from "@/store/store";
+import { useAppDispatch, useAppSelector } from "@/store/store";
 import Icon from "../Icon/Icon";
 import { useLikeTrack } from "@/hooks/useLikeTracks";
-import { formatTime } from "@/utils/helpers";
+import { formatTime, getAccessTokenFromLocalStorage } from "@/utils/helpers";
+import { useEffect } from "react";
 
 type TrackItemProps = {
   track: Track;
@@ -18,7 +22,7 @@ type TrackItemProps = {
 };
 
 function TrackItem({ track, tracks }: TrackItemProps) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const trackState = useAppSelector((state) => state.track.trackState);
   const playlistState = useAppSelector((state) => state.track.playlistState);
   const myPlaylistState = useAppSelector(
@@ -34,8 +38,19 @@ function TrackItem({ track, tracks }: TrackItemProps) {
   const shuffledPlaylistState = useAppSelector(
     (state) => state.track.shuffledPlaylistState
   );
+  const access = useAppSelector((state) => state.user.tokens?.access);
+  const refreshToken = useAppSelector((state) => state.user.tokens?.refresh);
 
-  const { isLiked, handleLike } = useLikeTrack({ track: trackState });
+  const { isLiked, handleLike } = useLikeTrack({ track });
+
+  // useEffect(() => {
+  //   dispatch(
+  //     getFavoriteTracks({
+  //       access: getAccessTokenFromLocalStorage(),
+  //       refresh: refreshToken ? refreshToken : "",
+  //     })
+  //   );
+  // }, [dispatch, access, refreshToken, isLiked]);
 
   const handleTracks = () => {
     dispatch(setTrackState(track));
@@ -50,9 +65,11 @@ function TrackItem({ track, tracks }: TrackItemProps) {
     );
   };
 
-  const handleLikeButton = async (event: React.MouseEvent<HTMLDivElement>) => {
+  const handleLikeButton = async (event: React.MouseEvent<HTMLElement>) => {
     handleLike(event);
   };
+
+  console.log(myPlaylistState);
 
   return (
     <div
@@ -105,11 +122,28 @@ function TrackItem({ track, tracks }: TrackItemProps) {
           </a>
         </div>
 
+        {/* {isLiked && tracks.indexOf(track) === trackIndexState && ( */}
         <Icon
+          // iconClass={isLiked && trackState?._id === track._id? styles.trackLikeSvgActive : styles.trackLikeSvg}
           iconClass={isLiked ? styles.trackLikeSvgActive : styles.trackLikeSvg}
           name="icon-like"
           onClick={handleLikeButton}
         />
+        {/* )} */}
+
+        {/* {!isLiked && tracks.indexOf(track) === trackIndexState && (
+          <Icon
+            iconClass={isLiked ? styles.trackLikeSvgActive : styles.trackLikeSvg}
+            name="icon-like"
+            onClick={handleLikeButton}
+          />
+        )} */}
+
+        {/* <Icon
+          iconClass={isLiked ? styles.trackLikeSvgActive : styles.trackLikeSvg}
+          name="icon-like"
+          onClick={handleLikeButton}
+        /> */}
 
         {/* {!shuffleActiveState && (
                   <Icon

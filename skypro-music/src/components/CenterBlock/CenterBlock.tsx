@@ -28,10 +28,6 @@ const CenterBlock = ({allTracks}: {allTracks: Array<Track>}) => {
   const refreshToken = useAppSelector((state) => state.user.tokens?.refresh);
   const isMyPlaylistClicked = useAppSelector((state) => state.track.isMyPlaylistClicked);
 
-  const {isLiked, handleLike} = useLikeTrack({track: trackState});
-
-  const dispatch = useAppDispatch();
-
   const access = getAccessTokenFromLocalStorage();
 
   const performers: Array<string> = playlistState

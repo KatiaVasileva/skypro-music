@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { getAccessTokenFromLocalStorage } from "@/utils/helpers";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { getFavoriteTracks, getTracks } from "@/store/features/trackSlice";
+import { LikeProps, useLikeTrack } from "@/hooks/useLikeTracks";
 
 function Main() {
   const access = getAccessTokenFromLocalStorage();

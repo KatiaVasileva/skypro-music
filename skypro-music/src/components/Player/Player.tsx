@@ -47,7 +47,6 @@ function Player() {
     audioRef.current!.src = shuffleActiveState
       ? shuffledPlaylistState[trackIndexState].track_file
       : playlistState[trackIndexState].track_file;
-    console.log(audioRef.current!.src);
     audioRef.current!.addEventListener("ended", handleEnded);
 
     audioRef.current!.play();
