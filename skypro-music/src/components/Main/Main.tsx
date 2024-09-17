@@ -10,9 +10,9 @@ import { useAppDispatch, useAppSelector } from "@/store/store";
 import { getFavoriteTracks, getTracks } from "@/store/features/trackSlice";
 
 function Main() {
-  const access = getAccessTokenFromLocalStorage();
+  const access = useAppSelector((state) => state.user.tokens.access);
   const dispatch = useAppDispatch();
-  const refreshToken = useAppSelector((state) => state.user.tokens?.refresh);
+  const refreshToken = useAppSelector((state) => state.user.tokens.refresh);
   const allTracks = useAppSelector((state) => state.track.playlistState);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ function Main() {
       dispatch(
         getFavoriteTracks({
           access: access,
-          refresh: refreshToken ? refreshToken : "",
+          refresh: refreshToken,
         })
       );
     }

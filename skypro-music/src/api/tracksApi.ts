@@ -19,14 +19,16 @@ export async function getAllTracks(): Promise<Array<Track>> {
 export type FavoriteRequestProps = {
   id: number | undefined;
   access: string;
+  refresh: string;
 };
 
 // Добавить трек в избранное по id
 export async function addFavorite({
   id,
   access,
+  refresh,
 }: FavoriteRequestProps) {
-  const response = await fetch(
+  const response = await fetchWithAuth(
     baseHost + "/catalog/track/" + id + "/favorite/",
     {
       method: "POST",
@@ -34,6 +36,7 @@ export async function addFavorite({
         Authorization: `Bearer ${access}`,
       },
     },
+    refresh
   );
 
   if (response.status === 401) {
@@ -51,8 +54,9 @@ export async function addFavorite({
 export async function removeFavorite({
   id,
   access,
+  refresh,
 }: FavoriteRequestProps) {
-  const response = await fetch(
+  const response = await fetchWithAuth(
     baseHost + "/catalog/track/" + id + "/favorite/",
     {
       method: "DELETE",
@@ -60,6 +64,7 @@ export async function removeFavorite({
         Authorization: `Bearer ${access}`,
       },
     },
+    refresh
   );
 
   if (response.status === 401) {

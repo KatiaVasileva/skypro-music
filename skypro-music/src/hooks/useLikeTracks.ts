@@ -6,19 +6,19 @@ import {
 } from "@/store/features/trackSlice";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { Track } from "@/types/Track.types";
-import { getAccessTokenFromLocalStorage } from "@/utils/helpers";
 
 export type LikeProps = {
   track: Track | undefined;
 };
 
 export const useLikeTrack = ({ track }: LikeProps) => {
-    const access = getAccessTokenFromLocalStorage();
+    const access = useAppSelector((state) => state.user.tokens.access);
     const user = useAppSelector((state) => state.user.userState);
     const dispatch = useAppDispatch();
     const myPlaylistState = useAppSelector(
       (state) => state.track.myPlaylistState
     );
+    const refresh = useAppSelector((state) => state.user.tokens.refresh);
 
     const isLiked = !!myPlaylistState.find(
       (element) => element._id === track?._id
@@ -40,6 +40,7 @@ export const useLikeTrack = ({ track }: LikeProps) => {
             removeTrackFromFavorite({
               id: track?._id,
               access: access,
+              refresh: refresh,
             })
           );
           if (track) {
@@ -50,6 +51,7 @@ export const useLikeTrack = ({ track }: LikeProps) => {
             addTrackInFavorite({
               id: track!._id,
               access: access,
+              refresh: refresh,
             })
           );
           if (track) {

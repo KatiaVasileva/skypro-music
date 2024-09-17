@@ -2,6 +2,7 @@ import { getToken, GetTokenProps, login, LoginProps, register, RegisterProps } f
 import { Tokens } from "@/types/Tokens.types";
 import { User } from "@/types/User.types";
 import {
+  getAccessTokenFromLocalStorage,
   getUserFromLocalStorage,
   removeAccessTokenFromLocalStorage,
   removeUserFromLocalStorage,
@@ -14,7 +15,7 @@ type UserStateType = {
   userState: User | null;
   isAuthState: boolean;
   errorMessage: string;
-  tokens: Tokens | null;
+  tokens: Tokens;
 };
 
 const userFromLocalStorage: User | null = getUserFromLocalStorage();
@@ -23,7 +24,7 @@ const initialState: UserStateType = {
   userState: userFromLocalStorage,
   isAuthState: false,
   errorMessage: "",
-  tokens: null,
+  tokens: {access: getAccessTokenFromLocalStorage(), refresh: ""},
 };
 
 export const signup = createAsyncThunk(

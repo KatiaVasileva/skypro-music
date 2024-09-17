@@ -20,7 +20,7 @@ function Nav() {
   );
   const playlistState = useAppSelector((state) => state.track.playlistState);
   const user = useAppSelector((state) => state.user.userState);
-  const access = getAccessTokenFromLocalStorage();
+  const access = useAppSelector((state) => state.user.tokens.access);
 
   const handleBurgerClick: React.MouseEventHandler<HTMLDivElement> = () => {
     setIsBurgerClicked((prevState) => !prevState);

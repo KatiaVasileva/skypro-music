@@ -30,6 +30,7 @@ function Player() {
   const shuffledPlaylistState = useAppSelector(
     (state) => state.track.shuffledPlaylistState
   );
+  const isMyPlaylistClicked = useAppSelector((state) => state.track.isMyPlaylistClicked);
   const dispatch = useAppDispatch();
 
   const {isLiked, handleLike} = useLikeTrack({track: trackState});

@@ -47,16 +47,16 @@ export const getFavoriteTracks = createAsyncThunk(
 
 export const addTrackInFavorite = createAsyncThunk(
   "track/addFavorite",
-  async ({ id, access }: FavoriteRequestProps) => {
-    const likedTrack = await addFavorite({ id, access });
+  async ({ id, access, refresh }: FavoriteRequestProps) => {
+    const likedTrack = await addFavorite({ id, access, refresh });
     return likedTrack;
   }
 );
 
 export const removeTrackFromFavorite = createAsyncThunk(
   "track/removeFavorite",
-  async ({ id, access }: FavoriteRequestProps) => {
-    const dislikedTrack = await removeFavorite({ id, access });
+  async ({ id, access, refresh }: FavoriteRequestProps) => {
+    const dislikedTrack = await removeFavorite({ id, access, refresh });
     return dislikedTrack;
   }
 );
