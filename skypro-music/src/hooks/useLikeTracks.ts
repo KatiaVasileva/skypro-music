@@ -6,14 +6,15 @@ import {
 } from "@/store/features/trackSlice";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { Track } from "@/types/Track.types";
-import { getUserFromLocalStorage } from "@/utils/helpers";
+import { getAccessTokenFromLocalStorage } from "@/utils/helpers";
 
 export type LikeProps = {
   track: Track | undefined;
 };
 
 export const useLikeTrack = ({ track }: LikeProps) => {
-    const access = useAppSelector((state) => state.user.tokens?.access);
+    const access = getAccessTokenFromLocalStorage();
+    const user = useAppSelector((state) => state.user.userState);
     const dispatch = useAppDispatch();
     const myPlaylistState = useAppSelector(
       (state) => state.track.myPlaylistState
@@ -28,7 +29,7 @@ export const useLikeTrack = ({ track }: LikeProps) => {
     ) => {
       event.stopPropagation();
 
-      if (!access) {
+      if (!access || !user) {
         alert("Необходимо зарегистрироваться");
         return;
       }
@@ -61,33 +62,6 @@ export const useLikeTrack = ({ track }: LikeProps) => {
         }
       }
     };
-//   const dispatch = useAppDispatch();
-//   const tokens = useAppSelector((state) => state.user.tokens);
-//   const user = useAppSelector((state) => state.user.userState);
-//   const likedTracks = useAppSelector((state) => state.track.myPlaylistState);
-
-//   const isLiked = !!likedTracks.find((t) => t._id === track?._id);
-
-//   async function handleLike(event: React.MouseEvent<HTMLElement>) {
-//     event.stopPropagation();
-
-//     if (!tokens || !user) {
-//       alert("Нет авторизации");
-//       return;
-//     }
-
-//     const fetchAction = isLiked ? removeTrackFromFavorite : addTrackInFavorite;
-//     const storeAction = isLiked ? setDislike : setLike;
-
-//     try {
-//       fetchAction({ id: track?._id, access: tokens.access, });
-//       if (track) {
-//         dispatch(storeAction(track));
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
 
   return { isLiked, handleLike };
 };

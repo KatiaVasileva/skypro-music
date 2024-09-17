@@ -6,13 +6,14 @@ import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { getTracks, setIsMyPlaylistClicked, setPlaylistState } from "@/store/features/trackSlice";
 import { getAccessTokenFromLocalStorage } from "@/utils/helpers";
-import { useRouter } from "next/navigation";
 
 function Nav() {
   const dispatch = useAppDispatch();
   const [isBurgerClicked, setIsBurgerClicked] = useState(false);
   const myPlaylistState = useAppSelector((state) => state.track.myPlaylistState);
   const playlistState = useAppSelector((state) => state.track.playlistState);
+  const user = useAppSelector((state) => state.user.userState);
+  const access = getAccessTokenFromLocalStorage();
 
   const handleBurgerClick: React.MouseEventHandler<HTMLDivElement> = () => {
     setIsBurgerClicked((prevState) => !prevState);
@@ -31,8 +32,7 @@ function Nav() {
     HTMLAnchorElement
   > = async (event) => {
     event.preventDefault();
-    const access = getAccessTokenFromLocalStorage();
-    if (!access) {
+    if (!access || !user) {
       alert("Необходимо зарегистрироваться");
       return;
     }

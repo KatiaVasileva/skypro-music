@@ -15,6 +15,7 @@ import {
   setPrevTrack,
   setPlaylistState,
 } from "@/store/features/trackSlice";
+import { useLikeTrack } from "@/hooks/useLikeTracks";
 
 function Player() {
   const trackState = useAppSelector((state) => state.track.trackState);
@@ -30,6 +31,8 @@ function Player() {
     (state) => state.track.shuffledPlaylistState
   );
   const dispatch = useAppDispatch();
+
+  const {isLiked, handleLike} = useLikeTrack({track: trackState});
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -87,6 +90,10 @@ function Player() {
 
   const handleButtonPrevClick = () => {
     dispatch(setPrevTrack());
+  };
+
+  const handleLikeButton = async (event: React.MouseEvent<HTMLElement>) => {
+    handleLike(event);
   };
 
   return (
@@ -210,14 +217,15 @@ function Player() {
               <div className={styles.trackPlayLikeDis}>
                 <Icon
                   wrapperClass={styles.trackPlayLike}
-                  iconClass={styles.trackPlayLikeSvg}
+                  iconClass={isLiked ? styles.trackPlayLikeSvgActive : styles.trackPlayLikeSvg}
                   name="icon-like"
+                  onClick={handleLikeButton}
                 />
-                <Icon
+                {/* <Icon
                   wrapperClass={styles.trackPlayDislike}
                   iconClass={styles.trackPlayDislikeSvg}
                   name="icon-dislike"
-                />
+                /> */}
               </div>
             </div>
           </div>

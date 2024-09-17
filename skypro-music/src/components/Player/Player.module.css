@@ -273,7 +273,7 @@
     }
 }
 
-.trackPlayLikeSvg {
+.trackPlayLikeSvg, .trackPlayLikeSvgActive {
     width: 14px;
     height: 12px;
     fill: transparent;
@@ -292,7 +292,11 @@
     }
 }
 
-.trackPlayDislike {
+.trackPlayLikeSvgActive {
+    fill: #b672ff;
+}
+
+/* .trackPlayDislike {
     margin-left: 28.5px;
 
     &:active {
@@ -300,7 +304,7 @@
         stroke: #ffffff;
         cursor: pointer;
     }
-}
+} */
 
 .trackPlayDislikeSvg {
     width: 14.34px;

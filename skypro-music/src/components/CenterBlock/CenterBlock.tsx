@@ -4,31 +4,13 @@ import Icon from "../Icon/Icon";
 import styles from "./CenterBlock.module.css";
 import TrackTitle from "../TrackTitle/TrackTitle";
 import Filter from "../Filter/Filter";
-import { useAppDispatch, useAppSelector } from "@/store/store";
-import {
-  setTrackIndexState,
-  setTrackState,
-  setPlayingState,
-  setPlaylistState,
-  toggleIsLiked,
-  setMyPlaylistState,
-  getFavoriteTracks,
-  getTracks,
-} from "@/store/features/trackSlice";
-import { formatTime, getAccessTokenFromLocalStorage } from "@/utils/helpers";
-import { addFavorite, getAllTracks, removeFavorite } from "@/api/tracksApi";
-import { useLikeTrack } from "@/hooks/useLikeTracks";
+import { useAppSelector } from "@/store/store";
 import TrackItem from "../Track/Track";
 import { Track } from "@/types/Track.types";
 
 const CenterBlock = ({allTracks}: {allTracks: Array<Track>}) => {
   const playlistState = useAppSelector((state) => state.track.playlistState);
-  const trackState = useAppSelector((state) => state.track.trackState);
-  const isLikedState = useAppSelector((state) => state.track.isLiked);
-  const refreshToken = useAppSelector((state) => state.user.tokens?.refresh);
   const isMyPlaylistClicked = useAppSelector((state) => state.track.isMyPlaylistClicked);
-
-  const access = getAccessTokenFromLocalStorage();
 
   const performers: Array<string> = playlistState
     .map((track) => track.author)
