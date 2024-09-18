@@ -279,7 +279,7 @@
     fill: transparent;
     stroke: #696969;
 
-    &:hover {
+    /* &:hover {
         fill: transparent;
         stroke: #acacac;
         cursor: pointer;
@@ -289,7 +289,7 @@
         fill: transparent;
         stroke: #ffffff;
         cursor: pointer;
-    }
+    } */
 }
 
 .trackPlayLikeSvgActive {
