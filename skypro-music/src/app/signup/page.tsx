@@ -13,18 +13,62 @@ export default function SignUp() {
     email: "",
     password: "",
     username: "",
+    passwordRepeat: "",
   });
   const router = useRouter();
 
-  const errorMessage = useAppSelector((state) => state.user.errorMessage);
+  const requestError = useAppSelector((state) => state.user.errorMessage);
+  const [error, setError] = useState("");
+  const errorMessage = error ? error : requestError;
 
   const handleOnChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    setError("");
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
 
   const handleSignUp: MouseEventHandler<HTMLButtonElement> = async (event) => {
     event.preventDefault();
+
+    console.log(formData.password);
+    console.log(formData.passwordRepeat);
+    console.log(formData.password !== formData.passwordRepeat);
+
+    if (!formData.username.trim()) {
+      setError("Введите имя");
+      return;
+    }
+
+    if (formData.username.length < 3) {
+      setError("Имя пользователя должно быть более 3 символов");
+      return;
+    }
+
+    if (!formData.email.trim()) {
+      setError("Введите почту");
+      return;
+    }
+
+    if (!formData.email.includes("@")) {
+      setError("Неверный формат почты");
+      return;
+    }
+
+    if (!formData.password.trim()) {
+      setError("Введите пароль");
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      setError("Пароль должен быть более 6 символов");
+      return;
+    }
+
+    if (formData.password !== formData.passwordRepeat) {
+      setError("Пароли не совпадают");
+      return;
+    }
+
     try {
       await dispatch(
         signup({
@@ -88,7 +132,7 @@ export default function SignUp() {
             <input
               className={styles.input}
               type="password"
-              name="password"
+              name="passwordRepeat"
               onChange={handleOnChange}
               placeholder="Повторите пароль"
               autoComplete="current-password"

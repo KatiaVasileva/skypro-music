@@ -66,7 +66,8 @@ function TrackItem({ track, tracks }: TrackItemProps) {
       <div className={styles.playlistTrack}>
         <div className={styles.trackTitle}>
           <div className={styles.imageContainer}>
-            {!shuffleActiveState && trackState &&
+            {!shuffleActiveState &&
+              trackState &&
               playlistState.indexOf(track) === trackIndexState && (
                 <div
                   className={
@@ -74,7 +75,8 @@ function TrackItem({ track, tracks }: TrackItemProps) {
                   }
                 ></div>
               )}
-            {shuffleActiveState && trackState &&
+            {shuffleActiveState &&
+              trackState &&
               shuffledPlaylistState.indexOf(track) === trackIndexState && (
                 <div
                   className={

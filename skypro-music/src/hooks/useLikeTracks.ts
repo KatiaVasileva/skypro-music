@@ -21,7 +21,7 @@ export const useLikeTrack = ({ track }: LikeProps) => {
     );
     const refresh = useAppSelector((state) => state.user.tokens.refresh);
 
-    const isLiked = !!myPlaylistState.find(
+    const isLiked = myPlaylistState.find(
       (element) => element._id === track?._id
     );
 

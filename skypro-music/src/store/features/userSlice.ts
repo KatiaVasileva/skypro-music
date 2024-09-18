@@ -82,16 +82,12 @@ const userSlice = createSlice({
         state.userState = action.payload;
       })
       .addCase(signin.rejected, (state, action) => {
-        const error = action.error;
-        console.log(error);
         state.errorMessage = "Ошибка: " + action.error.message;
       })
       .addCase(token.fulfilled, (state, action) => {
         state.tokens = action.payload;
       })
       .addCase(token.rejected, (state, action) => {
-        const error = action.error;
-        console.log(error);
         state.errorMessage = "Ошибка: " + action.error.message;
       });
   },
