@@ -6,6 +6,7 @@ import Icon from "../Icon/Icon";
 import { logout } from "@/store/features/userSlice";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { useEffect, useState } from "react";
+import { getTracks, setMyPlaylistState } from "@/store/features/trackSlice";
 
 function Sidebar() {
   const dispatch = useAppDispatch();
@@ -14,6 +15,8 @@ function Sidebar() {
 
   const handleLogoutButton = () => {
     dispatch(logout());
+    dispatch(getTracks());
+    dispatch(setMyPlaylistState([]));
   };
 
   useEffect(() => {

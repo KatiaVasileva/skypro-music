@@ -1,5 +1,6 @@
 import {
   addTrackInFavorite,
+  getFavoriteTracks,
   removeTrackFromFavorite,
   setDislike,
   setLike,
@@ -45,6 +46,7 @@ export const useLikeTrack = ({ track }: LikeProps) => {
           );
           if (track) {
             dispatch(setDislike(track));
+            dispatch(getFavoriteTracks({access: access, refresh: refresh}));
           }
         } else {
           await dispatch(

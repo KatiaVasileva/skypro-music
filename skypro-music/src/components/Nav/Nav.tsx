@@ -7,10 +7,10 @@ import { useAppDispatch, useAppSelector } from "@/store/store";
 import {
   getTracks,
   setIsMyPlaylistClicked,
+  setMyPlaylistState,
   setPlaylistState,
   setTrackState,
 } from "@/store/features/trackSlice";
-import { getAccessTokenFromLocalStorage } from "@/utils/helpers";
 import { logout } from "@/store/features/userSlice";
 
 function Nav() {
@@ -90,7 +90,15 @@ function Nav() {
                 </a>
               )}
               {user && (
-                <a href="/" className={styles.menuLink} onClick={() => dispatch(logout())}>
+                <a
+                  href="/"
+                  className={styles.menuLink}
+                  onClick={() => {
+                    dispatch(logout());
+                    dispatch(getTracks());
+                    dispatch(setMyPlaylistState([]));
+                  }}
+                >
                   Выйти
                 </a>
               )}
