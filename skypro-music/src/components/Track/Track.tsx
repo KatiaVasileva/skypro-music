@@ -21,9 +21,6 @@ type TrackItemProps = {
 function TrackItem({ track, tracks }: TrackItemProps) {
   const dispatch = useAppDispatch();
   const playlistState = useAppSelector((state) => state.track.playlistState);
-  const myPlaylistState = useAppSelector(
-    (state) => state.track.myPlaylistState
-  );
   const playingState = useAppSelector((state) => state.track.playingState);
   const trackIndexState = useAppSelector(
     (state) => state.track.trackIndexState
@@ -52,6 +49,7 @@ function TrackItem({ track, tracks }: TrackItemProps) {
   };
 
   const handleLikeButton = async (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
     handleLike(event);
   };
 

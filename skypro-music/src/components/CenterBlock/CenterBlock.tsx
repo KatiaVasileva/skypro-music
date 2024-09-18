@@ -4,13 +4,26 @@ import Icon from "../Icon/Icon";
 import styles from "./CenterBlock.module.css";
 import TrackTitle from "../TrackTitle/TrackTitle";
 import Filter from "../Filter/Filter";
-import { useAppSelector } from "@/store/store";
+import { useAppDispatch, useAppSelector } from "@/store/store";
 import TrackItem from "../Track/Track";
 import { Track } from "@/types/Track.types";
+import { useEffect } from "react";
+import { setPlaylistState } from "@/store/features/trackSlice";
 
 const CenterBlock = ({allTracks}: {allTracks: Array<Track>}) => {
   const playlistState = useAppSelector((state) => state.track.playlistState);
   const isMyPlaylistClicked = useAppSelector((state) => state.track.isMyPlaylistClicked);
+  const dispatch = useAppDispatch();
+  const myPlaylistState = useAppSelector((state) => state.track.myPlaylistState);
+
+  useEffect(() => {
+    if (isMyPlaylistClicked) {
+      dispatch(setPlaylistState({tracks: myPlaylistState}))
+    } else {
+      dispatch(setPlaylistState({tracks: playlistState}))
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allTracks, dispatch, myPlaylistState]);
 
   const performers: Array<string> = playlistState
     .map((track) => track.author)
