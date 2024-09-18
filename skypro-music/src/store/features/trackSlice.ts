@@ -65,7 +65,7 @@ const trackSlice = createSlice({
   name: "track",
   initialState,
   reducers: {
-    setTrackState: (state, action: PayloadAction<Track>) => {
+    setTrackState: (state, action: PayloadAction<Track | undefined>) => {
       state.trackState = action.payload;
     },
     setPlaylistState: (

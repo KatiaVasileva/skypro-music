@@ -8,6 +8,7 @@ import {
   getTracks,
   setIsMyPlaylistClicked,
   setPlaylistState,
+  setTrackState,
 } from "@/store/features/trackSlice";
 import { getAccessTokenFromLocalStorage } from "@/utils/helpers";
 import { logout } from "@/store/features/userSlice";
@@ -33,6 +34,7 @@ function Nav() {
     dispatch(setIsMyPlaylistClicked(false));
     dispatch(getTracks()).unwrap();
     dispatch(setPlaylistState({ tracks: playlistState }));
+    dispatch(setTrackState(undefined));
   };
 
   const handleMyPlaylistClick: React.MouseEventHandler<
@@ -45,6 +47,7 @@ function Nav() {
     }
     dispatch(setIsMyPlaylistClicked(true));
     dispatch(setPlaylistState({ tracks: myPlaylistState }));
+    dispatch(setTrackState(undefined));
   };
 
   return (
