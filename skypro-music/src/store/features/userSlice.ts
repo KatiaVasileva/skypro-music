@@ -1,4 +1,11 @@
-import { getToken, GetTokenProps, login, LoginProps, register, RegisterProps } from "@/api/userApi";
+import {
+  getToken,
+  GetTokenProps,
+  login,
+  LoginProps,
+  register,
+  RegisterProps,
+} from "@/api/userApi";
 import { Tokens } from "@/types/Tokens.types";
 import { User } from "@/types/User.types";
 import {
@@ -24,7 +31,7 @@ const initialState: UserStateType = {
   userState: userFromLocalStorage,
   isAuthState: false,
   errorMessage: "",
-  tokens: {access: getAccessTokenFromLocalStorage(), refresh: ""},
+  tokens: { access: getAccessTokenFromLocalStorage(), refresh: "" },
 };
 
 export const signup = createAsyncThunk(
@@ -43,8 +50,8 @@ export const signin = createAsyncThunk(
 
 export const token = createAsyncThunk(
   "user/token",
-  async ({email, password} : GetTokenProps) => {
-    const newToken = await getToken({email, password});
+  async ({ email, password }: GetTokenProps) => {
+    const newToken = await getToken({ email, password });
     saveAccessTokenToLocalStorage(newToken.access);
     return newToken;
   }
@@ -61,7 +68,7 @@ const userSlice = createSlice({
     setTokens: (state, action: PayloadAction<Tokens>) => {
       if (state.tokens) {
         state.tokens = action.payload;
-      } 
+      }
     },
     logout: (state) => {
       state.userState = null;

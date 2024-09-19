@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Player from "../Player/Player";
 import { useAppSelector } from "@/store/store";

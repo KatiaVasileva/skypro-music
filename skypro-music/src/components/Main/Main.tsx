@@ -33,7 +33,7 @@ function Main() {
   return (
     <main className={styles.main}>
       <Nav />
-      <CenterBlock allTracks={allTracks}/>
+      <CenterBlock allTracks={allTracks} />
       <Sidebar />
     </main>
   );

@@ -1,4 +1,3 @@
-import { Track } from "@/types/Track.types";
 import { User } from "@/types/User.types";
 
 export function formatTime(time: number): string {
@@ -21,8 +20,9 @@ export function getUserFromLocalStorage() {
       return JSON.parse(user);
     }
   } catch (error) {
-      if (error instanceof Error) {
-        console.error(error);      }
+    if (error instanceof Error) {
+      console.error(error);
+    }
   }
 }
 
@@ -41,12 +41,12 @@ export function getAccessTokenFromLocalStorage() {
       return JSON.parse(access);
     }
   } catch (error) {
-      if (error instanceof Error) {
-        console.error(error);      }
+    if (error instanceof Error) {
+      console.error(error);
+    }
   }
 }
 
 export function removeAccessTokenFromLocalStorage() {
   window.localStorage.removeItem("access");
 }
-

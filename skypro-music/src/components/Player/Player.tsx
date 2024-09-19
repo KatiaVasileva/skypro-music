@@ -55,10 +55,6 @@ function Player() {
 
     audioRef.current!.play();
 
-    // return () => {
-    //   // eslint-disable-next-line react-hooks/exhaustive-deps
-    //   audioRef.current!.removeEventListener("ended", handleEnded);
-    // };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleEnded, playlistState, trackIndexState]);
 
@@ -222,11 +218,6 @@ function Player() {
                   name="icon-like"
                   onClick={handleLikeButton}
                 />
-                {/* <Icon
-                  wrapperClass={styles.trackPlayDislike}
-                  iconClass={styles.trackPlayDislikeSvg}
-                  name="icon-dislike"
-                /> */}
               </div>
             </div>
           </div>

@@ -17,7 +17,9 @@ function Error({
   return (
     <div>
       <h2 className={styles.text}>Что-то пошло не так!</h2>
-      <button className={styles.button} onClick={reset}>Попробовать снова</button>
+      <button className={styles.button} onClick={reset}>
+        Попробовать снова
+      </button>
     </div>
   );
 }
