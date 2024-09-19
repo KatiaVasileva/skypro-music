@@ -1,26 +1,42 @@
+"use client";
+
 import Nav from "../Nav/Nav";
 import styles from "./Main.module.css";
 import CenterBlock from "../CenterBlock/CenterBlock";
 import Sidebar from "../Sidebar/Sidebar";
-import { getAllTracks } from "@/api/tracksApi";
-import { Track } from "@/types/Track.types";
+import { useEffect } from "react";
+import { getAccessTokenFromLocalStorage } from "@/utils/helpers";
+import { useAppDispatch, useAppSelector } from "@/store/store";
+import { getFavoriteTracks, getTracks } from "@/store/features/trackSlice";
 
-async function Main() {
-  try {
-    const allTracks: Array<Track> = await getAllTracks();
+function Main() {
+  const access = useAppSelector((state) => state.user.tokens.access);
+  const dispatch = useAppDispatch();
+  const refreshToken = useAppSelector((state) => state.user.tokens.refresh);
+  const allTracks = useAppSelector((state) => state.track.playlistState);
 
-    return (
-      <main className={styles.main}>
-        <Nav />
-        <CenterBlock allTracks={allTracks} />
-        <Sidebar />
-      </main>
-    );
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.error(error.message);
+  useEffect(() => {
+    if (!access) {
+      dispatch(getTracks());
     }
-  }
+    if (access) {
+      dispatch(getTracks());
+      dispatch(
+        getFavoriteTracks({
+          access: access,
+          refresh: refreshToken,
+        })
+      );
+    }
+  }, [dispatch, access, refreshToken]);
+
+  return (
+    <main className={styles.main}>
+      <Nav />
+      <CenterBlock allTracks={allTracks} />
+      <Sidebar />
+    </main>
+  );
 }
 
 export default Main;

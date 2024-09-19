@@ -1,13 +1,20 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit"
-import { trackReducer } from "./features/trackSlice"
-import { TypedUseSelectorHook, useDispatch, useSelector, useStore } from "react-redux";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { trackReducer } from "./features/trackSlice";
+import {
+  TypedUseSelectorHook,
+  useDispatch,
+  useSelector,
+  useStore,
+} from "react-redux";
+import { userReducer } from "./features/userSlice";
 
 export const makeStore = () => {
-    return configureStore({
-        reducer: combineReducers({
-            track: trackReducer,
-        }),
-    });
+  return configureStore({
+    reducer: combineReducers({
+      track: trackReducer,
+      user: userReducer,
+    }),
+  });
 };
 
 export type AppStore = ReturnType<typeof makeStore>;

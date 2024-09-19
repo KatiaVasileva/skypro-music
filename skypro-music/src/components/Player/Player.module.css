@@ -273,33 +273,15 @@
     }
 }
 
-.trackPlayLikeSvg {
+.trackPlayLikeSvg, .trackPlayLikeSvgActive {
     width: 14px;
     height: 12px;
     fill: transparent;
     stroke: #696969;
-
-    &:hover {
-        fill: transparent;
-        stroke: #acacac;
-        cursor: pointer;
-    }
-
-    &:active {
-        fill: transparent;
-        stroke: #ffffff;
-        cursor: pointer;
-    }
 }
 
-.trackPlayDislike {
-    margin-left: 28.5px;
-
-    &:active {
-        fill: #696969;
-        stroke: #ffffff;
-        cursor: pointer;
-    }
+.trackPlayLikeSvgActive {
+    fill: #b672ff;
 }
 
 .trackPlayDislikeSvg {

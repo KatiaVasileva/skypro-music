@@ -15,6 +15,7 @@ import {
   setPrevTrack,
   setPlaylistState,
 } from "@/store/features/trackSlice";
+import { useLikeTrack } from "@/hooks/useLikeTracks";
 
 function Player() {
   const trackState = useAppSelector((state) => state.track.trackState);
@@ -29,7 +30,10 @@ function Player() {
   const shuffledPlaylistState = useAppSelector(
     (state) => state.track.shuffledPlaylistState
   );
+  const isMyPlaylistClicked = useAppSelector((state) => state.track.isMyPlaylistClicked);
   const dispatch = useAppDispatch();
+
+  const {isLiked, handleLike} = useLikeTrack({track: trackState});
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -47,15 +51,10 @@ function Player() {
     audioRef.current!.src = shuffleActiveState
       ? shuffledPlaylistState[trackIndexState].track_file
       : playlistState[trackIndexState].track_file;
-    console.log(audioRef.current!.src);
     audioRef.current!.addEventListener("ended", handleEnded);
 
     audioRef.current!.play();
 
-    return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      audioRef.current!.removeEventListener("ended", handleEnded);
-    };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleEnded, playlistState, trackIndexState]);
 
@@ -88,6 +87,10 @@ function Player() {
 
   const handleButtonPrevClick = () => {
     dispatch(setPrevTrack());
+  };
+
+  const handleLikeButton = async (event: React.MouseEvent<HTMLElement>) => {
+    handleLike(event);
   };
 
   return (
@@ -211,13 +214,9 @@ function Player() {
               <div className={styles.trackPlayLikeDis}>
                 <Icon
                   wrapperClass={styles.trackPlayLike}
-                  iconClass={styles.trackPlayLikeSvg}
+                  iconClass={isLiked ? styles.trackPlayLikeSvgActive : styles.trackPlayLikeSvg}
                   name="icon-like"
-                />
-                <Icon
-                  wrapperClass={styles.trackPlayDislike}
-                  iconClass={styles.trackPlayDislikeSvg}
-                  name="icon-dislike"
+                  onClick={handleLikeButton}
                 />
               </div>
             </div>

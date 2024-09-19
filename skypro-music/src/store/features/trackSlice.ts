@@ -1,5 +1,12 @@
+import {
+  addFavorite,
+  FavoriteRequestProps,
+  getAllTracks,
+  getFavorite,
+  removeFavorite,
+} from "@/api/tracksApi";
 import { Track } from "@/types/Track.types";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type TrackStateType = {
   trackState?: Track;
@@ -7,7 +14,10 @@ type TrackStateType = {
   playingState: boolean;
   playlistState: Array<Track>;
   shuffledPlaylistState: Array<Track>;
+  myPlaylistState: Array<Track>;
   shuffleActiveState: boolean;
+  isMyPlaylistClicked: boolean;
+  errorMessage: string;
 };
 
 const initialState: TrackStateType = {
@@ -16,14 +26,46 @@ const initialState: TrackStateType = {
   playingState: false,
   playlistState: [],
   shuffledPlaylistState: [],
+  myPlaylistState: [],
   shuffleActiveState: false,
+  isMyPlaylistClicked: false,
+  errorMessage: "",
 };
+
+export const getTracks = createAsyncThunk("track/allTracks", async () => {
+  const allTracks = await getAllTracks();
+  return allTracks;
+});
+
+export const getFavoriteTracks = createAsyncThunk(
+  "track/favorite",
+  async ({ access, refresh }: { access: string; refresh: string }) => {
+    const myTracks = await getFavorite({ access, refresh });
+    return myTracks;
+  }
+);
+
+export const addTrackInFavorite = createAsyncThunk(
+  "track/addFavorite",
+  async ({ id, access, refresh }: FavoriteRequestProps) => {
+    const likedTrack = await addFavorite({ id, access, refresh });
+    return likedTrack;
+  }
+);
+
+export const removeTrackFromFavorite = createAsyncThunk(
+  "track/removeFavorite",
+  async ({ id, access, refresh }: FavoriteRequestProps) => {
+    const dislikedTrack = await removeFavorite({ id, access, refresh });
+    return dislikedTrack;
+  }
+);
 
 const trackSlice = createSlice({
   name: "track",
   initialState,
   reducers: {
-    setTrackState: (state, action: PayloadAction<Track>) => {
+    setTrackState: (state, action: PayloadAction<Track | undefined>) => {
       state.trackState = action.payload;
     },
     setPlaylistState: (
@@ -37,6 +79,9 @@ const trackSlice = createSlice({
       } else {
         state.playlistState = action.payload.tracks;
       }
+    },
+    setMyPlaylistState: (state, action: PayloadAction<Array<Track>>) => {
+      state.myPlaylistState = action.payload;
     },
     setTrackIndexState: (state, action: PayloadAction<number>) => {
       state.trackIndexState = action.payload;
@@ -73,6 +118,32 @@ const trackSlice = createSlice({
       state.trackIndexState = nextIndex;
       state.trackState = playlist[nextIndex];
     },
+    setIsMyPlaylistClicked: (state, action: PayloadAction<boolean>) => {
+      state.isMyPlaylistClicked = action.payload;
+    },
+    setLike: (state, action: PayloadAction<Track>) => {
+      state.myPlaylistState.push(action.payload);
+    },
+    setDislike: (state, action: PayloadAction<Track>) => {
+      state.myPlaylistState = state.myPlaylistState.filter(
+        (track) => track._id !== action.payload._id
+      );
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getTracks.fulfilled, (state, action) => {
+        state.playlistState = action.payload;
+      })
+      .addCase(getTracks.rejected, (state, action) => {
+        state.errorMessage = "Ошибка: " + action.error.message;
+      })
+      .addCase(getFavoriteTracks.fulfilled, (state, action) => {
+        state.myPlaylistState = action.payload;
+      })
+      .addCase(getFavoriteTracks.rejected, (state, action) => {
+        state.errorMessage = "Ошибка: " + action.error.message;
+      });
   },
 });
 
@@ -82,9 +153,13 @@ export const {
   setPlayingState,
   togglePlaying,
   setPlaylistState,
+  setMyPlaylistState,
   setNextTrack,
   setPrevTrack,
   setShuffleActiveState,
   toggleShuffle,
+  setIsMyPlaylistClicked,
+  setLike,
+  setDislike,
 } = trackSlice.actions;
 export const trackReducer = trackSlice.reducer;
