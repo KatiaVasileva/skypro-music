@@ -1,3 +1,5 @@
+import { FavoriteRequestProps } from "@/types/FavoriteRequestProps.types";
+import { Selection } from "@/types/Selection.types";
 import { Track } from "@/types/Track.types";
 import { fetchWithAuth } from "@/utils/fetchWithAuth";
 
@@ -15,12 +17,6 @@ export async function getAllTracks(): Promise<Array<Track>> {
   const data = await response.json();
   return data.data;
 }
-
-export type FavoriteRequestProps = {
-  id: number | undefined;
-  access: string;
-  refresh: string;
-};
 
 // Добавить трек в избранное по id
 export async function addFavorite({
@@ -107,3 +103,31 @@ export async function getFavorite({
   const data = await response.json();
   return data.data;
 }
+
+// Просмотреть подборки
+export async function getSelections(): Promise<Array<Selection>> {
+  const response = await fetch(baseHost + "/catalog/selection/all", {
+    method: "GET",
+  });
+
+  if (response.status === 500) {
+    throw new Error("Ошибка при получении данных");
+  }
+
+  const data = await response.json();
+  return data.data;
+}
+
+// Просмотреть подборку по id
+export async function getSelectionById(selectionId: number): Promise<Selection> {
+  const response = await fetch(baseHost + "/catalog/selection/" + selectionId + "/", {
+    method: "GET",
+  });
+
+  if (response.status === 500) {
+    throw new Error("Ошибка при получении данных");
+  }
+
+  const data = await response.json();
+  return data.data;
+ }

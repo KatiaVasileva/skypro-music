@@ -1,10 +1,13 @@
 import {
   addFavorite,
-  FavoriteRequestProps,
   getAllTracks,
   getFavorite,
+  getSelectionById,
+  getSelections,
   removeFavorite,
 } from "@/api/tracksApi";
+import { FavoriteRequestProps } from "@/types/FavoriteRequestProps.types";
+import { Selection } from "@/types/Selection.types";
 import { Track } from "@/types/Track.types";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -18,6 +21,9 @@ type TrackStateType = {
   shuffleActiveState: boolean;
   isMyPlaylistClicked: boolean;
   errorMessage: string;
+  selectionState?: Selection;
+  allSelectionsState: Array<Selection>;
+  selectionIdState: number;
 };
 
 const initialState: TrackStateType = {
@@ -30,6 +36,9 @@ const initialState: TrackStateType = {
   shuffleActiveState: false,
   isMyPlaylistClicked: false,
   errorMessage: "",
+  selectionState: undefined,
+  allSelectionsState: [],
+  selectionIdState: -1,
 };
 
 export const getTracks = createAsyncThunk("track/allTracks", async () => {
@@ -58,6 +67,22 @@ export const removeTrackFromFavorite = createAsyncThunk(
   async ({ id, access, refresh }: FavoriteRequestProps) => {
     const dislikedTrack = await removeFavorite({ id, access, refresh });
     return dislikedTrack;
+  }
+);
+
+export const getAllSelections = createAsyncThunk(
+  "track/selections",
+  async () => {
+    const allSelections = await getSelections();
+    return allSelections;
+  }
+);
+
+export const getSelectedTracks = createAsyncThunk(
+  "track/selectedTracks",
+  async (selectionId: number) => {
+    const selectedTracks = await getSelectionById(selectionId);
+    return selectedTracks;
   }
 );
 
@@ -142,6 +167,18 @@ const trackSlice = createSlice({
         state.myPlaylistState = action.payload;
       })
       .addCase(getFavoriteTracks.rejected, (state, action) => {
+        state.errorMessage = "Ошибка: " + action.error.message;
+      })
+      .addCase(getAllSelections.fulfilled, (state, action) => {
+        state.allSelectionsState = action.payload;
+      })
+      .addCase(getAllSelections.rejected, (state, action) => {
+        state.errorMessage = "Ошибка: " + action.error.message;
+      })
+      .addCase(getSelectedTracks.fulfilled, (state, action) => {
+        state.selectionState = action.payload;
+      })
+      .addCase(getSelectedTracks.rejected, (state, action) => {
         state.errorMessage = "Ошибка: " + action.error.message;
       });
   },
