@@ -5,6 +5,7 @@ import styles from "./Nav.module.css";
 import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import {
+  getFavoriteTracks,
   getTracks,
   setIsMyPlaylistClicked,
   setIsSelectionClicked,
@@ -23,6 +24,7 @@ function Nav() {
   const playlistState = useAppSelector((state) => state.track.playlistState);
   const user = useAppSelector((state) => state.user.userState);
   const access = useAppSelector((state) => state.user.tokens.access);
+  const refresh = useAppSelector((state) => state.user.tokens.refresh);
 
   const handleBurgerClick: React.MouseEventHandler<HTMLDivElement> = () => {
     setIsBurgerClicked((prevState) => !prevState);
@@ -34,7 +36,7 @@ function Nav() {
     event.preventDefault();
     dispatch(setIsMyPlaylistClicked(false));
     dispatch(setIsSelectionClicked(false));
-    dispatch(getTracks()).unwrap();
+    dispatch(getTracks());
     dispatch(setPlaylistState({ tracks: playlistState }));
     dispatch(setTrackState(undefined));
   };
@@ -48,6 +50,8 @@ function Nav() {
       return;
     }
     dispatch(setIsMyPlaylistClicked(true));
+    dispatch(setIsSelectionClicked(false));
+    dispatch(getFavoriteTracks({access: access, refresh: refresh}));
     dispatch(setPlaylistState({ tracks: myPlaylistState }));
     dispatch(setTrackState(undefined));
   };

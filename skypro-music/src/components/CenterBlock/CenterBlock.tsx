@@ -42,6 +42,7 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
     allTracks,
     dispatch,
     myPlaylistState,
+    isMyPlaylistClicked,
     isSelectionClicked,
     selectionIdState,
   ]);

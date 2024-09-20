@@ -17,6 +17,7 @@ function Main() {
     (state) => state.track.allSelectionsState
   );
   const selectionIdState = useAppSelector((state) => (state.track.selectionIdState));
+  const isMyPlaylistClicked = useAppSelector((state) => (state.track.isMyPlaylistClicked));
 
   useEffect(() => {
     if (!access) {
@@ -37,7 +38,7 @@ function Main() {
       dispatch(getAllSelections());
       dispatch(getSelectedTracks(selectionIdState));
     }
-  }, [dispatch, access, refreshToken]);
+  }, [dispatch, access, refreshToken, isMyPlaylistClicked]);
 
   return (
     <main className={styles.main}>
