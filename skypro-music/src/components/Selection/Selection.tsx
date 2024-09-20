@@ -22,6 +22,7 @@ function SelectionItem({ selection }: SelectionItemProps) {
     dispatch(setSelectedTracks(selection));
     dispatch(setPlaylistState({tracks: selectedTracks}));
     dispatch(setIsSelectionClicked(true));
+    dispatch(getSelectedTracks(selection._id));
   };
 
   return (

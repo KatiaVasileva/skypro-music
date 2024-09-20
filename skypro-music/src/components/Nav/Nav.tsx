@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "@/store/store";
 import {
   getTracks,
   setIsMyPlaylistClicked,
+  setIsSelectionClicked,
   setMyPlaylistState,
   setPlaylistState,
   setTrackState,
@@ -32,6 +33,7 @@ function Nav() {
   ) => {
     event.preventDefault();
     dispatch(setIsMyPlaylistClicked(false));
+    dispatch(setIsSelectionClicked(false));
     dispatch(getTracks()).unwrap();
     dispatch(setPlaylistState({ tracks: playlistState }));
     dispatch(setTrackState(undefined));

@@ -26,6 +26,7 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
   const selectionIdState = useAppSelector(
     (state) => state.track.selectionIdState
   );
+  const selectionState = useAppSelector((state) => state.track.selectionState);
 
   useEffect(() => {
     if (isMyPlaylistClicked) {
@@ -71,7 +72,11 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
       </div>
 
       <h2 className={styles.title}>
-        {isMyPlaylistClicked ? "Мои треки" : "Треки"}
+        {isMyPlaylistClicked
+          ? "Мои треки"
+          : isSelectionClicked
+          ? selectionState?.name
+          : "Треки"}
       </h2>
       <Filter performers={performers} genres={genres} />
 
