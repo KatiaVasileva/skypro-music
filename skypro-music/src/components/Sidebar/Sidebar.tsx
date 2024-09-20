@@ -1,14 +1,15 @@
 "use client";
 
-import Image from "next/image";
 import styles from "./Sidebar.module.css";
 import Icon from "../Icon/Icon";
 import { logout } from "@/store/features/userSlice";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { useEffect, useState } from "react";
 import { getTracks, setMyPlaylistState } from "@/store/features/trackSlice";
+import { Selection } from "@/types/Selection.types";
+import SelectionItem from "../Selection/Selection";
 
-function Sidebar() {
+function Sidebar({ allSelections }: { allSelections: Array<Selection> }) {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.userState);
   const [name, setName] = useState("");
@@ -23,7 +24,8 @@ function Sidebar() {
     if (user) {
       setName(user.username);
     }
-  }, [user, setName]);
+    dispatch(getTracks()).unwrap();
+  }, [user, setName, dispatch]);
 
   return (
     <div className={styles.sidebar}>
@@ -37,42 +39,12 @@ function Sidebar() {
       </div>
       <div className={styles.block}>
         <div className={styles.list}>
-          <div className={styles.item}>
-            <a className={styles.link} href="#">
-              <Image
-                className={styles.img}
-                src="/img/playlist01.png"
-                alt="day's playlist"
-                width={250}
-                height={150}
-                priority
-              />
-            </a>
-          </div>
-          <div className={styles.item}>
-            <a className={styles.link} href="#">
-              <Image
-                className={styles.img}
-                src="/img/playlist02.png"
-                alt="day's playlist"
-                width={250}
-                height={150}
-                priority
-              />
-            </a>
-          </div>
-          <div className={styles.item}>
-            <a className={styles.link} href="#">
-              <Image
-                className={styles.img}
-                src="/img/playlist03.png"
-                alt="day's playlist"
-                width={250}
-                height={150}
-                priority
-              />
-            </a>
-          </div>
+          {allSelections.map((selection) => (
+            <SelectionItem
+              selection={selection}
+              key={selection._id}
+            />
+          ))}
         </div>
       </div>
     </div>
