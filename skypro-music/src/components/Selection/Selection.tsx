@@ -5,7 +5,7 @@ import styles from "./Selection.module.css";
 import { imageUrls } from "@/utils/data";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { Selection } from "@/types/Selection.types";
-import { getSelectedTracks, getTracks, setIsMyPlaylistClicked, setIsSelectionClicked, setPlaylistState, setSelectedTracks, setSelectionId } from "@/store/features/trackSlice";
+import { getSelectedTracks, getTracks, setIsMyPlaylistClicked, setIsSelectedTrackClicked, setIsSelectionClicked, setPlaylistState, setSelectedTracks, setSelectionId, setTrackState } from "@/store/features/trackSlice";
 import { useEffect } from "react";
 
 type SelectionItemProps = {
@@ -16,6 +16,7 @@ function SelectionItem({ selection }: SelectionItemProps) {
   const dispatch = useAppDispatch();
   const selectedTracks = useAppSelector((state) => state.track.selectedTracks);
   const imageUrl: string | undefined = imageUrls.get(selection._id);
+  const trackState = useAppSelector((state) => state.track.trackState);
 
   const handleSelectionClick = () => {
     dispatch(setSelectionId(selection._id));
@@ -24,6 +25,9 @@ function SelectionItem({ selection }: SelectionItemProps) {
     dispatch(setIsSelectionClicked(true));
     dispatch(getSelectedTracks(selection._id));
     dispatch(setIsMyPlaylistClicked(false));
+    dispatch(setTrackState(trackState));
+    dispatch(setIsSelectedTrackClicked(false));
+    console.log(trackState?.track_file);
   };
 
   return (

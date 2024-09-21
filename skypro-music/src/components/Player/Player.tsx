@@ -31,6 +31,7 @@ function Player() {
     (state) => state.track.shuffledPlaylistState
   );
   const isMyPlaylistClicked = useAppSelector((state) => state.track.isMyPlaylistClicked);
+  const isSelectionClicked = useAppSelector((state) => state.track.isSelectionClicked);
   const dispatch = useAppDispatch();
 
   const {isLiked, handleLike} = useLikeTrack({track: trackState});
@@ -48,9 +49,14 @@ function Player() {
   }, [dispatch]);
 
   useEffect(() => {
-    audioRef.current!.src = shuffleActiveState
+    if (isSelectionClicked && trackState) {
+      audioRef.current!.src = trackState?.track_file;
+    } else {
+      audioRef.current!.src = shuffleActiveState
       ? shuffledPlaylistState[trackIndexState].track_file
       : playlistState[trackIndexState].track_file;
+    }
+    
     audioRef.current!.addEventListener("ended", handleEnded);
 
     audioRef.current!.play();
