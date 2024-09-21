@@ -54,10 +54,13 @@ export const getTracks = createAsyncThunk("track/allTracks", async () => {
   return allTracks;
 });
 
-export const getListOfTracks = createAsyncThunk("track/listTracks", async () => {
-  const allTracks = await getAllTracks();
-  return allTracks;
-});
+export const getListOfTracks = createAsyncThunk(
+  "track/listTracks",
+  async () => {
+    const allTracks = await getAllTracks();
+    return allTracks;
+  }
+);
 
 export const getFavoriteTracks = createAsyncThunk(
   "track/favorite",
@@ -139,7 +142,9 @@ const trackSlice = createSlice({
     setNextTrack: (state) => {
       const playlist = state.shuffleActiveState
         ? state.shuffledPlaylistState
-        : state.playlistState;
+        : state.isSelectedTrackClicked
+        ? state.playlistState
+        : state.listOfTracks;
       const nextIndex =
         state.trackIndexState < playlist.length - 1
           ? state.trackIndexState + 1
@@ -177,7 +182,9 @@ const trackSlice = createSlice({
       state.selectionIdState = action.payload;
     },
     setSelectedTracks: (state, action: PayloadAction<Selection>) => {
-      state.selectedTracks = action.payload.items.map(el => state.listOfTracks.filter(elem => elem._id === el)).flat();
+      state.selectedTracks = action.payload.items
+        .map((el) => state.listOfTracks.filter((elem) => elem._id === el))
+        .flat();
     },
   },
   extraReducers: (builder) => {

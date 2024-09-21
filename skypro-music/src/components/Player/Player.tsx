@@ -21,6 +21,7 @@ function Player() {
   const trackState = useAppSelector((state) => state.track.trackState);
   const playingState = useAppSelector((state) => state.track.playingState);
   const playlistState = useAppSelector((state) => state.track.playlistState);
+  const listOfTracks = useAppSelector((state) => state.track.listOfTracks);
   const trackIndexState = useAppSelector(
     (state) => state.track.trackIndexState
   );
@@ -31,6 +32,7 @@ function Player() {
     (state) => state.track.shuffledPlaylistState
   );
   const isMyPlaylistClicked = useAppSelector((state) => state.track.isMyPlaylistClicked);
+  const isSelectedTrackClicked = useAppSelector((state) => state.track.isSelectedTrackClicked);
   const isSelectionClicked = useAppSelector((state) => state.track.isSelectionClicked);
   const dispatch = useAppDispatch();
 
