@@ -8,6 +8,7 @@ import {
   getFavoriteTracks,
   getTracks,
   setIsMyPlaylistClicked,
+  setisTrackClicked,
   setIsSelectionClicked,
   setMyPlaylistState,
   setPlaylistState,
@@ -22,6 +23,7 @@ function Nav() {
     (state) => state.track.myPlaylistState
   );
   const playlistState = useAppSelector((state) => state.track.playlistState);
+  const trackState = useAppSelector((state) => state.track.trackState);
   const user = useAppSelector((state) => state.user.userState);
   const access = useAppSelector((state) => state.user.tokens.access);
   const refresh = useAppSelector((state) => state.user.tokens.refresh);
@@ -36,9 +38,11 @@ function Nav() {
     event.preventDefault();
     dispatch(setIsMyPlaylistClicked(false));
     dispatch(setIsSelectionClicked(false));
+    dispatch(setisTrackClicked(true));
     dispatch(getTracks());
     dispatch(setPlaylistState({ tracks: playlistState }));
-    dispatch(setTrackState(undefined));
+    // dispatch(setTrackState(undefined));
+    dispatch(setTrackState(trackState));
   };
 
   const handleMyPlaylistClick: React.MouseEventHandler<

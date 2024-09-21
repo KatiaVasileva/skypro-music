@@ -21,13 +21,14 @@ type TrackStateType = {
   shuffleActiveState: boolean;
   isMyPlaylistClicked: boolean;
   isSelectionClicked: boolean;
-  isSelectedTrackClicked: boolean;
+  isTrackClicked: boolean;
   errorMessage: string;
   selectionState?: Selection;
   allSelectionsState: Array<Selection>;
   selectionIdState: number;
   selectedTracks: Array<Track>;
   listOfTracks: Array<Track>;
+  trackCurrentTimeState: number;
 };
 
 const initialState: TrackStateType = {
@@ -40,13 +41,14 @@ const initialState: TrackStateType = {
   shuffleActiveState: false,
   isMyPlaylistClicked: false,
   isSelectionClicked: false,
-  isSelectedTrackClicked: false,
+  isTrackClicked: false,
   errorMessage: "",
   selectionState: undefined,
   allSelectionsState: [],
   selectionIdState: -1,
   selectedTracks: [],
   listOfTracks: [],
+  trackCurrentTimeState: 0,
 };
 
 export const getTracks = createAsyncThunk("track/allTracks", async () => {
@@ -142,7 +144,7 @@ const trackSlice = createSlice({
     setNextTrack: (state) => {
       const playlist = state.shuffleActiveState
         ? state.shuffledPlaylistState
-        : state.isSelectedTrackClicked
+        : state.isTrackClicked
         ? state.playlistState
         : state.listOfTracks;
       const nextIndex =
@@ -167,8 +169,8 @@ const trackSlice = createSlice({
     setIsSelectionClicked: (state, action: PayloadAction<boolean>) => {
       state.isSelectionClicked = action.payload;
     },
-    setIsSelectedTrackClicked: (state, action: PayloadAction<boolean>) => {
-      state.isSelectedTrackClicked = action.payload;
+    setisTrackClicked: (state, action: PayloadAction<boolean>) => {
+      state.isTrackClicked = action.payload;
     },
     setLike: (state, action: PayloadAction<Track>) => {
       state.myPlaylistState.push(action.payload);
@@ -185,6 +187,9 @@ const trackSlice = createSlice({
       state.selectedTracks = action.payload.items
         .map((el) => state.listOfTracks.filter((elem) => elem._id === el))
         .flat();
+    },
+    setTrackCurrentTime: (state, action: PayloadAction<number>) => {
+      state.trackCurrentTimeState = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -235,10 +240,11 @@ export const {
   toggleShuffle,
   setIsMyPlaylistClicked,
   setIsSelectionClicked,
-  setIsSelectedTrackClicked,
+  setisTrackClicked,
   setLike,
   setDislike,
   setSelectionId,
   setSelectedTracks,
+  setTrackCurrentTime,
 } = trackSlice.actions;
 export const trackReducer = trackSlice.reducer;

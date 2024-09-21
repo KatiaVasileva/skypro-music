@@ -14,6 +14,7 @@ import {
   toggleShuffle,
   setPrevTrack,
   setPlaylistState,
+  setTrackCurrentTime,
 } from "@/store/features/trackSlice";
 import { useLikeTrack } from "@/hooks/useLikeTracks";
 
@@ -31,12 +32,19 @@ function Player() {
   const shuffledPlaylistState = useAppSelector(
     (state) => state.track.shuffledPlaylistState
   );
-  const isMyPlaylistClicked = useAppSelector((state) => state.track.isMyPlaylistClicked);
-  const isSelectedTrackClicked = useAppSelector((state) => state.track.isSelectedTrackClicked);
-  const isSelectionClicked = useAppSelector((state) => state.track.isSelectionClicked);
+  const isMyPlaylistClicked = useAppSelector(
+    (state) => state.track.isMyPlaylistClicked
+  );
+  const isTrackClicked = useAppSelector((state) => state.track.isTrackClicked);
+  const isSelectionClicked = useAppSelector(
+    (state) => state.track.isSelectionClicked
+  );
+  const trackCurrentTimeState = useAppSelector(
+    (state) => state.track.trackCurrentTimeState
+  );
   const dispatch = useAppDispatch();
 
-  const {isLiked, handleLike} = useLikeTrack({track: trackState});
+  const { isLiked, handleLike } = useLikeTrack({ track: trackState });
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -48,6 +56,7 @@ function Player() {
 
   const handleEnded = useCallback(() => {
     dispatch(setNextTrack());
+    dispatch(setTrackCurrentTime(0));
   }, [dispatch]);
 
   useEffect(() => {
@@ -55,16 +64,18 @@ function Player() {
       audioRef.current!.src = trackState?.track_file;
     } else {
       audioRef.current!.src = shuffleActiveState
-      ? shuffledPlaylistState[trackIndexState].track_file
-      : playlistState[trackIndexState].track_file;
+        ? shuffledPlaylistState[trackIndexState].track_file
+        : playlistState[trackIndexState].track_file;
     }
-    
+
     audioRef.current!.addEventListener("ended", handleEnded);
+
+    audioRef.current!.currentTime = trackCurrentTimeState;
 
     audioRef.current!.play();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [handleEnded, playlistState, trackIndexState]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleEnded, playlistState, trackIndexState, audioRef.current]);
 
   useEffect(() => {
     audioRef.current!.volume = volume;
@@ -87,14 +98,17 @@ function Player() {
     dispatch(toggleShuffle());
     dispatch(setPlaylistState({ tracks: playlistState }));
     dispatch(setNextTrack());
+    dispatch(setTrackCurrentTime(0));
   };
 
   const handleButtonNextClick = () => {
     dispatch(setNextTrack());
+    dispatch(setTrackCurrentTime(0));
   };
 
   const handleButtonPrevClick = () => {
     dispatch(setPrevTrack());
+    dispatch(setTrackCurrentTime(0));
   };
 
   const handleLikeButton = async (event: React.MouseEvent<HTMLElement>) => {
@@ -108,16 +122,19 @@ function Player() {
           ref={audioRef}
           src={trackState?.track_file}
           loop={isRepeatActive ? true : false}
-          onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
+          onTimeUpdate={(e) => {
+            setCurrentTime(e.currentTarget.currentTime);
+            dispatch(setTrackCurrentTime(currentTime));
+          }}
         />
         <div>
           <ProgressBar
             max={duration}
             value={currentTime}
             step={0.01}
-            onChange={(e) =>
-              (audioRef.current!.currentTime = Number(e.target.value))
-            }
+            onChange={(e) => {
+              audioRef.current!.currentTime = Number(e.target.value);
+            }}
           ></ProgressBar>
         </div>
 
@@ -222,7 +239,11 @@ function Player() {
               <div className={styles.trackPlayLikeDis}>
                 <Icon
                   wrapperClass={styles.trackPlayLike}
-                  iconClass={isLiked ? styles.trackPlayLikeSvgActive : styles.trackPlayLikeSvg}
+                  iconClass={
+                    isLiked
+                      ? styles.trackPlayLikeSvgActive
+                      : styles.trackPlayLikeSvg
+                  }
                   name="icon-like"
                   onClick={handleLikeButton}
                 />

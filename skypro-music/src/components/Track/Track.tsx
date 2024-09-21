@@ -3,9 +3,10 @@
 import { Track } from "@/types/Track.types";
 import styles from "./Track.module.css";
 import {
-  setIsSelectedTrackClicked,
+  setisTrackClicked,
   setPlayingState,
   setPlaylistState,
+  setTrackCurrentTime,
   setTrackIndexState,
   setTrackState,
 } from "@/store/features/trackSlice";
@@ -33,7 +34,7 @@ function TrackItem({ track, tracks }: TrackItemProps) {
     (state) => state.track.shuffledPlaylistState
   );
   const trackState = useAppSelector((state) => state.track.trackState);
-  const isSelectedTrackClicked = useAppSelector((state) => state.track.isSelectedTrackClicked);
+  const isTrackClicked = useAppSelector((state) => state.track.isTrackClicked);
 
   const { isLiked, handleLike } = useLikeTrack({ track });
 
@@ -48,7 +49,8 @@ function TrackItem({ track, tracks }: TrackItemProps) {
           : playlistState.indexOf(track)
       )
     );
-    dispatch(setIsSelectedTrackClicked(true));
+    dispatch(setisTrackClicked(true));
+    dispatch(setTrackCurrentTime(0));
   };
 
   const handleLikeButton = async (event: React.MouseEvent<HTMLElement>) => {
@@ -68,7 +70,7 @@ function TrackItem({ track, tracks }: TrackItemProps) {
         <div className={styles.trackTitle}>
           <div className={styles.imageContainer}>
             {!shuffleActiveState &&
-              trackState && isSelectedTrackClicked &&
+              trackState && isTrackClicked &&
               playlistState.indexOf(track) === trackIndexState && (
                 <div
                   className={
@@ -77,7 +79,7 @@ function TrackItem({ track, tracks }: TrackItemProps) {
                 ></div>
               )}
             {shuffleActiveState &&
-              trackState && isSelectedTrackClicked &&
+              trackState && isTrackClicked &&
               shuffledPlaylistState.indexOf(track) === trackIndexState && (
                 <div
                   className={
