@@ -9,6 +9,7 @@ import TrackItem from "../Track/Track";
 import { Track } from "@/types/Track.types";
 import { useEffect } from "react";
 import { setPlaylistState } from "@/store/features/trackSlice";
+import Playlist from "../Playlist/Playlist";
 
 const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
   const playlistState = useAppSelector((state) => state.track.playlistState);
@@ -83,11 +84,7 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
 
       <div className={styles.content}>
         <TrackTitle />
-        <div className={styles.playlistContent}>
-          {allTracks.map((track) => (
-            <TrackItem track={track} key={track._id} tracks={allTracks} />
-          ))}
-        </div>
+        <Playlist allTracks={allTracks}/>
       </div>
     </div>
   );
