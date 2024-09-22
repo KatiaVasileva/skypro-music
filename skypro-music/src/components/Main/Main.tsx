@@ -38,7 +38,7 @@ function Main() {
       dispatch(getAllSelections());
       dispatch(getSelectedTracks(selectionIdState));
     }
-  }, [dispatch, access, refreshToken, isMyPlaylistClicked]);
+  }, [dispatch, access, refreshToken, isMyPlaylistClicked, selectionIdState]);
 
   return (
     <main className={styles.main}>

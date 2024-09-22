@@ -71,7 +71,9 @@ function TrackItem({ track, tracks }: TrackItemProps) {
           <div className={styles.imageContainer}>
             {!shuffleActiveState &&
               trackState && isTrackClicked &&
-              playlistState.indexOf(track) === trackIndexState && (
+              track._id === trackState._id &&
+              // playlistState.indexOf(track) === trackIndexState && 
+              (
                 <div
                   className={
                     playingState ? styles.playingDotAnimated : styles.playingDot
