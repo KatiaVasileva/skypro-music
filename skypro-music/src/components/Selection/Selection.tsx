@@ -17,7 +17,6 @@ function SelectionItem({ selection }: SelectionItemProps) {
   const selectedTracks = useAppSelector((state) => state.track.selectedTracks);
   const imageUrl: string | undefined = imageUrls.get(selection._id);
   const trackState = useAppSelector((state) => state.track.trackState);
-  const trackCurrentTime = useAppSelector((state) => (state.track.trackCurrentTimeState));
 
   const handleSelectionClick = () => {
     dispatch(setSelectionId(selection._id));

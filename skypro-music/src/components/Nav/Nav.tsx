@@ -13,6 +13,7 @@ import {
   setMyPlaylistState,
   setPlaylistState,
   setTrackState,
+  setIsMainClicked,
 } from "@/store/features/trackSlice";
 import { logout } from "@/store/features/userSlice";
 
@@ -41,8 +42,8 @@ function Nav() {
     dispatch(setisTrackClicked(true));
     dispatch(getTracks());
     dispatch(setPlaylistState({ tracks: playlistState }));
-    // dispatch(setTrackState(undefined));
     dispatch(setTrackState(trackState));
+    dispatch(setIsMainClicked(true));
   };
 
   const handleMyPlaylistClick: React.MouseEventHandler<
@@ -57,7 +58,9 @@ function Nav() {
     dispatch(setIsSelectionClicked(false));
     dispatch(getFavoriteTracks({access: access, refresh: refresh}));
     dispatch(setPlaylistState({ tracks: myPlaylistState }));
-    dispatch(setTrackState(undefined));
+    // dispatch(setTrackState(undefined));
+    dispatch(setTrackState(trackState));
+    dispatch(setisTrackClicked(false));
   };
 
   return (

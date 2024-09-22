@@ -15,6 +15,7 @@ import {
   setPrevTrack,
   setPlaylistState,
   setTrackCurrentTime,
+  setIsMainClicked,
 } from "@/store/features/trackSlice";
 import { useLikeTrack } from "@/hooks/useLikeTracks";
 
@@ -35,6 +36,7 @@ function Player() {
   const isMyPlaylistClicked = useAppSelector(
     (state) => state.track.isMyPlaylistClicked
   );
+  const isMainClicked = useAppSelector((state) => state.track.isMainClicked);
   const isTrackClicked = useAppSelector((state) => state.track.isTrackClicked);
   const isSelectionClicked = useAppSelector(
     (state) => state.track.isSelectionClicked
@@ -60,7 +62,10 @@ function Player() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (isSelectionClicked && trackState) {
+    if (
+      (isSelectionClicked || isMyPlaylistClicked || isMainClicked) &&
+      trackState
+    ) {
       audioRef.current!.src = trackState?.track_file;
     } else {
       audioRef.current!.src = shuffleActiveState
@@ -70,9 +75,9 @@ function Player() {
 
     audioRef.current!.addEventListener("ended", handleEnded);
 
-    audioRef.current!.currentTime = trackCurrentTimeState;
-
     audioRef.current!.play();
+
+    audioRef.current!.currentTime = trackCurrentTimeState;
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleEnded, playlistState, trackIndexState, audioRef.current]);

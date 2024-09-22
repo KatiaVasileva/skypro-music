@@ -22,6 +22,7 @@ type TrackStateType = {
   isMyPlaylistClicked: boolean;
   isSelectionClicked: boolean;
   isTrackClicked: boolean;
+  isMainClicked: boolean;
   errorMessage: string;
   selectionState?: Selection;
   allSelectionsState: Array<Selection>;
@@ -42,6 +43,7 @@ const initialState: TrackStateType = {
   isMyPlaylistClicked: false,
   isSelectionClicked: false,
   isTrackClicked: false,
+  isMainClicked: false,
   errorMessage: "",
   selectionState: undefined,
   allSelectionsState: [],
@@ -172,6 +174,9 @@ const trackSlice = createSlice({
     setisTrackClicked: (state, action: PayloadAction<boolean>) => {
       state.isTrackClicked = action.payload;
     },
+    setIsMainClicked: (state, action: PayloadAction<boolean>) => {
+      state.isMainClicked = action.payload;
+    },
     setLike: (state, action: PayloadAction<Track>) => {
       state.myPlaylistState.push(action.payload);
     },
@@ -241,6 +246,7 @@ export const {
   setIsMyPlaylistClicked,
   setIsSelectionClicked,
   setisTrackClicked,
+  setIsMainClicked,
   setLike,
   setDislike,
   setSelectionId,
