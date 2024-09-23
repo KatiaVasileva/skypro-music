@@ -2,7 +2,7 @@ import { render } from "@testing-library/react";
 import ProgressBar from "./ProgressBar";
 import { ChangeEvent } from "react";
 
-test("renders correctly", () => {
+it("renders correctly", () => {
   const { asFragment } = render(
     <ProgressBar
       max={0}

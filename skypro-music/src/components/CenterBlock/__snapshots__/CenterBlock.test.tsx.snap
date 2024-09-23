@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TrackComponent renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="main"
+  >
+    <div
+      class="search"
+    >
+      <div
+        class=""
+      >
+        <svg
+          class="searchSvg"
+        >
+          <use
+            xlink:href="/img/icon/sprite.svg#icon-search"
+          />
+        </svg>
+      </div>
+      <input
+        class="searchText"
+        name="search"
+        placeholder="Поиск"
+        type="search"
+      />
+    </div>
+    <h2
+      class="title"
+    >
+      Треки
+    </h2>
+    <div
+      class="filter"
+    >
+      <div
+        class="filterTitle"
+      >
+        Искать по:
+      </div>
+      <div
+        class="filterButton"
+      >
+        исполнителю
+      </div>
+      <div
+        class="filterButton"
+      >
+        году выпуска
+      </div>
+      <div
+        class="filterButton"
+      >
+        жанру
+      </div>
+    </div>
+    <div
+      class="content"
+    >
+      <div
+        class="contentTitle"
+      >
+        <div
+          class="playlistColumn playlistColumn01"
+        >
+          Трек
+        </div>
+        <div
+          class="playlistColumn playlistColumn02"
+        >
+          Исполнитель
+        </div>
+        <div
+          class="playlistColumn playlistColumn03"
+        >
+          Альбом
+        </div>
+        <div
+          class="playlistColumn playlistColumn04"
+        >
+          <div
+            class=""
+          >
+            <svg
+              class="playlistTitleSvg"
+            >
+              <use
+                xlink:href="/img/icon/sprite.svg#icon-watch"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div
+        class="playlistContent"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
