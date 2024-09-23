@@ -2,7 +2,7 @@ import ReduxProvider from "../../store/ReduxProvider";
 import CenterBlock from "./CenterBlock";
 import { render } from "@testing-library/react";
 
-describe("TrackComponent", () => {
+describe("Track component", () => {
   it("renders correctly", () => {
     const { asFragment } = render(
         <ReduxProvider>
