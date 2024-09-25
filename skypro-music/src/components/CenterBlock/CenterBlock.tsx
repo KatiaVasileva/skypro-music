@@ -10,6 +10,7 @@ import { Track } from "@/types/Track.types";
 import { useEffect } from "react";
 import { setPlaylistState } from "@/store/features/trackSlice";
 import Playlist from "../Playlist/Playlist";
+import Search from "../Search/Search";
 
 const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
   const playlistState = useAppSelector((state) => state.track.playlistState);
@@ -63,15 +64,7 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
 
   return (
     <div className={styles.main}>
-      <div className={styles.search}>
-        <Icon iconClass={styles.searchSvg} name="icon-search" />
-        <input
-          className={styles.searchText}
-          type="search"
-          placeholder="Поиск"
-          name="search"
-        />
-      </div>
+      <Search />
 
       <h2 className={styles.title}>
         {isMyPlaylistClicked
@@ -80,6 +73,7 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
           ? selectionState?.name
           : "Треки"}
       </h2>
+      
       <Filter performers={performers} genres={genres} />
 
       <div className={styles.content}>
