@@ -63,9 +63,7 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
     }, []);
 
   return (
-    <div className={styles.main}>
-      <Search />
-
+    <>
       <h2 className={styles.title}>
         {isMyPlaylistClicked
           ? "Мои треки"
@@ -73,14 +71,14 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
           ? selectionState?.name
           : "Треки"}
       </h2>
-      
+
       <Filter performers={performers} genres={genres} />
 
       <div className={styles.content}>
         <TrackTitle />
-        <Playlist allTracks={allTracks}/>
+        <Playlist allTracks={allTracks} />
       </div>
-    </div>
+    </>
   );
 };
 
