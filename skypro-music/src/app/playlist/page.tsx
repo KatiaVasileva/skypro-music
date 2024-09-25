@@ -52,7 +52,7 @@ function Main() {
 
   return (
     <>
-      <CenterBlock allTracks={allTracks} />
+      <CenterBlock allTracks={allTracks} title="Треки"/>
     </>
   );
 }

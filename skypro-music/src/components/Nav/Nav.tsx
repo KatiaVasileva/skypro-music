@@ -16,8 +16,11 @@ import {
   setIsMainClicked,
 } from "@/store/features/trackSlice";
 import { logout } from "@/store/features/userSlice";
+import { useRouter } from "next/navigation";
 
 function Nav() {
+  const router = useRouter();
+
   const dispatch = useAppDispatch();
   const [isBurgerClicked, setIsBurgerClicked] = useState(false);
   const myPlaylistState = useAppSelector(
@@ -37,13 +40,14 @@ function Nav() {
     event
   ) => {
     event.preventDefault();
-    dispatch(setIsMyPlaylistClicked(false));
-    dispatch(setIsSelectionClicked(false));
-    dispatch(setisTrackClicked(true));
-    dispatch(getTracks());
-    dispatch(setPlaylistState({ tracks: playlistState }));
-    dispatch(setTrackState(trackState));
-    dispatch(setIsMainClicked(true));
+    // dispatch(setIsMyPlaylistClicked(false));
+    // dispatch(setIsSelectionClicked(false));
+    // dispatch(setisTrackClicked(true));
+    // dispatch(getTracks());
+    // dispatch(setPlaylistState({ tracks: playlistState }));
+    // dispatch(setTrackState(trackState));
+    // dispatch(setIsMainClicked(true));
+    router.push("/playlist")
   };
 
   const handleMyPlaylistClick: React.MouseEventHandler<
@@ -54,13 +58,15 @@ function Nav() {
       alert("Необходимо зарегистрироваться");
       return;
     }
-    dispatch(setIsMyPlaylistClicked(true));
-    dispatch(setIsSelectionClicked(false));
-    dispatch(getFavoriteTracks({access: access, refresh: refresh}));
-    dispatch(setPlaylistState({ tracks: myPlaylistState }));
-    // dispatch(setTrackState(undefined));
-    dispatch(setTrackState(trackState));
-    dispatch(setisTrackClicked(false));
+    // dispatch(setIsMyPlaylistClicked(true));
+    // dispatch(setIsSelectionClicked(false));
+    // dispatch(getFavoriteTracks({access: access, refresh: refresh}));
+    // dispatch(setPlaylistState({ tracks: myPlaylistState }));
+    // // dispatch(setTrackState(undefined));
+    // dispatch(setTrackState(trackState));
+    // dispatch(setisTrackClicked(false));
+
+    router.push("/playlist/favorite")
   };
 
   return (
@@ -106,7 +112,9 @@ function Nav() {
                 <a
                   href="/"
                   className={styles.menuLink}
-                  onClick={() => {
+                  onClick={(event) => {
+                    event.preventDefault();
+                    router.push("/playlist");
                     dispatch(logout());
                     dispatch(getTracks());
                     dispatch(setMyPlaylistState([]));

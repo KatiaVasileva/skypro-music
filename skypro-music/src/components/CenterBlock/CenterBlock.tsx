@@ -12,42 +12,13 @@ import { setPlaylistState } from "@/store/features/trackSlice";
 import Playlist from "../Playlist/Playlist";
 import Search from "../Search/Search";
 
-const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
-  const playlistState = useAppSelector((state) => state.track.playlistState);
-  const isMyPlaylistClicked = useAppSelector(
-    (state) => state.track.isMyPlaylistClicked
-  );
-  const isSelectionClicked = useAppSelector(
-    (state) => state.track.isSelectionClicked
-  );
-  const dispatch = useAppDispatch();
-  const myPlaylistState = useAppSelector(
-    (state) => state.track.myPlaylistState
-  );
-  const selectedTracks = useAppSelector((state) => state.track.selectedTracks);
-  const selectionIdState = useAppSelector(
-    (state) => state.track.selectionIdState
-  );
-  const selectionState = useAppSelector((state) => state.track.selectionState);
+type CenterBlockProps = {
+  allTracks: Array<Track>;
+  title: string;
+};
 
-  useEffect(() => {
-    if (isMyPlaylistClicked) {
-      dispatch(setPlaylistState({ tracks: myPlaylistState }));
-    } else {
-      dispatch(setPlaylistState({ tracks: playlistState }));
-    }
-    if (isSelectionClicked) {
-      dispatch(setPlaylistState({ tracks: selectedTracks }));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    allTracks,
-    dispatch,
-    myPlaylistState,
-    isMyPlaylistClicked,
-    isSelectionClicked,
-    selectionIdState,
-  ]);
+const CenterBlock = ({ allTracks, title }: CenterBlockProps) => {
+  const playlistState = useAppSelector((state) => state.track.playlistState);
 
   const performers: Array<string> = playlistState
     .map((track) => track.author)
@@ -64,13 +35,7 @@ const CenterBlock = ({ allTracks }: { allTracks: Array<Track> }) => {
 
   return (
     <>
-      <h2 className={styles.title}>
-        {isMyPlaylistClicked
-          ? "Мои треки"
-          : isSelectionClicked
-          ? selectionState?.name
-          : "Треки"}
-      </h2>
+      <h2 className={styles.title}>{title}</h2>
 
       <Filter performers={performers} genres={genres} />
 
