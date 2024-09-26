@@ -3,7 +3,6 @@ import {
   getAllTracks,
   getFavorite,
   getSelectionById,
-  getSelections,
   removeFavorite,
 } from "@/api/tracksApi";
 import { FavoriteRequestProps } from "@/types/FavoriteRequestProps.types";
@@ -19,13 +18,8 @@ type TrackStateType = {
   shuffledPlaylistState: Array<Track>;
   myPlaylistState: Array<Track>;
   shuffleActiveState: boolean;
-  isMyPlaylistClicked: boolean;
-  isSelectionClicked: boolean;
   isTrackClicked: boolean;
-  isMainClicked: boolean;
   errorMessage: string;
-  selectionState?: Selection;
-  allSelectionsState: Array<Selection>;
   selectionIdState: string;
   selectedTracks: Array<Track>;
   selectionName: string;
@@ -41,13 +35,8 @@ const initialState: TrackStateType = {
   shuffledPlaylistState: [],
   myPlaylistState: [],
   shuffleActiveState: false,
-  isMyPlaylistClicked: false,
-  isSelectionClicked: false,
   isTrackClicked: false,
-  isMainClicked: false, 
   errorMessage: "",
-  selectionState: undefined,
-  allSelectionsState: [],
   selectionIdState: "",
   selectedTracks: [],
   selectionName: "",
@@ -89,14 +78,6 @@ export const removeTrackFromFavorite = createAsyncThunk(
   async ({ id, access, refresh }: FavoriteRequestProps) => {
     const dislikedTrack = await removeFavorite({ id, access, refresh });
     return dislikedTrack;
-  }
-);
-
-export const getAllSelections = createAsyncThunk(
-  "track/selections",
-  async () => {
-    const allSelections = await getSelections();
-    return allSelections;
   }
 );
 
@@ -167,17 +148,8 @@ const trackSlice = createSlice({
       state.trackIndexState = nextIndex;
       state.trackState = playlist[nextIndex];
     },
-    setIsMyPlaylistClicked: (state, action: PayloadAction<boolean>) => {
-      state.isMyPlaylistClicked = action.payload;
-    },
-    setIsSelectionClicked: (state, action: PayloadAction<boolean>) => {
-      state.isSelectionClicked = action.payload;
-    },
     setisTrackClicked: (state, action: PayloadAction<boolean>) => {
       state.isTrackClicked = action.payload;
-    },
-    setIsMainClicked: (state, action: PayloadAction<boolean>) => {
-      state.isMainClicked = action.payload;
     },
     setLike: (state, action: PayloadAction<Track>) => {
       state.myPlaylistState.push(action.payload);
@@ -214,12 +186,6 @@ const trackSlice = createSlice({
       .addCase(getFavoriteTracks.rejected, (state, action) => {
         state.errorMessage = "Ошибка: " + action.error.message;
       })
-      .addCase(getAllSelections.fulfilled, (state, action) => {
-        state.allSelectionsState = action.payload;
-      })
-      .addCase(getAllSelections.rejected, (state, action) => {
-        state.errorMessage = "Ошибка: " + action.error.message;
-      })
       .addCase(
         getSelectedTracks.fulfilled,
         (state, action: PayloadAction<Selection>) => {
@@ -246,10 +212,7 @@ export const {
   setPrevTrack,
   setShuffleActiveState,
   toggleShuffle,
-  setIsMyPlaylistClicked,
-  setIsSelectionClicked,
   setisTrackClicked,
-  setIsMainClicked,
   setLike,
   setDislike,
   setSelectionId,

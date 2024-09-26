@@ -104,20 +104,6 @@ export async function getFavorite({
   return data.data;
 }
 
-// Просмотреть подборки
-export async function getSelections(): Promise<Array<Selection>> {
-  const response = await fetch(baseHost + "/catalog/selection/all", {
-    method: "GET",
-  });
-
-  if (response.status === 500) {
-    throw new Error("Ошибка при получении данных");
-  }
-
-  const data = await response.json();
-  return data.data;
-}
-
 // Просмотреть подборку по id
 export async function getSelectionById(id: string): Promise<Selection> {
   const selectionId = Number(id) + 1;
