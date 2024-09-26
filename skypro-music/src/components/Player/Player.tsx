@@ -54,6 +54,7 @@ function Player() {
 
     if (audio) {
       if (trackState) {
+        console.log(trackState);
         audio.src = trackState.track_file;
       } else {
         audio.src = shuffleActiveState

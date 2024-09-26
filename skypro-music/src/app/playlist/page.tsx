@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import {
   getFavoriteTracks,
+  getSelectedTracks,
   getTracks,
 } from "@/store/features/trackSlice";
 import CenterBlock from "@/components/CenterBlock/CenterBlock";
@@ -12,10 +13,14 @@ function Main() {
   const {access, refresh} = useAppSelector((state) => state.user.tokens);
   const dispatch = useAppDispatch();
   const allTracks = useAppSelector((state) => state.track.playlistState);
+  const selectionId = useAppSelector((state) => state.track.selectionIdState);
 
   useEffect(() => {
     if (!access) {
       dispatch(getTracks());
+      if (selectionId) {
+        dispatch(getSelectedTracks(selectionId));
+      }
     }
     if (access) {
       dispatch(getTracks());
@@ -25,8 +30,11 @@ function Main() {
           refresh: refresh,
         })
       );
+      if (selectionId) {
+        dispatch(getSelectedTracks(selectionId));
+      }
     }
-  }, [access, dispatch, refresh]);
+  }, [access, dispatch, refresh, selectionId]);
 
   return (
     <>

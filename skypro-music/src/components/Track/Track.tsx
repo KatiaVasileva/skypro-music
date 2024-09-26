@@ -33,7 +33,7 @@ function TrackItem({ track, tracks }: TrackItemProps) {
   const trackState = useAppSelector((state) => state.track.trackState);
   const isTrackClicked = useAppSelector((state) => state.track.isTrackClicked);
 
-  const { isLiked, handleLike } = useLikeTrack({ track });
+  const { isLiked, handleLike } = useLikeTrack({ track });  
 
   const handleTracks = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();

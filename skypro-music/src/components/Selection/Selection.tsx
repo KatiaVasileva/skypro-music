@@ -2,8 +2,22 @@
 
 import Image from "next/image";
 import styles from "./Selection.module.css";
+import { useAppDispatch, useAppSelector } from "@/store/store";
+import { setTrackState } from "@/store/features/trackSlice";
+import { useRouter } from "next/navigation";
 
 function SelectionItem({ id }: { id: string }) {
+  const dispatch = useAppDispatch();
+  const trackState = useAppSelector((state) => state.track.trackState);
+  const router = useRouter();
+
+  const handleSelectionClick: React.MouseEventHandler<HTMLAnchorElement> = (event) => {
+    event.preventDefault();
+    console.log(trackState);
+    dispatch(setTrackState(trackState));
+    router.push(`/playlist/selection/${id}`);
+
+  }
  
   return (
     <div
@@ -12,7 +26,8 @@ function SelectionItem({ id }: { id: string }) {
     >
       <a
         className={styles.link}
-        href={`/playlist/selection/${id}`}
+        // href={`/playlist/selection/${id}`}
+        onClick={handleSelectionClick}
       >
         <Image
           className={styles.img}

@@ -69,7 +69,7 @@ function Nav() {
       </div>
       {isBurgerClicked && (
         <div className={styles.menu}>
-          <ul className={styles.menuList}>
+          <ul className={styles.menuList}>  
             <li className={styles.menuItem}>
               <a href="#" className={styles.menuLink} onClick={handleMainClick}>
                 Главное
