@@ -23,14 +23,9 @@ function Nav() {
 
   const dispatch = useAppDispatch();
   const [isBurgerClicked, setIsBurgerClicked] = useState(false);
-  const myPlaylistState = useAppSelector(
-    (state) => state.track.myPlaylistState
-  );
-  const playlistState = useAppSelector((state) => state.track.playlistState);
   const trackState = useAppSelector((state) => state.track.trackState);
   const user = useAppSelector((state) => state.user.userState);
   const access = useAppSelector((state) => state.user.tokens.access);
-  const refresh = useAppSelector((state) => state.user.tokens.refresh);
 
   const handleBurgerClick: React.MouseEventHandler<HTMLDivElement> = () => {
     setIsBurgerClicked((prevState) => !prevState);
@@ -40,13 +35,7 @@ function Nav() {
     event
   ) => {
     event.preventDefault();
-    // dispatch(setIsMyPlaylistClicked(false));
-    // dispatch(setIsSelectionClicked(false));
-    // dispatch(setisTrackClicked(true));
-    // dispatch(getTracks());
-    // dispatch(setPlaylistState({ tracks: playlistState }));
     dispatch(setTrackState(trackState));
-    // dispatch(setIsMainClicked(true));
     router.push("/playlist")
   };
 
@@ -58,14 +47,7 @@ function Nav() {
       alert("Необходимо зарегистрироваться");
       return;
     }
-    // dispatch(setIsMyPlaylistClicked(true));
-    // dispatch(setIsSelectionClicked(false));
-    // dispatch(getFavoriteTracks({access: access, refresh: refresh}));
-    // dispatch(setPlaylistState({ tracks: myPlaylistState }));
-    // // dispatch(setTrackState(undefined));
     dispatch(setTrackState(trackState));
-    // dispatch(setisTrackClicked(false));
-
     router.push("/playlist/favorite")
   };
 

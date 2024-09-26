@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 import Bar from "@/components/Bar/Bar";
 import Footer from "@/components/Footer/Footer";
 import Search from "@/components/Search/Search";
+import Sidebar from "@/components/Sidebar/Sidebar";
 
 export default function PlaylistLayout({
   children,
@@ -20,7 +21,7 @@ export default function PlaylistLayout({
             <Search />
             {children}
           </div>
-          {/* <Sidebar /> */}
+          <Sidebar />
         </main>
         <Bar />
         <Footer />

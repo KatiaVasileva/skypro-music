@@ -119,8 +119,9 @@ export async function getSelections(): Promise<Array<Selection>> {
 }
 
 // Просмотреть подборку по id
-export async function getSelectionById(selectionId: number): Promise<Selection> {
-  const response = await fetch(baseHost + "/catalog/selection/" + selectionId + "/", {
+export async function getSelectionById(id: string): Promise<Selection> {
+  const selectionId = Number(id) + 1;
+  const response = await fetch(`${baseHost}/catalog/selection/${selectionId}/`, {
     method: "GET",
   });
 

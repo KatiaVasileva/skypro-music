@@ -9,7 +9,7 @@ import { getTracks, setMyPlaylistState } from "@/store/features/trackSlice";
 import { Selection } from "@/types/Selection.types";
 import SelectionItem from "../Selection/Selection";
 
-function Sidebar({ allSelections }: { allSelections: Array<Selection> }) {
+function Sidebar() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.userState);
   const [name, setName] = useState("");
@@ -39,11 +39,8 @@ function Sidebar({ allSelections }: { allSelections: Array<Selection> }) {
       </div>
       <div className={styles.block}>
         <div className={styles.list}>
-          {allSelections.map((selection) => (
-            <SelectionItem
-              selection={selection}
-              key={selection._id}
-            />
+          {[1, 2, 3].map((selection) => (
+            <SelectionItem id={selection.toString()} key={selection} />
           ))}
         </div>
       </div>

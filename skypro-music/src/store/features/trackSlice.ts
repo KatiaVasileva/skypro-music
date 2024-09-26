@@ -26,8 +26,9 @@ type TrackStateType = {
   errorMessage: string;
   selectionState?: Selection;
   allSelectionsState: Array<Selection>;
-  selectionIdState: number;
+  selectionIdState: string;
   selectedTracks: Array<Track>;
+  selectionName: string;
   listOfTracks: Array<Track>;
   trackCurrentTimeState: number;
 };
@@ -47,8 +48,9 @@ const initialState: TrackStateType = {
   errorMessage: "",
   selectionState: undefined,
   allSelectionsState: [],
-  selectionIdState: -1,
+  selectionIdState: "",
   selectedTracks: [],
+  selectionName: "",
   listOfTracks: [],
   trackCurrentTimeState: 0,
 };
@@ -100,7 +102,7 @@ export const getAllSelections = createAsyncThunk(
 
 export const getSelectedTracks = createAsyncThunk(
   "track/selectedTracks",
-  async (selectionId: number) => {
+  async (selectionId: string) => {
     const selectedTracks = await getSelectionById(selectionId);
     return selectedTracks;
   }
@@ -185,13 +187,8 @@ const trackSlice = createSlice({
         (track) => track._id !== action.payload._id
       );
     },
-    setSelectionId: (state, action: PayloadAction<number>) => {
+    setSelectionId: (state, action: PayloadAction<string>) => {
       state.selectionIdState = action.payload;
-    },
-    setSelectedTracks: (state, action: PayloadAction<Selection>) => {
-      state.selectedTracks = action.payload.items
-        .map((el) => state.listOfTracks.filter((elem) => elem._id === el))
-        .flat();
     },
     setTrackCurrentTime: (state, action: PayloadAction<number>) => {
       state.trackCurrentTimeState = action.payload;
@@ -223,9 +220,15 @@ const trackSlice = createSlice({
       .addCase(getAllSelections.rejected, (state, action) => {
         state.errorMessage = "Ошибка: " + action.error.message;
       })
-      .addCase(getSelectedTracks.fulfilled, (state, action) => {
-        state.selectionState = action.payload;
-      })
+      .addCase(
+        getSelectedTracks.fulfilled,
+        (state, action: PayloadAction<Selection>) => {
+          state.selectedTracks = state.playlistState.filter((track) =>
+            action.payload.items.includes(track._id)
+          );
+          state.selectionName = action.payload.name;
+        }
+      )
       .addCase(getSelectedTracks.rejected, (state, action) => {
         state.errorMessage = "Ошибка: " + action.error.message;
       });
@@ -250,7 +253,6 @@ export const {
   setLike,
   setDislike,
   setSelectionId,
-  setSelectedTracks,
   setTrackCurrentTime,
 } = trackSlice.actions;
 export const trackReducer = trackSlice.reducer;
