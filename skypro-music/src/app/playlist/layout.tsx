@@ -1,5 +1,3 @@
-"use client";
-
 import Nav from "@/components/Nav/Nav";
 import styles from "./page.module.css";
 import Bar from "@/components/Bar/Bar";

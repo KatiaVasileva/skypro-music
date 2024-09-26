@@ -3,7 +3,13 @@
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../store/store";
-import { getFavoriteTracks, getSelectedTracks, setSelectionId, setTrackState } from "@/store/features/trackSlice";
+import {
+  getFavoriteTracks,
+  getListOfTracks,
+  getSelectedTracks,
+  setSelectionId,
+  setTrackState,
+} from "@/store/features/trackSlice";
 import CenterBlock from "@/components/CenterBlock/CenterBlock";
 
 export default function SelectionPage() {
@@ -12,14 +18,16 @@ export default function SelectionPage() {
   const { selectedTracks, selectionName, trackState } = useAppSelector(
     (state) => state.track
   );
-  const {access, refresh } = useAppSelector((state) => state.user.tokens)
+  const { access, refresh } = useAppSelector((state) => state.user.tokens);
 
   useEffect(() => {
     dispatch(setSelectionId(id));
     if (!access) {
+      dispatch(getListOfTracks());
       dispatch(getSelectedTracks(id));
     }
     if (access) {
+      dispatch(getListOfTracks());
       dispatch(getSelectedTracks(id));
       dispatch(
         getFavoriteTracks({
@@ -27,21 +35,8 @@ export default function SelectionPage() {
           refresh: refresh,
         })
       );
-      dispatch(setTrackState(trackState));
     }
   }, [access, dispatch, id, refresh, trackState]);
-
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       await dispatch(getSelectedTracks(id)).unwrap();
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-
-  //   getData();
-  // }, [dispatch, id]);
 
   return <CenterBlock allTracks={selectedTracks} title={selectionName} />;
 }

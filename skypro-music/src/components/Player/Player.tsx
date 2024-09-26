@@ -15,23 +15,17 @@ import {
   setPrevTrack,
   setPlaylistState,
   setTrackCurrentTime,
-  setIsMainClicked,
 } from "@/store/features/trackSlice";
 import { useLikeTrack } from "@/hooks/useLikeTracks";
 
 function Player() {
-  const trackState = useAppSelector((state) => state.track.trackState);
-  const playingState = useAppSelector((state) => state.track.playingState);
-  const playlistState = useAppSelector((state) => state.track.playlistState);
-  const trackIndexState = useAppSelector(
-    (state) => state.track.trackIndexState
-  );
-  const shuffleActiveState = useAppSelector(
-    (state) => state.track.shuffleActiveState
-  );
-  const shuffledPlaylistState = useAppSelector(
-    (state) => state.track.shuffledPlaylistState
-  );
+  const {
+    trackState,
+    playingState,
+    playlistState,
+    shuffleActiveState,
+  } = useAppSelector((state) => state.track);
+  
   const dispatch = useAppDispatch();
 
   const { isLiked, handleLike } = useLikeTrack({ track: trackState });
@@ -54,12 +48,7 @@ function Player() {
 
     if (audio) {
       if (trackState) {
-        console.log(trackState);
         audio.src = trackState.track_file;
-      } else {
-        audio.src = shuffleActiveState
-          ? shuffledPlaylistState[trackIndexState].track_file
-          : playlistState[trackIndexState].track_file;
       }
 
       audio.play();
@@ -73,7 +62,6 @@ function Player() {
         audio.removeEventListener("ended", handleEnded);
       }
     };
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trackState, dispatch]);
 

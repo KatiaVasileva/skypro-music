@@ -44,7 +44,7 @@ const initialState: TrackStateType = {
   isMyPlaylistClicked: false,
   isSelectionClicked: false,
   isTrackClicked: false,
-  isMainClicked: false,
+  isMainClicked: false, 
   errorMessage: "",
   selectionState: undefined,
   allSelectionsState: [],
@@ -223,7 +223,7 @@ const trackSlice = createSlice({
       .addCase(
         getSelectedTracks.fulfilled,
         (state, action: PayloadAction<Selection>) => {
-          state.selectedTracks = state.playlistState.filter((track) =>
+          state.selectedTracks = state.listOfTracks.filter((track) =>
             action.payload.items.includes(track._id)
           );
           state.selectionName = action.payload.name;

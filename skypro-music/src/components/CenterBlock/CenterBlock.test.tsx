@@ -7,7 +7,7 @@ describe("Track component", () => {
   it("renders a heading", () => {
     render(
       <ReduxProvider>
-        <CenterBlock allTracks={[]} title=""/>
+        <CenterBlock allTracks={[]} title="" />
       </ReduxProvider>
     );
 
@@ -18,7 +18,7 @@ describe("Track component", () => {
   it("renders correctly", () => {
     const { container } = render(
       <ReduxProvider>
-        <CenterBlock allTracks={[]} title=""/>
+        <CenterBlock allTracks={[]} title="" />
       </ReduxProvider>
     );
     expect(container).toMatchSnapshot();

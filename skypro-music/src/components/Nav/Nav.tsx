@@ -5,15 +5,9 @@ import styles from "./Nav.module.css";
 import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import {
-  getFavoriteTracks,
   getTracks,
-  setIsMyPlaylistClicked,
-  setisTrackClicked,
-  setIsSelectionClicked,
   setMyPlaylistState,
-  setPlaylistState,
   setTrackState,
-  setIsMainClicked,
 } from "@/store/features/trackSlice";
 import { logout } from "@/store/features/userSlice";
 import { useRouter } from "next/navigation";

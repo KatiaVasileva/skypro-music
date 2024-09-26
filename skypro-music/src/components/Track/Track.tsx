@@ -4,9 +4,7 @@ import { Track } from "@/types/Track.types";
 import styles from "./Track.module.css";
 import {
   setisTrackClicked,
-  setPlayingState,
   setPlaylistState,
-  setTrackCurrentTime,
   setTrackIndexState,
   setTrackState,
 } from "@/store/features/trackSlice";
@@ -40,20 +38,17 @@ function TrackItem({ track, tracks }: TrackItemProps) {
 
     dispatch(setTrackState(track));
     dispatch(setPlaylistState({ tracks: tracks }));
-    // dispatch(setPlayingState(true));
-    // dispatch(
-    //   setTrackIndexState(
-    //     shuffleActiveState
-    //       ? shuffledPlaylistState.indexOf(track)
-    //       : playlistState.indexOf(track)
-    //   )
-    // );
     dispatch(setisTrackClicked(true));
-    // dispatch(setTrackCurrentTime(0));
+    dispatch(
+        setTrackIndexState(
+          shuffleActiveState
+            ? shuffledPlaylistState.indexOf(track)
+            : playlistState.indexOf(track)
+        )
+      );
   };
 
   const handleLikeButton = async (event: React.MouseEvent<HTMLElement>) => {
-    // event.stopPropagation();
     handleLike(event);
   };
 

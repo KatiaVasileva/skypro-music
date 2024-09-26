@@ -13,10 +13,8 @@ function SelectionItem({ id }: { id: string }) {
 
   const handleSelectionClick: React.MouseEventHandler<HTMLAnchorElement> = (event) => {
     event.preventDefault();
-    console.log(trackState);
     dispatch(setTrackState(trackState));
     router.push(`/playlist/selection/${id}`);
-
   }
  
   return (
@@ -26,7 +24,6 @@ function SelectionItem({ id }: { id: string }) {
     >
       <a
         className={styles.link}
-        // href={`/playlist/selection/${id}`}
         onClick={handleSelectionClick}
       >
         <Image
