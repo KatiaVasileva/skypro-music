@@ -1,18 +1,12 @@
 "use client";
 
-import styles from "./page.module.css";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import {
-  getAllSelections,
   getFavoriteTracks,
-  getListOfTracks,
-  getSelectedTracks,
   getTracks,
-  setSelectedTracks,
 } from "@/store/features/trackSlice";
 import CenterBlock from "@/components/CenterBlock/CenterBlock";
-import Sidebar from "@/components/Sidebar/Sidebar";
 
 function Main() {
   const access = useAppSelector((state) => state.user.tokens.access);
@@ -29,30 +23,27 @@ function Main() {
     (state) => state.track.isMyPlaylistClicked
   );
 
-//   useEffect(() => {
-//     if (!access) {
-//       dispatch(getTracks());
-//       dispatch(getListOfTracks());
-//       dispatch(getAllSelections());
-//       dispatch(getSelectedTracks(selectionIdState));
-//     }
-//     if (access) {
-//       dispatch(getTracks());
-//       dispatch(
-//         getFavoriteTracks({
-//           access: access,
-//           refresh: refreshToken,
-//         })
-//       );
-//       dispatch(getListOfTracks());
-//       dispatch(getAllSelections());
-//       dispatch(getSelectedTracks(selectionIdState));
-//     }
-//   }, [dispatch, access, refreshToken, isMyPlaylistClicked, selectionIdState]);
+  useEffect(() => {
+    if (!access) {
+      dispatch(getTracks());
+      //   dispatch(getListOfTracks());
+      //   dispatch(getAllSelections());
+      //   dispatch(getSelectedTracks(selectionIdState));
+    }
+    if (access) {
+      dispatch(getTracks());
+      dispatch(
+        getFavoriteTracks({
+          access: access,
+          refresh: refreshToken,
+        })
+      );
+    }
+  });
 
   return (
     <>
-      <CenterBlock allTracks={allTracks} title="Треки"/>
+      <CenterBlock allTracks={allTracks} title="Треки" />
     </>
   );
 }

@@ -45,7 +45,7 @@ function Nav() {
     // dispatch(setisTrackClicked(true));
     // dispatch(getTracks());
     // dispatch(setPlaylistState({ tracks: playlistState }));
-    // dispatch(setTrackState(trackState));
+    dispatch(setTrackState(trackState));
     // dispatch(setIsMainClicked(true));
     router.push("/playlist")
   };
@@ -63,7 +63,7 @@ function Nav() {
     // dispatch(getFavoriteTracks({access: access, refresh: refresh}));
     // dispatch(setPlaylistState({ tracks: myPlaylistState }));
     // // dispatch(setTrackState(undefined));
-    // dispatch(setTrackState(trackState));
+    dispatch(setTrackState(trackState));
     // dispatch(setisTrackClicked(false));
 
     router.push("/playlist/favorite")

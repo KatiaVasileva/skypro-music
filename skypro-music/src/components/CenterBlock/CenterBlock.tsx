@@ -1,16 +1,11 @@
 "use client";
 
-import Icon from "../Icon/Icon";
 import styles from "./CenterBlock.module.css";
 import TrackTitle from "../TrackTitle/TrackTitle";
 import Filter from "../Filter/Filter";
-import { useAppDispatch, useAppSelector } from "@/store/store";
-import TrackItem from "../Track/Track";
+import { useAppSelector } from "@/store/store";
 import { Track } from "@/types/Track.types";
-import { useEffect } from "react";
-import { setPlaylistState } from "@/store/features/trackSlice";
 import Playlist from "../Playlist/Playlist";
-import Search from "../Search/Search";
 
 type CenterBlockProps = {
   allTracks: Array<Track>;

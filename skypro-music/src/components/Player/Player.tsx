@@ -62,25 +62,41 @@ function Player() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (
-      (isSelectionClicked || isMyPlaylistClicked || isMainClicked) &&
-      trackState
-    ) {
-      audioRef.current!.src = trackState?.track_file;
-    } else {
-      audioRef.current!.src = shuffleActiveState
-        ? shuffledPlaylistState[trackIndexState].track_file
-        : playlistState[trackIndexState].track_file;
+    const audio = audioRef.current;
+
+    if (audio) {
+      if (trackState) {
+        audio.src = trackState.track_file;
+      } else {
+        audio.src = shuffleActiveState
+          ? shuffledPlaylistState[trackIndexState].track_file
+          : playlistState[trackIndexState].track_file;
+      }
+
+      audio.play();
+      dispatch(setPlayingState(true));
+
+      audio.addEventListener("ended", handleEnded);
     }
 
-    audioRef.current!.addEventListener("ended", handleEnded);
-
-    audioRef.current!.play();
-
-    audioRef.current!.currentTime = trackCurrentTimeState;
+    return () => {
+      if (audio) {
+        audio.removeEventListener("ended", handleEnded);
+      }
+    };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [handleEnded, playlistState, trackIndexState, audioRef.current]);
+  }, [trackState, dispatch]);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      if (playingState) {
+        audioRef.current.play();
+      } else {
+        audioRef.current.pause();
+      }
+    }
+  }, [playingState]);
 
   useEffect(() => {
     audioRef.current!.volume = volume;

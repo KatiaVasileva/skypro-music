@@ -24,9 +24,6 @@ function TrackItem({ track, tracks }: TrackItemProps) {
   const dispatch = useAppDispatch();
   const playlistState = useAppSelector((state) => state.track.playlistState);
   const playingState = useAppSelector((state) => state.track.playingState);
-  const trackIndexState = useAppSelector(
-    (state) => state.track.trackIndexState
-  );
   const shuffleActiveState = useAppSelector(
     (state) => state.track.shuffleActiveState
   );
@@ -38,7 +35,9 @@ function TrackItem({ track, tracks }: TrackItemProps) {
 
   const { isLiked, handleLike } = useLikeTrack({ track });
 
-  const handleTracks = () => {
+  const handleTracks = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+
     dispatch(setTrackState(track));
     dispatch(setPlaylistState({ tracks: tracks }));
     dispatch(setPlayingState(true));
@@ -59,21 +58,14 @@ function TrackItem({ track, tracks }: TrackItemProps) {
   };
 
   return (
-    <div
-      className={styles.playlistItem}
-      key={track._id}
-      onClick={() => {
-        handleTracks();
-      }}
-    >
+    <div className={styles.playlistItem} key={track._id} onClick={handleTracks}>
       <div className={styles.playlistTrack}>
         <div className={styles.trackTitle}>
           <div className={styles.imageContainer}>
             {!shuffleActiveState &&
-              trackState && isTrackClicked &&
-              track._id === trackState._id &&
-              // playlistState.indexOf(track) === trackIndexState && 
-              (
+              trackState &&
+              isTrackClicked &&
+              track._id === trackState._id && (
                 <div
                   className={
                     playingState ? styles.playingDotAnimated : styles.playingDot
@@ -81,8 +73,9 @@ function TrackItem({ track, tracks }: TrackItemProps) {
                 ></div>
               )}
             {shuffleActiveState &&
-              trackState && isTrackClicked &&
-              shuffledPlaylistState.indexOf(track) === trackIndexState && (
+              trackState &&
+              isTrackClicked &&
+              track._id === trackState._id && (
                 <div
                   className={
                     playingState ? styles.playingDotAnimated : styles.playingDot

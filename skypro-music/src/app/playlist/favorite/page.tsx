@@ -15,4 +15,4 @@ export default function FavoritePage() {
   }
 
   return <CenterBlock allTracks={myPlaylistState} title={"Мои треки"} />;
-}   
+}  
