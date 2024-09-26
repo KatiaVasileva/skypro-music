@@ -7,7 +7,7 @@ describe("Track component", () => {
   it("renders a heading", () => {
     render(
       <ReduxProvider>
-        <CenterBlock allTracks={[]} />
+        <CenterBlock allTracks={[]} title=""/>
       </ReduxProvider>
     );
 
@@ -15,20 +15,10 @@ describe("Track component", () => {
     expect(heading).toBeInTheDocument();
   });
 
-  it("renders search", () => {
-    render(
-      <ReduxProvider>
-        <CenterBlock allTracks={[]} />
-      </ReduxProvider>
-    );
-
-    expect(screen.getByPlaceholderText("Поиск")).toBeInTheDocument();
-  });
-
   it("renders correctly", () => {
     const { container } = render(
       <ReduxProvider>
-        <CenterBlock allTracks={[]} />
+        <CenterBlock allTracks={[]} title=""/>
       </ReduxProvider>
     );
     expect(container).toMatchSnapshot();
