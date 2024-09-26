@@ -9,9 +9,8 @@ import {
 import CenterBlock from "@/components/CenterBlock/CenterBlock";
 
 function Main() {
-  const access = useAppSelector((state) => state.user.tokens.access);
+  const {access, refresh} = useAppSelector((state) => state.user.tokens);
   const dispatch = useAppDispatch();
-  const refreshToken = useAppSelector((state) => state.user.tokens.refresh);
   const allTracks = useAppSelector((state) => state.track.playlistState);
 
   useEffect(() => {
@@ -23,11 +22,11 @@ function Main() {
       dispatch(
         getFavoriteTracks({
           access: access,
-          refresh: refreshToken,
+          refresh: refresh,
         })
       );
     }
-  }, [access, dispatch, refreshToken]);
+  }, [access, dispatch, refresh]);
 
   return (
     <>

@@ -40,20 +40,20 @@ function TrackItem({ track, tracks }: TrackItemProps) {
 
     dispatch(setTrackState(track));
     dispatch(setPlaylistState({ tracks: tracks }));
-    dispatch(setPlayingState(true));
-    dispatch(
-      setTrackIndexState(
-        shuffleActiveState
-          ? shuffledPlaylistState.indexOf(track)
-          : playlistState.indexOf(track)
-      )
-    );
+    // dispatch(setPlayingState(true));
+    // dispatch(
+    //   setTrackIndexState(
+    //     shuffleActiveState
+    //       ? shuffledPlaylistState.indexOf(track)
+    //       : playlistState.indexOf(track)
+    //   )
+    // );
     dispatch(setisTrackClicked(true));
-    dispatch(setTrackCurrentTime(0));
+    // dispatch(setTrackCurrentTime(0));
   };
 
   const handleLikeButton = async (event: React.MouseEvent<HTMLElement>) => {
-    event.stopPropagation();
+    // event.stopPropagation();
     handleLike(event);
   };
 

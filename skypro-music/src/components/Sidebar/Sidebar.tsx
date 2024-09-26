@@ -6,7 +6,6 @@ import { logout } from "@/store/features/userSlice";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { useEffect, useState } from "react";
 import { getTracks, setMyPlaylistState } from "@/store/features/trackSlice";
-import { Selection } from "@/types/Selection.types";
 import SelectionItem from "../Selection/Selection";
 
 function Sidebar() {
