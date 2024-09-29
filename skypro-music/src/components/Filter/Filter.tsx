@@ -11,7 +11,7 @@ function Filter({ performers, genres, years }: FilterProps) {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const dispatch = useAppDispatch();
 
-  const handleFilterItemClick = (filterElement: string, selectedFilterElements: Array<string>) => {
+  const handleFilterItemClick = (filterElement: string) => {
     if (activeIndex === 1) {
       dispatch(setPerformerState(filterElement));
     }
