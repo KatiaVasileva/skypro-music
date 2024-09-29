@@ -1,11 +1,21 @@
+"use client";
+
 import { useState } from "react";
 import styles from "./Filter.module.css";
-import classNames from "classnames";
 import { FilterProps } from "@/types/FilterProps.types";
 import FilterItem from "../FilterItem/FilterItem";
+import { useAppDispatch } from "@/store/store";
+import { setPerformerState } from "@/store/features/filterSlice";
 
 function Filter({ performers, genres, years }: FilterProps) {
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const dispatch = useAppDispatch();
+
+  const handleFilterItemClick = (filterElement: string, selectedFilterElements: Array<string>) => {
+    if (activeIndex === 1) {
+      dispatch(setPerformerState(filterElement));
+    }
+  };
 
   return (
     <>
@@ -44,15 +54,27 @@ function Filter({ performers, genres, years }: FilterProps) {
       </div>
 
       {activeIndex === 1 && (
-        <FilterItem filterName="performer" filterContent={performers} />
+        <FilterItem
+          filterName="performer"
+          filterContent={performers}
+          handleFilterItemClick={handleFilterItemClick}
+        />
       )}
 
       {activeIndex === 2 && (
-        <FilterItem filterName="year" filterContent={years} />
+        <FilterItem
+          filterName="year"
+          filterContent={years}
+          handleFilterItemClick={handleFilterItemClick}
+        />
       )}
 
       {activeIndex === 3 && (
-        <FilterItem filterName="genre" filterContent={genres} />
+        <FilterItem
+          filterName="genre"
+          filterContent={genres}
+          handleFilterItemClick={handleFilterItemClick}
+        />
       )}
     </>
   );
