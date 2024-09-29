@@ -6,20 +6,18 @@ import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import {
   getTracks,
-  setIsMyPlaylistClicked,
   setMyPlaylistState,
-  setPlaylistState,
   setTrackState,
 } from "@/store/features/trackSlice";
 import { logout } from "@/store/features/userSlice";
+import { useRouter } from "next/navigation";
 
 function Nav() {
+  const router = useRouter();
+
   const dispatch = useAppDispatch();
   const [isBurgerClicked, setIsBurgerClicked] = useState(false);
-  const myPlaylistState = useAppSelector(
-    (state) => state.track.myPlaylistState
-  );
-  const playlistState = useAppSelector((state) => state.track.playlistState);
+  const trackState = useAppSelector((state) => state.track.trackState);
   const user = useAppSelector((state) => state.user.userState);
   const access = useAppSelector((state) => state.user.tokens.access);
 
@@ -31,10 +29,8 @@ function Nav() {
     event
   ) => {
     event.preventDefault();
-    dispatch(setIsMyPlaylistClicked(false));
-    dispatch(getTracks()).unwrap();
-    dispatch(setPlaylistState({ tracks: playlistState }));
-    dispatch(setTrackState(undefined));
+    dispatch(setTrackState(trackState));
+    router.push("/playlist")
   };
 
   const handleMyPlaylistClick: React.MouseEventHandler<
@@ -45,9 +41,8 @@ function Nav() {
       alert("Необходимо зарегистрироваться");
       return;
     }
-    dispatch(setIsMyPlaylistClicked(true));
-    dispatch(setPlaylistState({ tracks: myPlaylistState }));
-    dispatch(setTrackState(undefined));
+    dispatch(setTrackState(trackState));
+    router.push("/playlist/favorite")
   };
 
   return (
@@ -68,7 +63,7 @@ function Nav() {
       </div>
       {isBurgerClicked && (
         <div className={styles.menu}>
-          <ul className={styles.menuList}>
+          <ul className={styles.menuList}>  
             <li className={styles.menuItem}>
               <a href="#" className={styles.menuLink} onClick={handleMainClick}>
                 Главное
@@ -93,7 +88,9 @@ function Nav() {
                 <a
                   href="/"
                   className={styles.menuLink}
-                  onClick={() => {
+                  onClick={(event) => {
+                    event.preventDefault();
+                    router.push("/playlist");
                     dispatch(logout());
                     dispatch(getTracks());
                     dispatch(setMyPlaylistState([]));

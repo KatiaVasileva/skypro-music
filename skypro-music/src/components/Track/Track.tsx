@@ -3,7 +3,7 @@
 import { Track } from "@/types/Track.types";
 import styles from "./Track.module.css";
 import {
-  setPlayingState,
+  setisTrackClicked,
   setPlaylistState,
   setTrackIndexState,
   setTrackState,
@@ -22,9 +22,6 @@ function TrackItem({ track, tracks }: TrackItemProps) {
   const dispatch = useAppDispatch();
   const playlistState = useAppSelector((state) => state.track.playlistState);
   const playingState = useAppSelector((state) => state.track.playingState);
-  const trackIndexState = useAppSelector(
-    (state) => state.track.trackIndexState
-  );
   const shuffleActiveState = useAppSelector(
     (state) => state.track.shuffleActiveState
   );
@@ -32,41 +29,38 @@ function TrackItem({ track, tracks }: TrackItemProps) {
     (state) => state.track.shuffledPlaylistState
   );
   const trackState = useAppSelector((state) => state.track.trackState);
+  const isTrackClicked = useAppSelector((state) => state.track.isTrackClicked);
 
-  const { isLiked, handleLike } = useLikeTrack({ track });
+  const { isLiked, handleLike } = useLikeTrack({ track });  
 
-  const handleTracks = () => {
+  const handleTracks = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+
     dispatch(setTrackState(track));
     dispatch(setPlaylistState({ tracks: tracks }));
-    dispatch(setPlayingState(true));
+    dispatch(setisTrackClicked(true));
     dispatch(
-      setTrackIndexState(
-        shuffleActiveState
-          ? shuffledPlaylistState.indexOf(track)
-          : playlistState.indexOf(track)
-      )
-    );
+        setTrackIndexState(
+          shuffleActiveState
+            ? shuffledPlaylistState.indexOf(track)
+            : playlistState.indexOf(track)
+        )
+      );
   };
 
   const handleLikeButton = async (event: React.MouseEvent<HTMLElement>) => {
-    event.stopPropagation();
     handleLike(event);
   };
 
   return (
-    <div
-      className={styles.playlistItem}
-      key={track._id}
-      onClick={() => {
-        handleTracks();
-      }}
-    >
+    <div className={styles.playlistItem} key={track._id} onClick={handleTracks}>
       <div className={styles.playlistTrack}>
         <div className={styles.trackTitle}>
           <div className={styles.imageContainer}>
             {!shuffleActiveState &&
               trackState &&
-              playlistState.indexOf(track) === trackIndexState && (
+              isTrackClicked &&
+              track._id === trackState._id && (
                 <div
                   className={
                     playingState ? styles.playingDotAnimated : styles.playingDot
@@ -75,7 +69,8 @@ function TrackItem({ track, tracks }: TrackItemProps) {
               )}
             {shuffleActiveState &&
               trackState &&
-              shuffledPlaylistState.indexOf(track) === trackIndexState && (
+              isTrackClicked &&
+              track._id === trackState._id && (
                 <div
                   className={
                     playingState ? styles.playingDotAnimated : styles.playingDot

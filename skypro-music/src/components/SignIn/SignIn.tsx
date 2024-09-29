@@ -29,7 +29,7 @@ export default function SignIn() {
         signin({ email: formData.email, password: formData.password })
       ).unwrap();
       dispatch(setUser(user));
-      router.push("/");
+      router.push("/playlist");
       setFormData({ email: "", password: "" });
     } catch (error: unknown) {
       if (error instanceof Error) {

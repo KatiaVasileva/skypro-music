@@ -1,10 +1,12 @@
 import {
   addFavorite,
-  FavoriteRequestProps,
   getAllTracks,
   getFavorite,
+  getSelectionById,
   removeFavorite,
 } from "@/api/tracksApi";
+import { FavoriteRequestProps } from "@/types/FavoriteRequestProps.types";
+import { Selection } from "@/types/Selection.types";
 import { Track } from "@/types/Track.types";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -16,8 +18,13 @@ type TrackStateType = {
   shuffledPlaylistState: Array<Track>;
   myPlaylistState: Array<Track>;
   shuffleActiveState: boolean;
-  isMyPlaylistClicked: boolean;
+  isTrackClicked: boolean;
   errorMessage: string;
+  selectionIdState: string;
+  selectedTracks: Array<Track>;
+  selectionName: string;
+  listOfTracks: Array<Track>;
+  trackCurrentTimeState: number;
 };
 
 const initialState: TrackStateType = {
@@ -28,14 +35,27 @@ const initialState: TrackStateType = {
   shuffledPlaylistState: [],
   myPlaylistState: [],
   shuffleActiveState: false,
-  isMyPlaylistClicked: false,
+  isTrackClicked: false,
   errorMessage: "",
+  selectionIdState: "",
+  selectedTracks: [],
+  selectionName: "",
+  listOfTracks: [],
+  trackCurrentTimeState: 0,
 };
 
 export const getTracks = createAsyncThunk("track/allTracks", async () => {
   const allTracks = await getAllTracks();
   return allTracks;
 });
+
+export const getListOfTracks = createAsyncThunk(
+  "track/listTracks",
+  async () => {
+    const allTracks = await getAllTracks();
+    return allTracks;
+  }
+);
 
 export const getFavoriteTracks = createAsyncThunk(
   "track/favorite",
@@ -58,6 +78,14 @@ export const removeTrackFromFavorite = createAsyncThunk(
   async ({ id, access, refresh }: FavoriteRequestProps) => {
     const dislikedTrack = await removeFavorite({ id, access, refresh });
     return dislikedTrack;
+  }
+);
+
+export const getSelectedTracks = createAsyncThunk(
+  "track/selectedTracks",
+  async (selectionId: string) => {
+    const selectedTracks = await getSelectionById(selectionId);
+    return selectedTracks;
   }
 );
 
@@ -101,7 +129,9 @@ const trackSlice = createSlice({
     setNextTrack: (state) => {
       const playlist = state.shuffleActiveState
         ? state.shuffledPlaylistState
-        : state.playlistState;
+        : state.isTrackClicked
+        ? state.playlistState
+        : state.listOfTracks;
       const nextIndex =
         state.trackIndexState < playlist.length - 1
           ? state.trackIndexState + 1
@@ -118,8 +148,8 @@ const trackSlice = createSlice({
       state.trackIndexState = nextIndex;
       state.trackState = playlist[nextIndex];
     },
-    setIsMyPlaylistClicked: (state, action: PayloadAction<boolean>) => {
-      state.isMyPlaylistClicked = action.payload;
+    setisTrackClicked: (state, action: PayloadAction<boolean>) => {
+      state.isTrackClicked = action.payload;
     },
     setLike: (state, action: PayloadAction<Track>) => {
       state.myPlaylistState.push(action.payload);
@@ -128,6 +158,12 @@ const trackSlice = createSlice({
       state.myPlaylistState = state.myPlaylistState.filter(
         (track) => track._id !== action.payload._id
       );
+    },
+    setSelectionId: (state, action: PayloadAction<string>) => {
+      state.selectionIdState = action.payload;
+    },
+    setTrackCurrentTime: (state, action: PayloadAction<number>) => {
+      state.trackCurrentTimeState = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -138,10 +174,28 @@ const trackSlice = createSlice({
       .addCase(getTracks.rejected, (state, action) => {
         state.errorMessage = "Ошибка: " + action.error.message;
       })
+      .addCase(getListOfTracks.fulfilled, (state, action) => {
+        state.listOfTracks = action.payload;
+      })
+      .addCase(getListOfTracks.rejected, (state, action) => {
+        state.errorMessage = "Ошибка: " + action.error.message;
+      })
       .addCase(getFavoriteTracks.fulfilled, (state, action) => {
         state.myPlaylistState = action.payload;
       })
       .addCase(getFavoriteTracks.rejected, (state, action) => {
+        state.errorMessage = "Ошибка: " + action.error.message;
+      })
+      .addCase(
+        getSelectedTracks.fulfilled,
+        (state, action: PayloadAction<Selection>) => {
+          state.selectedTracks = state.listOfTracks.filter((track) =>
+            action.payload.items.includes(track._id)
+          );
+          state.selectionName = action.payload.name;
+        }
+      )
+      .addCase(getSelectedTracks.rejected, (state, action) => {
         state.errorMessage = "Ошибка: " + action.error.message;
       });
   },
@@ -158,8 +212,10 @@ export const {
   setPrevTrack,
   setShuffleActiveState,
   toggleShuffle,
-  setIsMyPlaylistClicked,
+  setisTrackClicked,
   setLike,
   setDislike,
+  setSelectionId,
+  setTrackCurrentTime,
 } = trackSlice.actions;
 export const trackReducer = trackSlice.reducer;
