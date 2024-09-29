@@ -2,10 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type FilterStateType = {
   searchState: string;
+  performerState: Array<string>;
 };
 
 const initialState: FilterStateType = {
   searchState: "",
+  performerState: [],
 };
 
 const filterSlice = createSlice({
@@ -15,8 +17,18 @@ const filterSlice = createSlice({
     setSearchState: (state, action: PayloadAction<string>) => {
       state.searchState = action.payload;
     },
+    setPerformerState: (state, action: PayloadAction<string>) => {
+      const author = action.payload;
+      if (state.performerState.includes(author)) {
+        state.performerState = state.performerState.filter(
+          (performer) => performer !== author
+        );
+      } else {
+        state.performerState.push(author);
+      }
+    },
   },
 });
 
-export const { setSearchState } = filterSlice.actions;
+export const { setSearchState, setPerformerState } = filterSlice.actions;
 export const filterReducer = filterSlice.reducer;

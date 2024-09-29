@@ -3,7 +3,7 @@ import { Track } from "@/types/Track.types";
 import { useMemo } from "react";
 
 export const useFilteredTracks = ({ tracks }: { tracks: Array<Track> }) => {
-  const { searchState } = useAppSelector((state) => state.filter);
+  const { searchState, performerState } = useAppSelector((state) => state.filter);
 
   const filteredTracks = useMemo(() => {
     let tracksToFilter = tracks;
@@ -14,8 +14,12 @@ export const useFilteredTracks = ({ tracks }: { tracks: Array<Track> }) => {
       );
     }
 
+    if (performerState.length > 0) {
+        tracksToFilter = tracksToFilter.filter((track) => performerState.includes(track.author));
+    }
+
     return tracksToFilter;
-  }, [tracks, searchState]);
+  }, [tracks, searchState, performerState]);
 
   return filteredTracks;
 };

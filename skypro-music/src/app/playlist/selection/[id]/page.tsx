@@ -8,7 +8,6 @@ import {
   getListOfTracks,
   getSelectedTracks,
   setSelectionId,
-  setTrackState,
 } from "@/store/features/trackSlice";
 import CenterBlock from "@/components/CenterBlock/CenterBlock";
 import { useFilteredTracks } from "@/hooks/useFilteredTracks";

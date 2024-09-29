@@ -28,11 +28,17 @@ const CenterBlock = ({ allTracks, title }: CenterBlockProps) => {
       return acc.includes(genre) ? acc : [...acc, genre];
     }, []);
 
+  const years: Array<string> = [
+    "По умолчанию",
+    "Сначала новые",
+    "Сначала старые",
+  ];
+
   return (
     <>
       <h2 className={styles.title}>{title}</h2>
 
-      <Filter performers={performers} genres={genres} />
+      <Filter performers={performers} genres={genres} years={years}/>
 
       <div className={styles.content}>
         <TrackTitle />

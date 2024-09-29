@@ -2,8 +2,9 @@ import { useState } from "react";
 import styles from "./Filter.module.css";
 import classNames from "classnames";
 import { FilterProps } from "@/types/FilterProps.types";
+import FilterItem from "../FilterItem/FilterItem";
 
-function Filter({ performers, genres }: FilterProps) {
+function Filter({ performers, genres, years }: FilterProps) {
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   return (
@@ -53,9 +54,7 @@ function Filter({ performers, genres }: FilterProps) {
             <div className={styles.popupBox}>
               <div className={styles.popupContent}>
                 {performers.map((performer) => (
-                  <p className={styles.popupText} key={performer}>
-                    {performer}
-                  </p>
+                  <FilterItem filterName={performer} key={performer} />
                 ))}
               </div>
             </div>
@@ -71,11 +70,11 @@ function Filter({ performers, genres }: FilterProps) {
               styles.popupContainerYear
             )}
           >
-            <div className={styles.popupBoxYear}>
-              <div className={styles.popupContentYear}>
-                <p className={styles.popupText}>По умолчанию</p>
-                <p className={styles.popupText}>Сначала новые</p>
-                <p className={styles.popupText}>Сначала старые</p>
+            <div className={styles.popupBox}>
+              <div className={styles.popupContent}>
+                {years.map((year) => (
+                  <FilterItem filterName={year} key={year} />
+                ))}
               </div>
             </div>
           </div>
@@ -93,9 +92,7 @@ function Filter({ performers, genres }: FilterProps) {
             <div className={styles.popupBox}>
               <div className={styles.popupContent}>
                 {genres.map((genre) => (
-                  <p className={styles.popupText} key={genre}>
-                    {genre}
-                  </p>
+                  <FilterItem filterName={genre} key={genre} />
                 ))}
               </div>
             </div>
