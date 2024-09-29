@@ -44,60 +44,15 @@ function Filter({ performers, genres, years }: FilterProps) {
       </div>
 
       {activeIndex === 1 && (
-        <div className={styles.popup}>
-          <div
-            className={classNames(
-              styles.popupContainer,
-              styles.popupContainerAuthor
-            )}
-          >
-            <div className={styles.popupBox}>
-              <div className={styles.popupContent}>
-                {performers.map((performer) => (
-                  <FilterItem filterName={performer} key={performer} />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+        <FilterItem filterName="performer" filterContent={performers} />
       )}
 
       {activeIndex === 2 && (
-        <div className={styles.popup}>
-          <div
-            className={classNames(
-              styles.popupContainer,
-              styles.popupContainerYear
-            )}
-          >
-            <div className={styles.popupBox}>
-              <div className={styles.popupContent}>
-                {years.map((year) => (
-                  <FilterItem filterName={year} key={year} />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+        <FilterItem filterName="year" filterContent={years} />
       )}
 
       {activeIndex === 3 && (
-        <div className={styles.popup}>
-          <div
-            className={classNames(
-              styles.popupContainer,
-              styles.popupContainerGenre
-            )}
-          >
-            <div className={styles.popupBox}>
-              <div className={styles.popupContent}>
-                {genres.map((genre) => (
-                  <FilterItem filterName={genre} key={genre} />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+        <FilterItem filterName="genre" filterContent={genres} />
       )}
     </>
   );
