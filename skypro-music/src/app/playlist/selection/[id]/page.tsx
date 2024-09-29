@@ -11,6 +11,7 @@ import {
   setTrackState,
 } from "@/store/features/trackSlice";
 import CenterBlock from "@/components/CenterBlock/CenterBlock";
+import { useFilteredTracks } from "@/hooks/useFilteredTracks";
 
 export default function SelectionPage() {
   const { id } = useParams<{ id: string }>();
@@ -19,6 +20,8 @@ export default function SelectionPage() {
     (state) => state.track
   );
   const { access, refresh } = useAppSelector((state) => state.user.tokens);
+  const filteredTracks = useFilteredTracks({tracks: selectedTracks});
+
 
   useEffect(() => {
     dispatch(setSelectionId(id));
@@ -38,5 +41,5 @@ export default function SelectionPage() {
     }
   }, [access, dispatch, id, refresh, trackState]);
 
-  return <CenterBlock allTracks={selectedTracks} title={selectionName} />;
+  return <CenterBlock allTracks={filteredTracks} title={selectionName} />;
 }
