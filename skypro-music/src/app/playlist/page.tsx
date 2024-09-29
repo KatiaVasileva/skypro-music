@@ -8,12 +8,14 @@ import {
   getTracks,
 } from "@/store/features/trackSlice";
 import CenterBlock from "@/components/CenterBlock/CenterBlock";
+import { useFilteredTracks } from "@/hooks/useFilteredTracks";
 
 function Main() {
   const { access, refresh } = useAppSelector((state) => state.user.tokens);
   const dispatch = useAppDispatch();
   const allTracks = useAppSelector((state) => state.track.playlistState);
   const selectionId = useAppSelector((state) => state.track.selectionIdState);
+  const filteredTracks = useFilteredTracks({tracks: allTracks});
 
   useEffect(() => {
     if (!access) {
@@ -32,7 +34,7 @@ function Main() {
 
   return (
     <>
-      <CenterBlock allTracks={allTracks} title="Треки" />
+      <CenterBlock allTracks={filteredTracks} title="Треки" />
     </>
   );
 }
