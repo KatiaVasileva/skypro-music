@@ -38,10 +38,13 @@ const CenterBlock = ({ allTracks, title }: CenterBlockProps) => {
     <>
       <h2 className={styles.title}>{title}</h2>
 
-      <Filter performers={performers} genres={genres} years={years}/>
+      <Filter performers={performers} genres={genres} years={years} />
 
       <div className={styles.content}>
         <TrackTitle />
+        {allTracks.length === 0 && (
+          <div className={styles.textNotFound}>Треки не найдены</div>
+        )}
         <Playlist allTracks={allTracks} />
       </div>
     </>

@@ -44,9 +44,6 @@ export const useFilteredTracks = ({ tracks }: { tracks: Array<Track> }) => {
       );
     }
 
-    console.log(genreState.length);
-    console.log(tracksToFilter);
-
     return tracksToFilter;
   }, [tracks, searchState, performerState, genreState, dateState]);
 
