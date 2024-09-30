@@ -12,6 +12,9 @@ function Filter({ performers, genres, years }: FilterProps) {
   const dispatch = useAppDispatch();
   const {performerState, dateState, genreState} = useAppSelector((state) => state.filter);
 
+  let dateOrderArr: Array<string> = [];
+  dateOrderArr.push(dateState);
+
   const handleFilterItemClick = (filterElement: string) => {
     if (activeIndex === 1) {
       dispatch(setPerformerState(filterElement));
@@ -73,7 +76,7 @@ function Filter({ performers, genres, years }: FilterProps) {
         <FilterItem
           filterName="year"
           filterContent={years}
-          selectedValues={[]}
+          selectedValues={dateOrderArr}
           handleFilterItemClick={handleFilterItemClick}
         />
       )}
