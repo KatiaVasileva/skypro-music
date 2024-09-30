@@ -10,6 +10,7 @@ import { setDateState, setGenreState, setPerformerState } from "@/store/features
 function Filter({ performers, genres, years }: FilterProps) {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const dispatch = useAppDispatch();
+  const {performerState, dateState, genreState} = useAppSelector((state) => state.filter);
 
   const handleFilterItemClick = (filterElement: string) => {
     if (activeIndex === 1) {
@@ -63,6 +64,7 @@ function Filter({ performers, genres, years }: FilterProps) {
         <FilterItem
           filterName="performer"
           filterContent={performers}
+          selectedValues={performerState}
           handleFilterItemClick={handleFilterItemClick}
         />
       )}
@@ -71,6 +73,7 @@ function Filter({ performers, genres, years }: FilterProps) {
         <FilterItem
           filterName="year"
           filterContent={years}
+          selectedValues={[]}
           handleFilterItemClick={handleFilterItemClick}
         />
       )}
@@ -79,6 +82,7 @@ function Filter({ performers, genres, years }: FilterProps) {
         <FilterItem
           filterName="genre"
           filterContent={genres}
+          selectedValues={genreState}
           handleFilterItemClick={handleFilterItemClick}
         />
       )}

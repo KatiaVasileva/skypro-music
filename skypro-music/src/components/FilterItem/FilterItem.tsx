@@ -5,21 +5,23 @@ import classNames from "classnames";
 type FilterItemProps = {
   filterName: string;
   filterContent: Array<string>;
+  selectedValues: Array<string>;
   handleFilterItemClick: (filterElement: string) => void;
 };
 
 function FilterItem({
   filterName,
   filterContent,
+  selectedValues,
   handleFilterItemClick,
 }: FilterItemProps) {
-//   const [isFilterElementClicked, setIsFilterElementClicked] = useState(false);
+  const [isFilterElementClicked, setIsFilterElementClicked] = useState(false);
 
 //   const filters: Array<string> = []; 
 
-//   const handleFilterElementClick = () => {
-//     setIsFilterElementClicked((prevState) => !prevState);
-//   };
+  const handleFilterElementClick = () => {
+    setIsFilterElementClicked((prevState) => !prevState);
+  };
 
   return (
     <div className={styles.popup}>
@@ -37,7 +39,7 @@ function FilterItem({
           <div className={styles.popupContent}>
             {filterContent.map((filterElement, index) => (
               <p
-                className={classNames(styles.popupText)}
+                className={classNames(styles.popupText, {[styles.popupTextActive]: selectedValues.includes(filterElement),})}
                 key={index}
                 onClick={() => {
                   handleFilterItemClick(filterElement);
