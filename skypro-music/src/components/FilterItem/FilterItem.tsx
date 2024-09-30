@@ -13,13 +13,13 @@ function FilterItem({
   filterContent,
   handleFilterItemClick,
 }: FilterItemProps) {
-  const [isFilterElementClicked, setIsFilterElementClicked] = useState(false);
+//   const [isFilterElementClicked, setIsFilterElementClicked] = useState(false);
 
-  const filters: Array<string> = []; 
+//   const filters: Array<string> = []; 
 
-  const handleFilterElementClick = () => {
-    setIsFilterElementClicked((prevState) => !prevState);
-  };
+//   const handleFilterElementClick = () => {
+//     setIsFilterElementClicked((prevState) => !prevState);
+//   };
 
   return (
     <div className={styles.popup}>

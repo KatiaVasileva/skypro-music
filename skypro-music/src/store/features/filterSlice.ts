@@ -3,11 +3,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 type FilterStateType = {
   searchState: string;
   performerState: Array<string>;
+  genreState: Array<string>;
 };
 
 const initialState: FilterStateType = {
   searchState: "",
   performerState: [],
+  genreState: [],
 };
 
 const filterSlice = createSlice({
@@ -27,8 +29,17 @@ const filterSlice = createSlice({
         state.performerState.push(author);
       }
     },
+    setGenreState: (state, action: PayloadAction<string>) => {
+      const genre = action.payload;
+      if (state.genreState.includes(genre)) {
+        state.genreState = state.genreState.filter((g) => g !== genre);
+      } else {
+        state.genreState.push(genre);
+      }
+    },
   },
 });
 
-export const { setSearchState, setPerformerState } = filterSlice.actions;
+export const { setSearchState, setPerformerState, setGenreState } =
+  filterSlice.actions;
 export const filterReducer = filterSlice.reducer;

@@ -4,18 +4,25 @@ import { useState } from "react";
 import styles from "./Filter.module.css";
 import { FilterProps } from "@/types/FilterProps.types";
 import FilterItem from "../FilterItem/FilterItem";
-import { useAppDispatch } from "@/store/store";
-import { setPerformerState } from "@/store/features/filterSlice";
+import { useAppDispatch, useAppSelector } from "@/store/store";
+import { setGenreState, setPerformerState } from "@/store/features/filterSlice";
 
 function Filter({ performers, genres, years }: FilterProps) {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const dispatch = useAppDispatch();
+  const {performerState, genreState} = useAppSelector((state) => state.filter);
 
   const handleFilterItemClick = (filterElement: string) => {
     if (activeIndex === 1) {
       dispatch(setPerformerState(filterElement));
     }
+    if (activeIndex === 3) {
+      dispatch(setGenreState(filterElement));
+    }
   };
+
+  console.log(performerState);
+  console.log(genreState);
 
   return (
     <>
