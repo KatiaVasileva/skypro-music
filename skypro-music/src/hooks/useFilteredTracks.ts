@@ -3,7 +3,7 @@ import { Track } from "@/types/Track.types";
 import { useMemo } from "react";
 
 export const useFilteredTracks = ({ tracks }: { tracks: Array<Track> }) => {
-  const { searchState, performerState, genreState } = useAppSelector(
+  const { searchState, performerState, dateState, genreState } = useAppSelector(
     (state) => state.filter
   );
 
@@ -22,8 +22,24 @@ export const useFilteredTracks = ({ tracks }: { tracks: Array<Track> }) => {
       );
     }
 
+    if (dateState === "Сначала новые") {
+      tracksToFilter = tracksToFilter.slice().sort(
+        (a, b) =>
+          new Date(b.release_date).getTime() -
+          new Date(a.release_date).getTime()
+      );
+    }
+
+    if (dateState === "Сначала старые") {
+      tracksToFilter = tracksToFilter.slice().sort(
+        (a, b) =>
+          new Date(a.release_date).getTime() -
+          new Date(b.release_date).getTime()
+      );
+    }
+
     if (genreState.length > 0) {
-      tracksToFilter = tracksToFilter.filter((track) =>
+      tracksToFilter = tracksToFilter.filter((track) => 
         track.genre.some((genre) => genreState.includes(genre))
       );
     }
@@ -32,7 +48,7 @@ export const useFilteredTracks = ({ tracks }: { tracks: Array<Track> }) => {
     console.log(tracksToFilter);
 
     return tracksToFilter;
-  }, [tracks, searchState, performerState, genreState]);
+  }, [tracks, searchState, performerState, genreState, dateState]);
 
   return filteredTracks;
 };
