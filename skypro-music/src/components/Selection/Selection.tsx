@@ -5,6 +5,7 @@ import styles from "./Selection.module.css";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { setTrackState } from "@/store/features/trackSlice";
 import { useRouter } from "next/navigation";
+import { resetFilters } from "@/store/features/filterSlice";
 
 function SelectionItem({ id }: { id: string }) {
   const dispatch = useAppDispatch();
@@ -15,6 +16,7 @@ function SelectionItem({ id }: { id: string }) {
     event.preventDefault();
     dispatch(setTrackState(trackState));
     router.push(`/playlist/selection/${id}`);
+    dispatch(resetFilters());
   }
  
   return (

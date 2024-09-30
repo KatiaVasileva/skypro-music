@@ -42,6 +42,12 @@ const filterSlice = createSlice({
         state.genreState.push(genre);
       }
     },
+    resetFilters: (state) => {
+      state.searchState = "";
+      state.performerState = [];
+      state.dateState = "По умолчанию";
+      state.genreState = [];
+    },
   },
 });
 
@@ -50,5 +56,6 @@ export const {
   setPerformerState,
   setDateState,
   setGenreState,
+  resetFilters,
 } = filterSlice.actions;
 export const filterReducer = filterSlice.reducer;

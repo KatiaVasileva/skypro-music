@@ -11,6 +11,7 @@ import {
 } from "@/store/features/trackSlice";
 import { logout } from "@/store/features/userSlice";
 import { useRouter } from "next/navigation";
+import { resetFilters } from "@/store/features/filterSlice";
 
 function Nav() {
   const router = useRouter();
@@ -30,7 +31,8 @@ function Nav() {
   ) => {
     event.preventDefault();
     dispatch(setTrackState(trackState));
-    router.push("/playlist")
+    router.push("/playlist");
+    dispatch(resetFilters());
   };
 
   const handleMyPlaylistClick: React.MouseEventHandler<
@@ -42,7 +44,8 @@ function Nav() {
       return;
     }
     dispatch(setTrackState(trackState));
-    router.push("/playlist/favorite")
+    router.push("/playlist/favorite");
+    dispatch(resetFilters());
   };
 
   return (
@@ -63,7 +66,7 @@ function Nav() {
       </div>
       {isBurgerClicked && (
         <div className={styles.menu}>
-          <ul className={styles.menuList}>  
+          <ul className={styles.menuList}>
             <li className={styles.menuItem}>
               <a href="#" className={styles.menuLink} onClick={handleMainClick}>
                 Главное
