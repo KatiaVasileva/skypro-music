@@ -68,6 +68,7 @@ function Filter({ performers, genres, years }: FilterProps) {
           filterName="performer"
           filterContent={performers}
           selectedValues={performerState}
+          selectedFilterCount={performerState.length}
           handleFilterItemClick={handleFilterItemClick}
         />
       )}
@@ -77,6 +78,7 @@ function Filter({ performers, genres, years }: FilterProps) {
           filterName="year"
           filterContent={years}
           selectedValues={dateOrderArr}
+          selectedFilterCount={dateOrderArr.length}
           handleFilterItemClick={handleFilterItemClick}
         />
       )}
@@ -86,6 +88,7 @@ function Filter({ performers, genres, years }: FilterProps) {
           filterName="genre"
           filterContent={genres}
           selectedValues={genreState}
+          selectedFilterCount={genreState.length}
           handleFilterItemClick={handleFilterItemClick}
         />
       )}

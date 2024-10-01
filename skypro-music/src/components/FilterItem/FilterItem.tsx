@@ -6,6 +6,7 @@ type FilterItemProps = {
   filterName: string;
   filterContent: Array<string>;
   selectedValues: Array<string>;
+  selectedFilterCount: number;
   handleFilterItemClick: (filterElement: string) => void;
 };
 
@@ -13,11 +14,12 @@ function FilterItem({
   filterName,
   filterContent,
   selectedValues,
+  selectedFilterCount,
   handleFilterItemClick,
 }: FilterItemProps) {
   const [isFilterElementClicked, setIsFilterElementClicked] = useState(false);
 
-//   const filters: Array<string> = []; 
+  //   const filters: Array<string> = [];
 
   const handleFilterElementClick = () => {
     setIsFilterElementClicked((prevState) => !prevState);
@@ -35,11 +37,23 @@ function FilterItem({
             : styles.popupContainerGenre
         )}
       >
+        {/* {selectedFilterCount > 0 && (
+          <span
+            className={classNames(styles.selectedFilterCount, {
+              [styles.selectedGenreFilterCount]: filterName === "genre",
+            })}
+          >
+            {selectedFilterCount}
+          </span>
+        )} */}
         <div className={styles.popupBox}>
           <div className={styles.popupContent}>
             {filterContent.map((filterElement, index) => (
               <p
-                className={classNames(styles.popupText, {[styles.popupTextActive]: selectedValues.includes(filterElement),})}
+                className={classNames(styles.popupText, {
+                  [styles.popupTextActive]:
+                    selectedValues.includes(filterElement),
+                })}
                 key={index}
                 onClick={() => {
                   handleFilterItemClick(filterElement);
