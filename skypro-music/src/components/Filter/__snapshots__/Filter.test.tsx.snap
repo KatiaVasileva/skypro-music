@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filter component renders correctly 1`] = `
+<div>
+  <div
+    class="filter"
+  >
+    <div
+      class="filterTitle"
+    >
+      Искать по:
+    </div>
+    <div
+      class="filterButton"
+    >
+      исполнителю
+    </div>
+    <div
+      class="filterButton"
+    >
+      году выпуска
+    </div>
+    <div
+      class="filterButton"
+    >
+      жанру
+    </div>
+  </div>
+</div>
+`;

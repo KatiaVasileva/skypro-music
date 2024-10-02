@@ -67,6 +67,11 @@ exports[`Track component renders correctly 1`] = `
       </div>
     </div>
     <div
+      class="textNotFound"
+    >
+      Треки не найдены
+    </div>
+    <div
       class="playlistContent"
     />
   </div>
