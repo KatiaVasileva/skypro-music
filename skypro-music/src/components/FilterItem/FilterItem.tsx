@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styles from "./FilterItem.module.css";
 import classNames from "classnames";
 
@@ -6,24 +5,20 @@ type FilterItemProps = {
   filterName: string;
   filterContent: Array<string>;
   selectedValues: Array<string>;
-  selectedFilterCount: number;
   handleFilterItemClick: (filterElement: string) => void;
+  handleFilterElementClick?: () => void;
+  isFilterElementClicked?: boolean;
+
 };
 
 function FilterItem({
   filterName,
   filterContent,
   selectedValues,
-  selectedFilterCount,
   handleFilterItemClick,
+  handleFilterElementClick,
+  isFilterElementClicked,
 }: FilterItemProps) {
-  const [isFilterElementClicked, setIsFilterElementClicked] = useState(false);
-
-  //   const filters: Array<string> = [];
-
-  const handleFilterElementClick = () => {
-    setIsFilterElementClicked((prevState) => !prevState);
-  };
 
   return (
     <div className={styles.popup}>
@@ -37,26 +32,27 @@ function FilterItem({
             : styles.popupContainerGenre
         )}
       >
-        {/* {selectedFilterCount > 0 && (
-          <span
-            className={classNames(styles.selectedFilterCount, {
-              [styles.selectedGenreFilterCount]: filterName === "genre",
-            })}
-          >
-            {selectedFilterCount}
-          </span>
-        )} */}
         <div className={styles.popupBox}>
           <div className={styles.popupContent}>
             {filterContent.map((filterElement, index) => (
               <p
-                className={classNames(styles.popupText, {
-                  [styles.popupTextActive]:
-                    selectedValues.includes(filterElement),
-                })}
+                className={classNames(
+                  styles.popupText,
+                    {
+                      [styles.popupTextActive]:
+                        selectedValues.includes(filterElement),
+                      [styles.popupTextInactive]:
+                        filterName === "year" && 
+                        !selectedValues.includes(filterElement) && isFilterElementClicked,
+                    },
+                )}
                 key={index}
                 onClick={() => {
                   handleFilterItemClick(filterElement);
+                  if (handleFilterElementClick) {
+                    handleFilterElementClick();
+                  }
+                  console.log(isFilterElementClicked);
                 }}
               >
                 {filterElement}

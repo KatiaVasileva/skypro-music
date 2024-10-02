@@ -13,6 +13,7 @@ import {
 
 function Filter({ performers, genres, years }: FilterProps) {
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [ isFilterElementClicked, setIsFilterElementClicked ] = useState(false);
   const dispatch = useAppDispatch();
   const { performerState, dateState, genreState } = useAppSelector(
     (state) => state.filter
@@ -28,6 +29,10 @@ function Filter({ performers, genres, years }: FilterProps) {
     if (activeIndex === 3) {
       dispatch(setGenreState(filterElement));
     }
+  };
+
+  const handleFilterElementClick = () => {
+    setIsFilterElementClicked(prev => !prev);
   };
 
   const selectedPerformerFilterCount = performerState.length;
@@ -93,7 +98,6 @@ function Filter({ performers, genres, years }: FilterProps) {
           filterName="performer"
           filterContent={performers}
           selectedValues={performerState}
-          selectedFilterCount={performerState.length}
           handleFilterItemClick={handleFilterItemClick}
         />
       )}
@@ -103,8 +107,9 @@ function Filter({ performers, genres, years }: FilterProps) {
           filterName="year"
           filterContent={years}
           selectedValues={dateState}
-          selectedFilterCount={dateState.length}
           handleFilterItemClick={handleFilterItemClick}
+          handleFilterElementClick={handleFilterElementClick}
+          isFilterElementClicked={isFilterElementClicked}
         />
       )}
 
@@ -113,7 +118,6 @@ function Filter({ performers, genres, years }: FilterProps) {
           filterName="genre"
           filterContent={genres}
           selectedValues={genreState}
-          selectedFilterCount={genreState.length}
           handleFilterItemClick={handleFilterItemClick}
         />
       )}

@@ -76,6 +76,12 @@
     cursor: pointer;
 }
 
+.popupTextInactive {
+    color: grey;
+    text-decoration: none;
+    pointer-events: none;
+}
+
 .selectedFilterCount, .selectedGenreFilterCount {
     position: absolute;
     top: -60px;
