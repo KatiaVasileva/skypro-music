@@ -3,14 +3,16 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 type FilterStateType = {
   searchState: string;
   performerState: Array<string>;
-  dateState: string;
+  //   dateState: string;
+  dateState: Array<string>;
   genreState: Array<string>;
 };
 
 const initialState: FilterStateType = {
   searchState: "",
   performerState: [],
-  dateState: "",
+  //   dateState: "",
+  dateState: [],
   genreState: [],
 };
 
@@ -32,7 +34,13 @@ const filterSlice = createSlice({
       }
     },
     setDateState: (state, action: PayloadAction<string>) => {
-      state.dateState = action.payload;
+      const dateOrder = action.payload;
+      if (state.dateState.includes(dateOrder)) {
+        state.dateState = state.dateState.filter((d) => d !== dateOrder);
+      } else {
+        state.dateState[0] = dateOrder;
+      }
+    //   state.dateState[0] = dateOrder;
     },
     setGenreState: (state, action: PayloadAction<string>) => {
       const genre = action.payload;
@@ -45,7 +53,7 @@ const filterSlice = createSlice({
     resetFilters: (state) => {
       state.searchState = "";
       state.performerState = [];
-      state.dateState = "По умолчанию";
+      state.dateState = [];
       state.genreState = [];
     },
   },

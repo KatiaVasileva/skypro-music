@@ -10,6 +10,7 @@
     -ms-flex-align: center;
     align-items: center;
     margin-bottom: 51px;
+    position: relative;
 }
 
 .filterTitle {
@@ -28,6 +29,7 @@
     border: 1px solid #ffffff;
     border-radius: 60px;
     padding: 6px 20px;
+    /* position: relative; */
 
     &:not(:last-child) {
         margin-right: 10px;
@@ -49,4 +51,27 @@
 .filterButtonActive {
     color: #ad61ff;
     border-color: #ad61ff;
+}
+
+.selectedPerformerFilterCount, .selectedYearFilterCount, .selectedGenreFilterCount {
+    position: absolute;
+    top: -10px;
+    left: 240px;
+    width: 26px;
+    height: 26px;
+    text-align: center;
+    background-color: #6b46c1;
+    color: #fff;
+    border-radius: 50%;
+    padding: 2px 8px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.selectedYearFilterCount {
+    left: 400px;
+}
+
+.selectedGenreFilterCount {
+    left: 505px;
 }

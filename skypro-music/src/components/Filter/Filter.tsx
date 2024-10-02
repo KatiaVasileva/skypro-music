@@ -5,15 +5,18 @@ import styles from "./Filter.module.css";
 import { FilterProps } from "@/types/FilterProps.types";
 import FilterItem from "../FilterItem/FilterItem";
 import { useAppDispatch, useAppSelector } from "@/store/store";
-import { setDateState, setGenreState, setPerformerState } from "@/store/features/filterSlice";
+import {
+  setDateState,
+  setGenreState,
+  setPerformerState,
+} from "@/store/features/filterSlice";
 
 function Filter({ performers, genres, years }: FilterProps) {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const dispatch = useAppDispatch();
-  const {performerState, dateState, genreState} = useAppSelector((state) => state.filter);
-
-  let dateOrderArr: Array<string> = [];
-  dateOrderArr.push(dateState);
+  const { performerState, dateState, genreState } = useAppSelector(
+    (state) => state.filter
+  );
 
   const handleFilterItemClick = (filterElement: string) => {
     if (activeIndex === 1) {
@@ -26,6 +29,10 @@ function Filter({ performers, genres, years }: FilterProps) {
       dispatch(setGenreState(filterElement));
     }
   };
+
+  const selectedPerformerFilterCount = performerState.length;
+  const selectedYearFilterCount = dateState.length;
+  const selectedGenreFilterCount = genreState.length;
 
   return (
     <>
@@ -41,6 +48,12 @@ function Filter({ performers, genres, years }: FilterProps) {
         >
           исполнителю
         </div>
+        {selectedPerformerFilterCount > 0 && (
+          <span className={styles.selectedPerformerFilterCount}>
+            {selectedPerformerFilterCount}
+          </span>
+        )}
+
         <div
           className={
             activeIndex === 2 ? styles.filterButtonActive : styles.filterButton
@@ -51,6 +64,13 @@ function Filter({ performers, genres, years }: FilterProps) {
         >
           году выпуска
         </div>
+        {selectedYearFilterCount > 0 && (
+          <span className={styles.selectedYearFilterCount}>
+            {selectedYearFilterCount}
+          </span>
+        )}
+
+
         <div
           className={
             activeIndex === 3 ? styles.filterButtonActive : styles.filterButton
@@ -61,6 +81,11 @@ function Filter({ performers, genres, years }: FilterProps) {
         >
           жанру
         </div>
+        {selectedGenreFilterCount > 0 && (
+          <span className={styles.selectedGenreFilterCount}>
+            {selectedGenreFilterCount}
+          </span>
+        )}
       </div>
 
       {activeIndex === 1 && (
@@ -77,8 +102,8 @@ function Filter({ performers, genres, years }: FilterProps) {
         <FilterItem
           filterName="year"
           filterContent={years}
-          selectedValues={dateOrderArr}
-          selectedFilterCount={dateOrderArr.length}
+          selectedValues={dateState}
+          selectedFilterCount={dateState.length}
           handleFilterItemClick={handleFilterItemClick}
         />
       )}

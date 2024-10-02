@@ -22,7 +22,7 @@ export const useFilteredTracks = ({ tracks }: { tracks: Array<Track> }) => {
       );
     }
 
-    if (dateState === "Сначала новые") {
+    if (dateState[0] === "Сначала новые") {
       tracksToFilter = tracksToFilter.slice().sort(
         (a, b) =>
           new Date(b.release_date).getTime() -
@@ -30,7 +30,7 @@ export const useFilteredTracks = ({ tracks }: { tracks: Array<Track> }) => {
       );
     }
 
-    if (dateState === "Сначала старые") {
+    if (dateState[0] === "Сначала старые") {
       tracksToFilter = tracksToFilter.slice().sort(
         (a, b) =>
           new Date(a.release_date).getTime() -
