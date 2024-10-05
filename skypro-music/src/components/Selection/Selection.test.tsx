@@ -1,16 +1,15 @@
 import ReduxProvider from "@/store/ReduxProvider";
-import { render, screen } from "@testing-library/react";
-import Search from "./Search";
+import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import SelectionItem from "./Selection";
 
-describe("Search component", () => {
+describe("Selection component", () => {
   it("renders correctly", () => {
     const { container } = render(
       <ReduxProvider>
-        <Search />
+        <SelectionItem id={""} />
       </ReduxProvider>
     );
     expect(container).toMatchSnapshot();
-    expect(screen.getByPlaceholderText("Поиск")).toBeInTheDocument();
   });
 });

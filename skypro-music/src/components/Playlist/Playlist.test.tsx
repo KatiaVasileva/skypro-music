@@ -1,16 +1,15 @@
 import ReduxProvider from "@/store/ReduxProvider";
-import { render, screen } from "@testing-library/react";
-import Search from "./Search";
+import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import Playlist from "./Playlist";
 
-describe("Search component", () => {
+describe("Playlist component", () => {
   it("renders correctly", () => {
     const { container } = render(
       <ReduxProvider>
-        <Search />
+        <Playlist allTracks={[]} />
       </ReduxProvider>
     );
     expect(container).toMatchSnapshot();
-    expect(screen.getByPlaceholderText("Поиск")).toBeInTheDocument();
   });
 });

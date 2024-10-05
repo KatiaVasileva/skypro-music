@@ -12,9 +12,10 @@ import {
 import { logout } from "@/store/features/userSlice";
 import { useRouter } from "next/navigation";
 import { resetFilters } from "@/store/features/filterSlice";
+import Link from "next/link";
 
 function Nav() {
-  const router = useRouter();
+  // const router = useRouter();
 
   const dispatch = useAppDispatch();
   const [isBurgerClicked, setIsBurgerClicked] = useState(false);
@@ -31,7 +32,7 @@ function Nav() {
   ) => {
     event.preventDefault();
     dispatch(setTrackState(trackState));
-    router.push("/playlist");
+    // router.push("/playlist");
     dispatch(resetFilters());
   };
 
@@ -44,8 +45,18 @@ function Nav() {
       return;
     }
     dispatch(setTrackState(trackState));
-    router.push("/playlist/favorite");
+    // router.push("/playlist/favorite");
     dispatch(resetFilters());
+  };
+
+  const handleExitClick: React.MouseEventHandler<HTMLAnchorElement> = (
+    event
+  ) => {
+    event.preventDefault();
+    // router.push("/playlist");
+    dispatch(logout());
+    dispatch(getTracks());
+    dispatch(setMyPlaylistState([]));
   };
 
   return (
@@ -68,39 +79,33 @@ function Nav() {
         <div className={styles.menu}>
           <ul className={styles.menuList}>
             <li className={styles.menuItem}>
-              <a href="#" className={styles.menuLink} onClick={handleMainClick}>
-                Главное
-              </a>
+              <Link legacyBehavior href="/playlist" onClick={handleMainClick}>
+                <a className={styles.menuLink}>Главное</a>
+              </Link>
             </li>
             <li className={styles.menuItem}>
-              <a
-                href=""
-                className={styles.menuLink}
+              <Link
+                legacyBehavior
+                href="/playlist/favorite"
                 onClick={handleMyPlaylistClick}
               >
-                Мой плейлист
-              </a>
+                <a className={styles.menuLink}>Мой плейлист</a>
+              </Link>
             </li>
             <li className={styles.menuItem}>
               {!user && (
-                <a href="/signin" className={styles.menuLink}>
+                <Link href="/signin" className={styles.menuLink}>
                   Войти
-                </a>
+                </Link>
               )}
               {user && (
-                <a
-                  href="/"
+                <Link
                   className={styles.menuLink}
-                  onClick={(event) => {
-                    event.preventDefault();
-                    router.push("/playlist");
-                    dispatch(logout());
-                    dispatch(getTracks());
-                    dispatch(setMyPlaylistState([]));
-                  }}
+                  href="/playlist"
+                  onClick={handleExitClick}
                 >
                   Выйти
-                </a>
+                </Link>
               )}
             </li>
           </ul>

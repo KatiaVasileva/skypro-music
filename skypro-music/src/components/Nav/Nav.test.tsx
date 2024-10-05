@@ -1,16 +1,15 @@
 import ReduxProvider from "@/store/ReduxProvider";
-import { render, screen } from "@testing-library/react";
-import Search from "./Search";
+import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import Nav from "./Nav";
 
-describe("Search component", () => {
+describe("Nav component", () => {
   it("renders correctly", () => {
     const { container } = render(
       <ReduxProvider>
-        <Search />
+        <Nav />
       </ReduxProvider>
     );
     expect(container).toMatchSnapshot();
-    expect(screen.getByPlaceholderText("Поиск")).toBeInTheDocument();
   });
 });
