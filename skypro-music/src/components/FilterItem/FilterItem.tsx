@@ -52,7 +52,6 @@ function FilterItem({
                   if (handleFilterElementClick) {
                     handleFilterElementClick();
                   }
-                  console.log(isFilterElementClicked);
                 }}
               >
                 {filterElement}

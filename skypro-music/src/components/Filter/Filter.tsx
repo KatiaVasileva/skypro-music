@@ -54,9 +54,9 @@ function Filter({ performers, genres, years }: FilterProps) {
           исполнителю
         </div>
         {selectedPerformerFilterCount > 0 && (
-          <span className={styles.selectedPerformerFilterCount}>
+          <span className={styles.selectedPerformerFilterCount} data-testid="author-count">
             {selectedPerformerFilterCount}
-          </span>
+          </span> 
         )}
 
         <div
@@ -70,7 +70,7 @@ function Filter({ performers, genres, years }: FilterProps) {
           году выпуска
         </div>
         {selectedYearFilterCount > 0 && (
-          <span className={styles.selectedYearFilterCount}>
+          <span className={styles.selectedYearFilterCount} data-testid="date-count">
             {selectedYearFilterCount}
           </span>
         )}
@@ -86,7 +86,7 @@ function Filter({ performers, genres, years }: FilterProps) {
           жанру
         </div>
         {selectedGenreFilterCount > 0 && (
-          <span className={styles.selectedGenreFilterCount}>
+          <span className={styles.selectedGenreFilterCount} data-testid="genre-count">
             {selectedGenreFilterCount}
           </span>
         )}
