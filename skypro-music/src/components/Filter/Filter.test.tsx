@@ -4,11 +4,9 @@ import Filter from "./Filter";
 import "@testing-library/jest-dom";
 
 describe("Filter component", () => {
-
   const performers = ["Author1", "Author2"];
   const genres = ["Genre1", "Genre2"];
   const years = ["По умолчанию"];
-
 
   it("renders correctly", () => {
     const { container } = render(
