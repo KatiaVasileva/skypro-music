@@ -14,7 +14,6 @@ function SelectionItem({ id }: { id: string }) {
   const handleSelectionClick: React.MouseEventHandler<HTMLElement> = (
     event
   ) => {
-    event.preventDefault();
     dispatch(setTrackState(trackState));
     dispatch(resetFilters());
   };
@@ -25,9 +24,8 @@ function SelectionItem({ id }: { id: string }) {
         legacyBehavior
         href={`/playlist/selection/${id}`}
         className={styles.link}
-        onClick={handleSelectionClick}
       >
-        <a >
+        <a onClick={handleSelectionClick}>
           <Image
             className={styles.img}
             src={`/img/playlist0${id}.png`}

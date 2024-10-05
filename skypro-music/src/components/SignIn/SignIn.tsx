@@ -6,10 +6,10 @@ import { useAppDispatch, useAppSelector } from "@/store/store";
 import { ChangeEventHandler, MouseEventHandler, useState } from "react";
 import { setTokens, setUser, signin, token } from "@/store/features/userSlice";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function SignIn() {
   const dispatch = useAppDispatch();
-  const router = useRouter();
   const errorMessage = useAppSelector((state) => state.user.errorMessage);
 
   const [formData, setFormData] = useState({
@@ -29,7 +29,7 @@ export default function SignIn() {
         signin({ email: formData.email, password: formData.password })
       ).unwrap();
       dispatch(setUser(user));
-      router.push("/playlist");
+      // router.push("/playlist");
       setFormData({ email: "", password: "" });
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -84,12 +84,12 @@ export default function SignIn() {
             )}
 
             <button className={styles.enterButton} onClick={handleSignIn}>
-              <a className={styles.enterButtonLink}>Войти</a>
+              <Link className={styles.enterButtonLink} href="/playlist">Войти</Link>
             </button>
             <button className={styles.signupButton}>
-              <a className={styles.signupButtonLink} href="/signup">
+              <Link className={styles.signupButtonLink} href="/signup">
                 Зарегистрироваться
-              </a>
+              </Link>
             </button>
           </form>
         </div>

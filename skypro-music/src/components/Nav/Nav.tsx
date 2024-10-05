@@ -30,22 +30,18 @@ function Nav() {
   const handleMainClick: React.MouseEventHandler<HTMLAnchorElement> = (
     event
   ) => {
-    event.preventDefault();
     dispatch(setTrackState(trackState));
-    // router.push("/playlist");
     dispatch(resetFilters());
   };
 
   const handleMyPlaylistClick: React.MouseEventHandler<
     HTMLAnchorElement
-  > = async (event) => {
-    event.preventDefault();
+  > = () => {
     if (!access || !user) {
       alert("Необходимо зарегистрироваться");
       return;
     }
     dispatch(setTrackState(trackState));
-    // router.push("/playlist/favorite");
     dispatch(resetFilters());
   };
 
@@ -53,7 +49,6 @@ function Nav() {
     event
   ) => {
     event.preventDefault();
-    // router.push("/playlist");
     dispatch(logout());
     dispatch(getTracks());
     dispatch(setMyPlaylistState([]));
@@ -79,17 +74,20 @@ function Nav() {
         <div className={styles.menu}>
           <ul className={styles.menuList}>
             <li className={styles.menuItem}>
-              <Link legacyBehavior href="/playlist" onClick={handleMainClick}>
-                <a className={styles.menuLink}>Главное</a>
+              <Link legacyBehavior href="/playlist">
+                <a className={styles.menuLink} onClick={handleMainClick}>
+                  Главное
+                </a>
               </Link>
             </li>
             <li className={styles.menuItem}>
               <Link
                 legacyBehavior
-                href="/playlist/favorite"
-                onClick={handleMyPlaylistClick}
+                href={user ? "/playlist/favorite" : "/playlist"}
               >
-                <a className={styles.menuLink}>Мой плейлист</a>
+                <a className={styles.menuLink} onClick={handleMyPlaylistClick}>
+                  Мой плейлист
+                </a>
               </Link>
             </li>
             <li className={styles.menuItem}>

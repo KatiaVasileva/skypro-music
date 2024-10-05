@@ -15,7 +15,6 @@ function Sidebar() {
 
   const handleLogoutButton = () => {
     dispatch(logout());
-    dispatch(getTracks());
     dispatch(setMyPlaylistState([]));
   };
 
@@ -23,8 +22,7 @@ function Sidebar() {
     if (user) {
       setName(user.username);
     }
-    dispatch(getTracks()).unwrap();
-  }, [user, setName, dispatch]);
+  }, [user, setName]);
 
   return (
     <div className={styles.sidebar}>

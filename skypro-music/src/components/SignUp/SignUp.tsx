@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "@/store/store";
 import { ChangeEventHandler, MouseEventHandler, useState } from "react";
 import { signup } from "@/store/features/userSlice";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function SignUp() {
   const dispatch = useAppDispatch();
@@ -15,7 +16,6 @@ export default function SignUp() {
     username: "",
     passwordRepeat: "",
   });
-  const router = useRouter();
 
   const requestError = useAppSelector((state) => state.user.errorMessage);
   const [error, setError] = useState("");
@@ -77,7 +77,6 @@ export default function SignUp() {
           username: formData.username,
         })
       ).unwrap();
-      router.push("/signin");
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
@@ -143,9 +142,9 @@ export default function SignUp() {
               </div>
             )}
             <button className={styles.signupButton} onClick={handleSignUp}>
-              <a className={styles.signupButtonLink} href="">
+              <Link className={styles.signupButtonLink} href="/signin">
                 Зарегистрироваться
-              </a>
+              </Link>
             </button>
           </form>
         </div>
