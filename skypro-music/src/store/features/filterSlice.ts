@@ -3,7 +3,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 type FilterStateType = {
   searchState: string;
   performerState: Array<string>;
-  //   dateState: string;
   dateState: Array<string>;
   genreState: Array<string>;
 };
@@ -11,7 +10,6 @@ type FilterStateType = {
 const initialState: FilterStateType = {
   searchState: "",
   performerState: [],
-  //   dateState: "",
   dateState: [],
   genreState: [],
 };

@@ -13,7 +13,7 @@ import {
 
 function Filter({ performers, genres, years }: FilterProps) {
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const [ isFilterElementClicked, setIsFilterElementClicked ] = useState(false);
+  const [isFilterElementClicked, setIsFilterElementClicked] = useState(false);
   const dispatch = useAppDispatch();
   const { performerState, dateState, genreState } = useAppSelector(
     (state) => state.filter
@@ -32,7 +32,7 @@ function Filter({ performers, genres, years }: FilterProps) {
   };
 
   const handleFilterElementClick = () => {
-    setIsFilterElementClicked(prev => !prev);
+    setIsFilterElementClicked((prev) => !prev);
   };
 
   const selectedPerformerFilterCount = performerState.length;
@@ -74,7 +74,6 @@ function Filter({ performers, genres, years }: FilterProps) {
             {selectedYearFilterCount}
           </span>
         )}
-
 
         <div
           className={
