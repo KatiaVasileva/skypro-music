@@ -1,7 +1,8 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import Search from "./Search";
 import "@testing-library/jest-dom";
 import { useAppDispatch, useAppSelector } from "@/store/store";
+import { setSearchState } from "@/store/features/filterSlice";
 
 jest.mock("../../store/store");
 
@@ -29,12 +30,17 @@ describe("Search component", () => {
   });
 
   it("should show current search value", () => {
-    const searchValue = "test";
-    mockUseAppSelector.mockReturnValue({ searchState: searchValue });
-
+    mockUseAppSelector.mockReturnValue({ searchState: "test" });
     render(<Search />);
-
     const input = screen.getByPlaceholderText("Поиск");
-    expect(input).toHaveValue(searchValue);
+    expect(input).toHaveValue("test");
+  });
+
+  it("should dispatch setSearchState when input value changes", () => {
+    mockUseAppSelector.mockReturnValue({ searchState: "" });
+    render(<Search />);
+    const input = screen.getByPlaceholderText("Поиск");
+    fireEvent.change(input, { target: { value: "test" } });
+    expect(mockDispatch).toHaveBeenCalledWith(setSearchState("test"));  
   });
 });
