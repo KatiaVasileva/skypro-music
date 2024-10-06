@@ -1,0 +1,59 @@
+.search {
+    width: 100%;
+    border-bottom: 1px solid #4e4e4e;
+    margin-bottom: 51px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.searchSvg {
+    width: 17px;
+    height: 17px;
+    margin-right: 5px;
+    stroke: #ffffff;
+    fill: transparent;
+    margin-bottom: 14px;
+
+
+    &:hover {
+        fill: transparent;
+        stroke: #acacac;
+        cursor: pointer;
+    }
+
+    &:active {
+        fill: transparent;
+        stroke: #ffffff;
+        cursor: pointer;
+    }
+}
+
+.searchText {
+    -webkit-box-flex: 100;
+    -ms-flex-positive: 100;
+    flex-grow: 100;
+    background-color: transparent;
+    border: none;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffffff;
+    margin-bottom: 14px;
+
+    &::placeholder {
+        color: #ffffff;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+    }
+}

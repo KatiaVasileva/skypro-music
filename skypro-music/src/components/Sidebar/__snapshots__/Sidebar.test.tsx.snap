@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Sidebar component renders correctly 1`] = `
+<div>
+  <div
+    class="sidebar"
+  >
+    <div
+      class="personal"
+    >
+      <p
+        class="personalName"
+      />
+      <div
+        class="icon"
+      >
+        <svg>
+          <use
+            xlink:href="/img/icon/sprite.svg#logout"
+          />
+        </svg>
+      </div>
+    </div>
+    <div
+      class="block"
+    >
+      <div
+        class="list"
+      >
+        <span
+          aria-busy="true"
+          aria-live="polite"
+        >
+          <span
+            class="react-loading-skeleton skeleton"
+            style="width: 250px; height: 150px;"
+          >
+            ‌
+          </span>
+          <br />
+          <span
+            class="react-loading-skeleton skeleton"
+            style="width: 250px; height: 150px;"
+          >
+            ‌
+          </span>
+          <br />
+          <span
+            class="react-loading-skeleton skeleton"
+            style="width: 250px; height: 150px;"
+          >
+            ‌
+          </span>
+          <br />
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
