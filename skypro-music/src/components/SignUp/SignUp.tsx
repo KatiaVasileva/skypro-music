@@ -17,6 +17,8 @@ export default function SignUp() {
     passwordRepeat: "",
   });
 
+  const router = useRouter();
+
   const requestError = useAppSelector((state) => state.user.errorMessage);
   const [error, setError] = useState("");
   const errorMessage = error ? error : requestError;
@@ -36,7 +38,7 @@ export default function SignUp() {
     }
 
     if (formData.username.length < 3) {
-      setError("Имя пользователя должно быть более 3 символов");
+      setError("Имя пользователя должно быть не менее 3 символов");
       return;
     }
 
@@ -73,6 +75,7 @@ export default function SignUp() {
           username: formData.username,
         })
       ).unwrap();
+      router.push("/signin");
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
@@ -138,9 +141,9 @@ export default function SignUp() {
               </div>
             )}
             <button className={styles.signupButton} onClick={handleSignUp}>
-              <Link className={styles.signupButtonLink} href="/signin">
+              <a className={styles.signupButtonLink} href="">
                 Зарегистрироваться
-              </Link>
+              </a>
             </button>
           </form>
         </div>
