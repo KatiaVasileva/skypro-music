@@ -75,3 +75,9 @@
 .selectedGenreFilterCount {
     left: 505px;
 }
+
+.skeletonContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}

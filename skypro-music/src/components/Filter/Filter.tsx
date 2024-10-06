@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import styles from "./Filter.module.css";
 import { FilterProps } from "@/types/FilterProps.types";
 import FilterItem from "../FilterItem/FilterItem";
@@ -10,6 +10,7 @@ import {
   setGenreState,
   setPerformerState,
 } from "@/store/features/filterSlice";
+import Skeleton from "react-loading-skeleton";
 
 function Filter({ performers, genres, years }: FilterProps) {
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -18,18 +19,22 @@ function Filter({ performers, genres, years }: FilterProps) {
   const { performerState, dateState, genreState } = useAppSelector(
     (state) => state.filter
   );
+  const isLoading = useAppSelector((state) => state.track.isLoading);
 
-  const handleFilterItemClick = (filterElement: string) => {
-    if (activeIndex === 1) {
-      dispatch(setPerformerState(filterElement));
-    }
-    if (activeIndex === 2) {
-      dispatch(setDateState(filterElement));
-    }
-    if (activeIndex === 3) {
-      dispatch(setGenreState(filterElement));
-    }
-  };
+  const handleFilterItemClick = useCallback(
+    (filterElement: string) => {
+      if (activeIndex === 1) {
+        dispatch(setPerformerState(filterElement));
+      }
+      if (activeIndex === 2) {
+        dispatch(setDateState(filterElement));
+      }
+      if (activeIndex === 3) {
+        dispatch(setGenreState(filterElement));
+      }
+    },
+    [activeIndex, dispatch]
+  );
 
   const handleFilterElementClick = () => {
     setIsFilterElementClicked((prev) => !prev);
@@ -42,53 +47,84 @@ function Filter({ performers, genres, years }: FilterProps) {
   return (
     <>
       <div className={styles.filter}>
-        <div className={styles.filterTitle}>Искать по:</div>
-        <div
-          className={
-            activeIndex === 1 ? styles.filterButtonActive : styles.filterButton
-          }
-          onClick={() =>
-            activeIndex === 1 ? setActiveIndex(0) : setActiveIndex(1)
-          }
-        >
-          исполнителю
+        <div className={styles.filterTitle}>
+          {isLoading ? <Skeleton width={86} height={24} /> : "Искать по:"}
         </div>
-        {selectedPerformerFilterCount > 0 && (
-          <span className={styles.selectedPerformerFilterCount} data-testid="author-count">
-            {selectedPerformerFilterCount}
-          </span> 
+        {isLoading && (
+          <Skeleton
+            width={156}
+            height={38}
+            count={3}
+            containerClassName={styles.skeletonContainer}
+            style={{ borderRadius: "60px" }}
+          />
         )}
 
-        <div
-          className={
-            activeIndex === 2 ? styles.filterButtonActive : styles.filterButton
-          }
-          onClick={() =>
-            activeIndex === 2 ? setActiveIndex(0) : setActiveIndex(2)
-          }
-        >
-          году выпуска
-        </div>
-        {selectedYearFilterCount > 0 && (
-          <span className={styles.selectedYearFilterCount} data-testid="date-count">
-            {selectedYearFilterCount}
-          </span>
-        )}
+        {!isLoading && (
+          <>
+            <div
+              className={
+                activeIndex === 1
+                  ? styles.filterButtonActive
+                  : styles.filterButton
+              }
+              onClick={() =>
+                activeIndex === 1 ? setActiveIndex(0) : setActiveIndex(1)
+              }
+            >
+              исполнителю
+            </div>
+            {selectedPerformerFilterCount > 0 && (
+              <span
+                className={styles.selectedPerformerFilterCount}
+                data-testid="author-count"
+              >
+                {selectedPerformerFilterCount}
+              </span>
+            )}
 
-        <div
-          className={
-            activeIndex === 3 ? styles.filterButtonActive : styles.filterButton
-          }
-          onClick={() =>
-            activeIndex === 3 ? setActiveIndex(0) : setActiveIndex(3)
-          }
-        >
-          жанру
-        </div>
-        {selectedGenreFilterCount > 0 && (
-          <span className={styles.selectedGenreFilterCount} data-testid="genre-count">
-            {selectedGenreFilterCount}
-          </span>
+            <div
+              className={
+                activeIndex === 2
+                  ? styles.filterButtonActive
+                  : styles.filterButton
+              }
+              onClick={() =>
+                activeIndex === 2 ? setActiveIndex(0) : setActiveIndex(2)
+              }
+            >
+              году выпуска
+            </div>
+            {selectedYearFilterCount > 0 && (
+              <span
+                className={styles.selectedYearFilterCount}
+                data-testid="date-count"
+              >
+                {selectedYearFilterCount}
+              </span>
+            )}
+
+            <div
+              className={
+                activeIndex === 3
+                  ? styles.filterButtonActive
+                  : styles.filterButton
+              }
+              onClick={() =>
+                activeIndex === 3 ? setActiveIndex(0) : setActiveIndex(3)
+              }
+            >
+              жанру
+            </div>
+            {selectedGenreFilterCount > 0 && (
+              <span
+                className={styles.selectedGenreFilterCount}
+                data-testid="genre-count"
+              >
+                {selectedGenreFilterCount}
+              </span>
+            )}
+          </>
         )}
       </div>
 
