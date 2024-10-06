@@ -30,10 +30,6 @@ export default function SignUp() {
   const handleSignUp: MouseEventHandler<HTMLButtonElement> = async (event) => {
     event.preventDefault();
 
-    console.log(formData.password);
-    console.log(formData.passwordRepeat);
-    console.log(formData.password !== formData.passwordRepeat);
-
     if (!formData.username.trim()) {
       setError("Введите имя");
       return;

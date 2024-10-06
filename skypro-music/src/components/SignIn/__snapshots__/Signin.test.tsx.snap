@@ -56,7 +56,6 @@ exports[`Signin component renders correctly 1`] = `
           >
             <a
               class="enterButtonLink"
-              href="/playlist"
             >
               Войти
             </a>

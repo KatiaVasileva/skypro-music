@@ -10,7 +10,12 @@ import Link from "next/link";
 
 export default function SignIn() {
   const dispatch = useAppDispatch();
-  const errorMessage = useAppSelector((state) => state.user.errorMessage);
+  
+  const requestError = useAppSelector((state) => state.user.errorMessage);
+  const [error, setError] = useState("");
+  const errorMessage = error ? error : requestError;
+
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -18,18 +23,40 @@ export default function SignIn() {
   });
 
   const handleOnChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    setError("");
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
 
   const handleSignIn: MouseEventHandler<HTMLButtonElement> = async (event) => {
     event.preventDefault();
+
+    if (!formData.email.trim()) {
+      setError("Введите почту");
+      return;
+    }
+  
+    if (!formData.email.includes("@")) {
+      setError("Неверный формат почты");
+      return;
+    }
+  
+    if (!formData.password.trim()) {
+      setError("Введите пароль");
+      return;
+    }
+  
+    if (formData.password.length < 6) {
+      setError("Пароль должен быть более 6 символов");
+      return;
+    }
+
     try {
       const user = await dispatch(
         signin({ email: formData.email, password: formData.password })
       ).unwrap();
       dispatch(setUser(user));
-      // router.push("/playlist");
+      router.push("/playlist");
       setFormData({ email: "", password: "" });
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -84,12 +111,12 @@ export default function SignIn() {
             )}
 
             <button className={styles.enterButton} onClick={handleSignIn}>
-              <Link className={styles.enterButtonLink} href="/playlist">Войти</Link>
+              <a className={styles.enterButtonLink}>Войти</a>
             </button>
             <button className={styles.signupButton}>
-              <Link className={styles.signupButtonLink} href="/signup">
+              <a className={styles.signupButtonLink} href="/signup">
                 Зарегистрироваться
-              </Link>
+              </a>
             </button>
           </form>
         </div>
