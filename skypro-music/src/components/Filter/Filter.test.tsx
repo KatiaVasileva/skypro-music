@@ -2,7 +2,11 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import Filter from "./Filter";
 import "@testing-library/jest-dom";
 import { useAppDispatch, useAppSelector } from "@/store/store";
-import { setDateState, setGenreState, setPerformerState } from "@/store/features/filterSlice";
+import {
+  setDateState,
+  setGenreState,
+  setPerformerState,
+} from "@/store/features/filterSlice";
 
 jest.mock("../../store/store");
 jest.mock("../../store/features/filterSlice", () => ({
@@ -98,14 +102,14 @@ describe("Filter component", () => {
     fireEvent.click(screen.getByText("жанру"));
     fireEvent.click(screen.getByText("Genre1"));
     expect(dispatchMock).toHaveBeenCalledWith(setGenreState("Genre1"));
-  });  
+  });
 
   it("should call dispatch with setDateState when date order is selected", () => {
     render(<Filter performers={performers} genres={genres} years={years} />);
     fireEvent.click(screen.getByText("году выпуска"));
     fireEvent.click(screen.getByText("По умолчанию"));
     expect(dispatchMock).toHaveBeenCalledWith(setDateState("По умолчанию"));
-  }); 
+  });
 
   it("should show correct selected count", () => {
     render(<Filter performers={performers} genres={genres} years={years} />);

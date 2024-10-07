@@ -8,7 +8,6 @@ type FilterItemProps = {
   handleFilterItemClick: (filterElement: string) => void;
   handleFilterElementClick?: () => void;
   isFilterElementClicked?: boolean;
-
 };
 
 function FilterItem({
@@ -19,7 +18,6 @@ function FilterItem({
   handleFilterElementClick,
   isFilterElementClicked,
 }: FilterItemProps) {
-
   return (
     <div className={styles.popup}>
       <div
@@ -36,16 +34,14 @@ function FilterItem({
           <div className={styles.popupContent}>
             {filterContent.map((filterElement, index) => (
               <p
-                className={classNames(
-                  styles.popupText,
-                    {
-                      [styles.popupTextActive]:
-                        selectedValues.includes(filterElement),
-                      [styles.popupTextInactive]:
-                        filterName === "year" && 
-                        !selectedValues.includes(filterElement) && isFilterElementClicked,
-                    },
-                )}
+                className={classNames(styles.popupText, {
+                  [styles.popupTextActive]:
+                    selectedValues.includes(filterElement),
+                  [styles.popupTextInactive]:
+                    filterName === "year" &&
+                    !selectedValues.includes(filterElement) &&
+                    isFilterElementClicked,
+                })}
                 key={index}
                 onClick={() => {
                   handleFilterItemClick(filterElement);

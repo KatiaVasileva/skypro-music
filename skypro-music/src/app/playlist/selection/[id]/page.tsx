@@ -19,8 +19,7 @@ export default function SelectionPage() {
     (state) => state.track
   );
   const { access, refresh } = useAppSelector((state) => state.user.tokens);
-  const filteredTracks = useFilteredTracks({tracks: selectedTracks});
-
+  const filteredTracks = useFilteredTracks({ tracks: selectedTracks });
 
   useEffect(() => {
     dispatch(setSelectionId(id));

@@ -6,9 +6,11 @@ import CenterBlock from "@/components/CenterBlock/CenterBlock";
 import { useFilteredTracks } from "@/hooks/useFilteredTracks";
 
 export default function FavoritePage() {
-  const myPlaylistState = useAppSelector((state) => state.track.myPlaylistState);
+  const myPlaylistState = useAppSelector(
+    (state) => state.track.myPlaylistState
+  );
   const user = useAppSelector((state) => state.user);
-  const filteredTracks = useFilteredTracks({tracks: myPlaylistState});
+  const filteredTracks = useFilteredTracks({ tracks: myPlaylistState });
 
   const router = useRouter();
 
@@ -17,4 +19,4 @@ export default function FavoritePage() {
   }
 
   return <CenterBlock allTracks={filteredTracks} title={"Мои треки"} />;
-}  
+}

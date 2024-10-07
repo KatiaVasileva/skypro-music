@@ -30,8 +30,10 @@ export default function NotFound() {
                   Возможно, она была удалена или перенесена на другой адрес
                 </p>
                 <button className={styles.mainPageButton}>
-                  <Link href="/playlist" className={styles.mainPageButtonLink}>Вернуться на главную</Link>
-                </button> 
+                  <Link href="/playlist" className={styles.mainPageButtonLink}>
+                    Вернуться на главную
+                  </Link>
+                </button>
               </div>
             </div>
           </div>

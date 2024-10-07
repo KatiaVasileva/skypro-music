@@ -38,7 +38,6 @@ const filterSlice = createSlice({
       } else {
         state.dateState[0] = dateOrder;
       }
-    //   state.dateState[0] = dateOrder;
     },
     setGenreState: (state, action: PayloadAction<string>) => {
       const genre = action.payload;

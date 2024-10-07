@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from "@/store/store";
 import { ChangeEventHandler, MouseEventHandler, useState } from "react";
 import { signup } from "@/store/features/userSlice";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 
 export default function SignUp() {
   const dispatch = useAppDispatch();

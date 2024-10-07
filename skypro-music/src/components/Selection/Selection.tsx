@@ -11,9 +11,7 @@ function SelectionItem({ id }: { id: string }) {
   const dispatch = useAppDispatch();
   const trackState = useAppSelector((state) => state.track.trackState);
 
-  const handleSelectionClick: React.MouseEventHandler<HTMLElement> = (
-    event
-  ) => {
+  const handleSelectionClick: React.MouseEventHandler<HTMLElement> = () => {
     dispatch(setTrackState(trackState));
     dispatch(resetFilters());
   };
