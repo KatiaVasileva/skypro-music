@@ -57,13 +57,18 @@ function Nav() {
   return (
     <nav className={styles.main}>
       <div className={styles.logo}>
-        <Image
-          className={styles.image}
-          src="/img/logo.png"
-          alt="logo"
-          width={113.33}
-          height={43}
-        />
+        <Link legacyBehavior href="/playlist">
+          <a>
+            <Image
+              className={styles.image}
+              src="/img/logo.png"
+              alt="logo"
+              width={113.33}
+              height={43}
+              priority
+            />
+          </a>
+        </Link>
       </div>
       <div className={styles.burger} onClick={handleBurgerClick}>
         <span className={styles.burgerLine}></span>
