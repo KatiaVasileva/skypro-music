@@ -40,7 +40,7 @@ function Sidebar() {
           name="logout"
           onClick={handleLogoutButton}
         />
-      </div>
+      </div> 
       <div className={styles.block}>
         <div className={styles.list}>
           {isLoading && (

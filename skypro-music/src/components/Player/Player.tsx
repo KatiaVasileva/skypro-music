@@ -97,7 +97,7 @@ function Player() {
 
   const handleButtonNextClick = () => {
     dispatch(setNextTrack());
-    dispatch(setTrackCurrentTime(0));
+    dispatch(setTrackCurrentTime(0)); 
   };
 
   const handleButtonPrevClick = () => {
