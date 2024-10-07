@@ -10,12 +10,11 @@ import {
   setTrackState,
 } from "@/store/features/trackSlice";
 import { logout } from "@/store/features/userSlice";
-import { useRouter } from "next/navigation";
 import { resetFilters } from "@/store/features/filterSlice";
 import Link from "next/link";
+import { removeAccessTokenFromLocalStorage, removeUserFromLocalStorage } from "@/utils/helpers";
 
 function Nav() {
-  // const router = useRouter();
 
   const dispatch = useAppDispatch();
   const [isBurgerClicked, setIsBurgerClicked] = useState(false);
@@ -52,6 +51,10 @@ function Nav() {
     dispatch(logout());
     dispatch(getTracks());
     dispatch(setMyPlaylistState([]));
+    if (typeof window !== "undefined") {
+      removeUserFromLocalStorage();
+      removeAccessTokenFromLocalStorage();
+    }
   };
 
   return (

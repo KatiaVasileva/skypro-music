@@ -6,11 +6,11 @@ import { useAppDispatch, useAppSelector } from "@/store/store";
 import { ChangeEventHandler, MouseEventHandler, useState } from "react";
 import { setTokens, setUser, signin, token } from "@/store/features/userSlice";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { saveAccessTokenToLocalStorage, saveUserToLocalStorage } from "@/utils/helpers";
 
 export default function SignIn() {
   const dispatch = useAppDispatch();
-  
+
   const requestError = useAppSelector((state) => state.user.errorMessage);
   const [error, setError] = useState("");
   const errorMessage = error ? error : requestError;
@@ -35,17 +35,17 @@ export default function SignIn() {
       setError("Введите почту");
       return;
     }
-  
+
     if (!formData.email.includes("@")) {
       setError("Неверный формат почты");
       return;
     }
-  
+
     if (!formData.password.trim()) {
       setError("Введите пароль");
       return;
     }
-  
+
     if (formData.password.length < 6) {
       setError("Пароль должен быть более 6 символов");
       return;
@@ -56,6 +56,9 @@ export default function SignIn() {
         signin({ email: formData.email, password: formData.password })
       ).unwrap();
       dispatch(setUser(user));
+      if (typeof window !== "undefined") {
+        saveUserToLocalStorage(user);
+      }
       router.push("/playlist");
       setFormData({ email: "", password: "" });
     } catch (error: unknown) {
@@ -67,6 +70,9 @@ export default function SignIn() {
       token({ email: formData.email, password: formData.password })
     ).unwrap();
     dispatch(setTokens(tokens));
+    if (typeof window !== "undefined") {
+      saveAccessTokenToLocalStorage(tokens.access);
+    }
   };
 
   return (

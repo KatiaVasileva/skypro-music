@@ -8,14 +8,6 @@ import {
 } from "@/api/userApi";
 import { Tokens } from "@/types/Tokens.types";
 import { User } from "@/types/User.types";
-import {
-  getAccessTokenFromLocalStorage,
-  getUserFromLocalStorage,
-  removeAccessTokenFromLocalStorage,
-  removeUserFromLocalStorage,
-  saveAccessTokenToLocalStorage,
-  saveUserToLocalStorage,
-} from "@/utils/helpers";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type UserStateType = {
@@ -25,13 +17,11 @@ type UserStateType = {
   tokens: Tokens;
 };
 
-const userFromLocalStorage: User | null = getUserFromLocalStorage();
-
 const initialState: UserStateType = {
-  userState: userFromLocalStorage,
+  userState: { email: "", username: "", _id: 0 },
   isAuthState: false,
   errorMessage: "",
-  tokens: { access: getAccessTokenFromLocalStorage(), refresh: "" },
+  tokens: { access: "", refresh: ""},
 };
 
 export const signup = createAsyncThunk(
@@ -52,7 +42,6 @@ export const token = createAsyncThunk(
   "user/token",
   async ({ email, password }: GetTokenProps) => {
     const newToken = await getToken({ email, password });
-    saveAccessTokenToLocalStorage(newToken.access);
     return newToken;
   }
 );
@@ -63,7 +52,6 @@ const userSlice = createSlice({
   reducers: {
     setUser: (state, action: PayloadAction<User>) => {
       state.userState = action.payload;
-      saveUserToLocalStorage(state.userState);
     },
     setTokens: (state, action: PayloadAction<Tokens>) => {
       if (state.tokens) {
@@ -73,8 +61,6 @@ const userSlice = createSlice({
     logout: (state) => {
       state.userState = null;
       state.isAuthState = false;
-      removeUserFromLocalStorage();
-      removeAccessTokenFromLocalStorage();
     },
   },
   extraReducers: (builder) => {

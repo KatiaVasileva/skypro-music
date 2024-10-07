@@ -5,9 +5,10 @@ import Icon from "../Icon/Icon";
 import { logout } from "@/store/features/userSlice";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { useEffect, useState } from "react";
-import { getTracks, setMyPlaylistState } from "@/store/features/trackSlice";
+import { setMyPlaylistState } from "@/store/features/trackSlice";
 import SelectionItem from "../Selection/Selection";
 import Skeleton from "react-loading-skeleton";
+import { removeAccessTokenFromLocalStorage, removeUserFromLocalStorage } from "@/utils/helpers";
 
 function Sidebar() {
   const dispatch = useAppDispatch();
@@ -18,6 +19,10 @@ function Sidebar() {
   const handleLogoutButton = () => {
     dispatch(logout());
     dispatch(setMyPlaylistState([]));
+    if (typeof window !== "undefined") {
+      removeUserFromLocalStorage();
+      removeAccessTokenFromLocalStorage();
+    }
   };
 
   useEffect(() => {
