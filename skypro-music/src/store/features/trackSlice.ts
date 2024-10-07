@@ -185,10 +185,6 @@ const trackSlice = createSlice({
         state.errorMessage = "Ошибка: " + action.error.message;
         state.isLoading = false;
       })
-      .addCase(getListOfTracks.pending, (state) => {
-        state.isLoading = true;
-        state.errorMessage = "";
-      })
       .addCase(getListOfTracks.fulfilled, (state, action) => {
         state.listOfTracks = action.payload;
         state.isLoading = false;
@@ -197,10 +193,6 @@ const trackSlice = createSlice({
         state.errorMessage = "Ошибка: " + action.error.message;
         state.isLoading = false;
       })
-      .addCase(getFavoriteTracks.pending, (state) => {
-        state.isLoading = true;
-        state.errorMessage = "";
-      })
       .addCase(getFavoriteTracks.fulfilled, (state, action) => {
         state.myPlaylistState = action.payload;
         state.isLoading = false;
@@ -208,10 +200,6 @@ const trackSlice = createSlice({
       .addCase(getFavoriteTracks.rejected, (state, action) => {
         state.errorMessage = "Ошибка: " + action.error.message;
         state.isLoading = false;
-      })
-      .addCase(getSelectedTracks.pending, (state) => {
-        state.isLoading = true;
-        state.errorMessage = "";
       })
       .addCase(
         getSelectedTracks.fulfilled,
