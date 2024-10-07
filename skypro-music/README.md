@@ -10,7 +10,6 @@
 - Jest.js
 - React-Skeleton
 
-
 ## Функционал
 
 - Регистрация пользователя (sign up) 
