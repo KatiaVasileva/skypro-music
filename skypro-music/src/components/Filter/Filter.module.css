@@ -10,6 +10,7 @@
     -ms-flex-align: center;
     align-items: center;
     margin-bottom: 51px;
+    position: relative;
 }
 
 .filterTitle {
@@ -28,6 +29,7 @@
     border: 1px solid #ffffff;
     border-radius: 60px;
     padding: 6px 20px;
+    /* position: relative; */
 
     &:not(:last-child) {
         margin-right: 10px;
@@ -51,72 +53,31 @@
     border-color: #ad61ff;
 }
 
-.popup {
-    position: relative;
-}
-
-.popupContainer {
+.selectedPerformerFilterCount, .selectedYearFilterCount, .selectedGenreFilterCount {
     position: absolute;
-    width: 248px;
-    max-height: 305px;
-    background-color: #313131;
-    border-radius: 12px;
+    top: -10px;
+    left: 240px;
+    width: 26px;
+    height: 26px;
+    text-align: center;
+    background-color: #6b46c1;
+    color: #fff;
+    border-radius: 50%;
+    padding: 2px 8px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.selectedYearFilterCount {
+    left: 400px;
+}
+
+.selectedGenreFilterCount {
+    left: 505px;
+}
+
+.skeletonContainer {
     display: flex;
-    margin-top: -40px;
-    z-index: 1;
-}
-
-.popupContainerAuthor {
-    margin-left: 100px;
-}
-
-.popupContainerYear {
-    margin-left: 262px;
-    height: 196px;
-    width: 221px;
-}
-
-.popupContainerGenre {
-    margin-left: 425px;
-}
-
-.popupBox, .popupBoxYear {
-    width: 180px;
-    max-height: 237px;
-    display: flex;
-    margin-top: 20px;
-    overflow-y: hidden;
-    overflow-y: auto;
-    margin: 34px 34px;
-    scrollbar-color: #ffffff #4B4949;
-    scrollbar-width: thin;
-}
-
-.popupBoxYear {
-    height: 128px;
-    width: 153px;
-}
-
-.popupContent, .popupContentYear {
-    width: 152px;
-    max-height: 232px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-
-.popupContentYear {
-    height: 128px;
-}
-
-.popupText {
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 24px;
-
-    &:hover {
-        color: #B672FF;
-        text-decoration: underline;
-        cursor: pointer;
-    }
+    flex-direction: row;
+    gap: 5px;
 }

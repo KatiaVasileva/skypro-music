@@ -107,9 +107,12 @@ export async function getFavorite({
 // Просмотреть подборку по id
 export async function getSelectionById(id: string): Promise<Selection> {
   const selectionId = Number(id) + 1;
-  const response = await fetch(`${baseHost}/catalog/selection/${selectionId}/`, {
-    method: "GET",
-  });
+  const response = await fetch(
+    `${baseHost}/catalog/selection/${selectionId}/`,
+    {
+      method: "GET",
+    }
+  );
 
   if (response.status === 500) {
     throw new Error("Ошибка при получении данных");
@@ -117,4 +120,4 @@ export async function getSelectionById(id: string): Promise<Selection> {
 
   const data = await response.json();
   return data.data;
- }
+}

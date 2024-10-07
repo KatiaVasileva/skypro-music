@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Selection component renders correctly 1`] = `
+<div>
+  <div
+    class="item"
+  >
+    <a
+      href="/playlist/selection"
+    >
+      <img
+        alt="day's playlist"
+        class="img"
+        data-nimg="1"
+        decoding="async"
+        fetchpriority="high"
+        height="150"
+        src="/_next/image?url=%2Fimg%2Fplaylist0.png&w=640&q=75"
+        srcset="/_next/image?url=%2Fimg%2Fplaylist0.png&w=256&q=75 1x, /_next/image?url=%2Fimg%2Fplaylist0.png&w=640&q=75 2x"
+        style="color: transparent;"
+        width="250"
+      />
+    </a>
+  </div>
+</div>
+`;

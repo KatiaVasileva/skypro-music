@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search component renders correctly 1`] = `
+<div>
+  <div
+    class="search"
+  >
+    <div
+      class=""
+    >
+      <svg
+        class="searchSvg"
+      >
+        <use
+          xlink:href="/img/icon/sprite.svg#icon-search"
+        />
+      </svg>
+    </div>
+    <input
+      class="searchText"
+      name="search"
+      placeholder="Поиск"
+      type="search"
+      value=""
+    />
+  </div>
+</div>
+`;

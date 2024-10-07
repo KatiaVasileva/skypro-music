@@ -90,5 +90,3 @@ export async function getToken({ email, password }: GetTokenProps) {
   const data = await response.json();
   return data;
 }
-
-

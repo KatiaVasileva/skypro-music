@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilterItem component renders correctly 1`] = `
+<div>
+  <div
+    class="popup"
+  >
+    <div
+      class="popupContainer popupContainerGenre"
+    >
+      <div
+        class="popupBox"
+      >
+        <div
+          class="popupContent"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

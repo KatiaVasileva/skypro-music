@@ -15,6 +15,7 @@ export default function SignUp() {
     username: "",
     passwordRepeat: "",
   });
+
   const router = useRouter();
 
   const requestError = useAppSelector((state) => state.user.errorMessage);
@@ -30,17 +31,13 @@ export default function SignUp() {
   const handleSignUp: MouseEventHandler<HTMLButtonElement> = async (event) => {
     event.preventDefault();
 
-    console.log(formData.password);
-    console.log(formData.passwordRepeat);
-    console.log(formData.password !== formData.passwordRepeat);
-
     if (!formData.username.trim()) {
       setError("Введите имя");
       return;
     }
 
     if (formData.username.length < 3) {
-      setError("Имя пользователя должно быть более 3 символов");
+      setError("Имя пользователя должно быть не менее 3 символов");
       return;
     }
 

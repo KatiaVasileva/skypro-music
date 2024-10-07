@@ -19,13 +19,9 @@ import {
 import { useLikeTrack } from "@/hooks/useLikeTracks";
 
 function Player() {
-  const {
-    trackState,
-    playingState,
-    playlistState,
-    shuffleActiveState,
-  } = useAppSelector((state) => state.track);
-  
+  const { trackState, playingState, playlistState, shuffleActiveState } =
+    useAppSelector((state) => state.track);
+
   const dispatch = useAppDispatch();
 
   const { isLiked, handleLike } = useLikeTrack({ track: trackState });
@@ -101,7 +97,7 @@ function Player() {
 
   const handleButtonNextClick = () => {
     dispatch(setNextTrack());
-    dispatch(setTrackCurrentTime(0));
+    dispatch(setTrackCurrentTime(0)); 
   };
 
   const handleButtonPrevClick = () => {
@@ -114,7 +110,7 @@ function Player() {
   };
 
   return (
-    <div className={styles.bar}>
+    <div className={styles.bar} data-testid="player-container">
       <div className={styles.content}>
         <audio
           ref={audioRef}
@@ -147,6 +143,7 @@ function Player() {
               />
               {!playingState && (
                 <Icon
+                  data-testid="player-button"
                   wrapperClass={styles.buttonPlay}
                   iconClass={styles.buttonPlaySvg}
                   name="icon-play"

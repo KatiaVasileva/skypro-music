@@ -7,12 +7,14 @@ import {
   useStore,
 } from "react-redux";
 import { userReducer } from "./features/userSlice";
+import { filterReducer } from "./features/filterSlice";
 
 export const makeStore = () => {
   return configureStore({
     reducer: combineReducers({
       track: trackReducer,
       user: userReducer,
+      filter: filterReducer,
     }),
   });
 };
