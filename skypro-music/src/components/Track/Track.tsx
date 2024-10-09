@@ -4,7 +4,6 @@ import { Track } from "@/types/Track.types";
 import styles from "./Track.module.css";
 import {
   setisTrackClicked,
-  setPlaylistState,
   setTrackIndexState,
   setTrackState,
 } from "@/store/features/trackSlice";
@@ -15,10 +14,9 @@ import { formatTime } from "@/utils/helpers";
 
 type TrackItemProps = {
   track: Track;
-  tracks: Array<Track>;
 };
 
-function TrackItem({ track, tracks }: TrackItemProps) {
+function TrackItem({ track }: TrackItemProps) {
   const dispatch = useAppDispatch();
   const playlistState = useAppSelector((state) => state.track.playlistState);
   const playingState = useAppSelector((state) => state.track.playingState);
@@ -37,7 +35,6 @@ function TrackItem({ track, tracks }: TrackItemProps) {
     event.preventDefault();
 
     dispatch(setTrackState(track));
-    dispatch(setPlaylistState({ tracks: tracks }));
     dispatch(setisTrackClicked(true));
     dispatch(
         setTrackIndexState(

@@ -17,6 +17,9 @@ type CenterBlockProps = {
 const CenterBlock = ({ allTracks, title }: CenterBlockProps) => {
   const playlistState = useAppSelector((state) => state.track.playlistState);
   const isLoading = useAppSelector((state) => state.track.isLoading);
+  const { searchState, genreState, performerState, dateState } = useAppSelector(
+    (state) => state.filter
+  );
 
   const performers: Array<string> = playlistState
     .map((track) => track.author)
@@ -53,9 +56,13 @@ const CenterBlock = ({ allTracks, title }: CenterBlockProps) => {
       ) : (
         <div className={styles.content}>
           <TrackTitle />
-          {allTracks.length === 0 && (
-            <div className={styles.textNotFound}>Треки не найдены</div>
-          )}
+          {allTracks.length === 0 &&
+            (searchState !== "" ||
+              dateState.length !== 0 ||
+              performerState.length !== 0 ||
+              genreState.length !== 0) && (
+              <div className={styles.textNotFound}>Треки не найдены</div>
+            )}
           <Playlist allTracks={allTracks} />
         </div>
       )}
