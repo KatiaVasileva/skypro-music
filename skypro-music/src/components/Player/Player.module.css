@@ -216,6 +216,7 @@
     font-size: 16px;
     line-height: 24px;
     color: #ffffff;
+    font-family: inherit;
     white-space: nowrap;
 }
 
@@ -232,6 +233,7 @@
     font-size: 13px;
     line-height: 24px;
     color: #ffffff;
+    font-family: inherit;
 }
 
 .trackTime {
