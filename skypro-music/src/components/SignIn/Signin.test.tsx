@@ -1,10 +1,8 @@
-import ReduxProvider from "@/store/ReduxProvider";
 import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import SignIn from "./SignIn";
-import { useAppDispatch, useAppSelector } from "@/store/store";
+import { useAppDispatch } from "@/store/store";
 import { useRouter } from "next/navigation";
-import { setTokens, setUser, signin } from "@/store/features/userSlice";
 
 jest.mock("../../store/store");
 jest.mock("next/navigation", () => ({

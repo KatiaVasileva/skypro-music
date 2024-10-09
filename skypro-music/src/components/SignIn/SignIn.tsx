@@ -4,9 +4,18 @@ import Image from "next/image";
 import styles from "./SignIn.module.css";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { ChangeEventHandler, MouseEventHandler, useState } from "react";
-import { setTokens, setUser, signin, token } from "@/store/features/userSlice";
+import {
+  setIsRegisterClicked,
+  setTokens,
+  setUser,
+  signin,
+  token,
+} from "@/store/features/userSlice";
 import { useRouter } from "next/navigation";
-import { saveAccessTokenToLocalStorage, saveUserToLocalStorage } from "@/utils/helpers";
+import {
+  saveAccessTokenToLocalStorage,
+  saveUserToLocalStorage,
+} from "@/utils/helpers";
 
 export default function SignIn() {
   const dispatch = useAppDispatch();
@@ -120,7 +129,10 @@ export default function SignIn() {
               <a className={styles.enterButtonLink}>Войти</a>
             </button>
             <button className={styles.signupButton}>
-              <a className={styles.signupButtonLink} href="/signup">
+              <a
+                className={styles.signupButtonLink}
+                onClick={() => dispatch(setIsRegisterClicked(true))}
+              >
                 Зарегистрироваться
               </a>
             </button>

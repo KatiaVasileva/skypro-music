@@ -4,8 +4,7 @@ import Image from "next/image";
 import styles from "./SignUp.module.css";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { ChangeEventHandler, MouseEventHandler, useState } from "react";
-import { signup } from "@/store/features/userSlice";
-import { useRouter } from "next/navigation";
+import { setIsRegisterClicked, signup } from "@/store/features/userSlice";
 
 export default function SignUp() {
   const dispatch = useAppDispatch();
@@ -15,8 +14,6 @@ export default function SignUp() {
     username: "",
     passwordRepeat: "",
   });
-
-  const router = useRouter();
 
   const requestError = useAppSelector((state) => state.user.errorMessage);
   const [error, setError] = useState("");
@@ -74,7 +71,7 @@ export default function SignUp() {
           username: formData.username,
         })
       ).unwrap();
-      router.push("/signin");
+      dispatch(setIsRegisterClicked(false));
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);

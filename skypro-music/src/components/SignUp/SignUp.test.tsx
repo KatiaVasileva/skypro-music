@@ -1,22 +1,15 @@
-import ReduxProvider from "@/store/ReduxProvider";
 import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import SignUp from "./SignUp";
 import { useAppDispatch } from "@/store/store";
-import { useRouter } from "next/navigation";
 
 jest.mock("../../store/store");
-jest.mock("next/navigation", () => ({
-  useRouter: jest.fn(),
-}));
 
 const mockUseAppDispatch = useAppDispatch as jest.Mock;
-const mockRouterPush = jest.fn();
 
 describe("Signup component", () => {
   beforeEach(() => {
     mockUseAppDispatch.mockReturnValue(jest.fn());
-    (useRouter as jest.Mock).mockReturnValue({ push: mockRouterPush });
   });
 
   it("renders correctly", () => {

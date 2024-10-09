@@ -15,6 +15,7 @@ type UserStateType = {
   isAuthState: boolean;
   errorMessage: string;
   tokens: Tokens;
+  isRegisterClicked: boolean;
 };
 
 const initialState: UserStateType = {
@@ -22,6 +23,7 @@ const initialState: UserStateType = {
   isAuthState: false,
   errorMessage: "",
   tokens: { access: "", refresh: ""},
+  isRegisterClicked: false,
 };
 
 export const signup = createAsyncThunk(
@@ -58,6 +60,9 @@ const userSlice = createSlice({
         state.tokens = action.payload;
       }
     },
+    setIsRegisterClicked: (state, action: PayloadAction<boolean>) => {
+      state.isRegisterClicked = action.payload;
+    },
     logout: (state) => {
       state.userState = null;
       state.isAuthState = false;
@@ -86,5 +91,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, setTokens, logout } = userSlice.actions;
+export const { setUser, setTokens, setIsRegisterClicked, logout } = userSlice.actions;
 export const userReducer = userSlice.reducer;

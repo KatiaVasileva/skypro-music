@@ -65,7 +65,6 @@ exports[`Signin component renders correctly 1`] = `
           >
             <a
               class="signupButtonLink"
-              href="/signup"
             >
               Зарегистрироваться
             </a>

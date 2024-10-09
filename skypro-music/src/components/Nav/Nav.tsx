@@ -100,7 +100,7 @@ function Nav() {
             </li>
             <li className={styles.menuItem}>
               {!user && (
-                <Link href="/signin" className={styles.menuLink}>
+                <Link href="/auth" className={styles.menuLink}>
                   Войти
                 </Link>
               )}
