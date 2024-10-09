@@ -43,7 +43,7 @@ const initialState: TrackStateType = {
   selectionName: "",
   listOfTracks: [],
   trackCurrentTimeState: 0,
-  isLoading: false,
+  isLoading: true,
 };
 
 export const getTracks = createAsyncThunk("track/allTracks", async () => {
