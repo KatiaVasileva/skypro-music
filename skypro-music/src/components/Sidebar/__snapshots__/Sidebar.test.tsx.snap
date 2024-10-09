@@ -27,66 +27,32 @@ exports[`Sidebar component renders correctly 1`] = `
       <div
         class="list"
       >
-        <div
-          class="item"
+        <span
+          aria-busy="true"
+          aria-live="polite"
         >
-          <a
-            href="/playlist/selection/1"
+          <span
+            class="react-loading-skeleton skeleton"
+            style="width: 250px; height: 150px;"
           >
-            <img
-              alt="day's playlist"
-              class="img"
-              data-nimg="1"
-              decoding="async"
-              fetchpriority="high"
-              height="150"
-              src="/_next/image?url=%2Fimg%2Fplaylist01.png&w=640&q=75"
-              srcset="/_next/image?url=%2Fimg%2Fplaylist01.png&w=256&q=75 1x, /_next/image?url=%2Fimg%2Fplaylist01.png&w=640&q=75 2x"
-              style="color: transparent;"
-              width="250"
-            />
-          </a>
-        </div>
-        <div
-          class="item"
-        >
-          <a
-            href="/playlist/selection/2"
+            ‌
+          </span>
+          <br />
+          <span
+            class="react-loading-skeleton skeleton"
+            style="width: 250px; height: 150px;"
           >
-            <img
-              alt="day's playlist"
-              class="img"
-              data-nimg="1"
-              decoding="async"
-              fetchpriority="high"
-              height="150"
-              src="/_next/image?url=%2Fimg%2Fplaylist02.png&w=640&q=75"
-              srcset="/_next/image?url=%2Fimg%2Fplaylist02.png&w=256&q=75 1x, /_next/image?url=%2Fimg%2Fplaylist02.png&w=640&q=75 2x"
-              style="color: transparent;"
-              width="250"
-            />
-          </a>
-        </div>
-        <div
-          class="item"
-        >
-          <a
-            href="/playlist/selection/3"
+            ‌
+          </span>
+          <br />
+          <span
+            class="react-loading-skeleton skeleton"
+            style="width: 250px; height: 150px;"
           >
-            <img
-              alt="day's playlist"
-              class="img"
-              data-nimg="1"
-              decoding="async"
-              fetchpriority="high"
-              height="150"
-              src="/_next/image?url=%2Fimg%2Fplaylist03.png&w=640&q=75"
-              srcset="/_next/image?url=%2Fimg%2Fplaylist03.png&w=256&q=75 1x, /_next/image?url=%2Fimg%2Fplaylist03.png&w=640&q=75 2x"
-              style="color: transparent;"
-              width="250"
-            />
-          </a>
-        </div>
+            ‌
+          </span>
+          <br />
+        </span>
       </div>
     </div>
   </div>
