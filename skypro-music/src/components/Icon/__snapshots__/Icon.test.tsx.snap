@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Icon component renders correctly 1`] = `
+<div>
+  <div
+    class=""
+  >
+    <svg>
+      <use
+        xlink:href="/img/icon/sprite.svg#name"
+      />
+    </svg>
+  </div>
+</div>
+`;

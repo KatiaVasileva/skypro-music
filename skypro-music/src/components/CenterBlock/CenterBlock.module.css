@@ -16,3 +16,14 @@
     -ms-flex-direction: column;
     flex-direction: column;
 }
+
+.textNotFound {
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 48px;
+    margin-top: 100px;
+}
+
+.skeleton {
+    margin-bottom: 12px;
+}

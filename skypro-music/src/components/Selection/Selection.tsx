@@ -4,37 +4,36 @@ import Image from "next/image";
 import styles from "./Selection.module.css";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { setTrackState } from "@/store/features/trackSlice";
-import { useRouter } from "next/navigation";
+import { resetFilters } from "@/store/features/filterSlice";
+import Link from "next/link";
 
 function SelectionItem({ id }: { id: string }) {
   const dispatch = useAppDispatch();
   const trackState = useAppSelector((state) => state.track.trackState);
-  const router = useRouter();
 
-  const handleSelectionClick: React.MouseEventHandler<HTMLAnchorElement> = (event) => {
-    event.preventDefault();
+  const handleSelectionClick: React.MouseEventHandler<HTMLElement> = () => {
     dispatch(setTrackState(trackState));
-    router.push(`/playlist/selection/${id}`);
-  }
- 
+    dispatch(resetFilters());
+  };
+
   return (
-    <div
-      className={styles.item}
-      key={id}
-    >
-      <a
+    <div className={styles.item} key={id}>
+      <Link
+        legacyBehavior
+        href={`/playlist/selection/${id}`}
         className={styles.link}
-        onClick={handleSelectionClick}
       >
-        <Image
-          className={styles.img}
-          src={`/img/playlist0${id}.png`}
-          alt="day's playlist"
-          width={250}
-          height={150}
-          priority
-        />
-      </a>
+        <a onClick={handleSelectionClick}>
+          <Image
+            className={styles.img}
+            src={`/img/playlist0${id}.png`}
+            alt="day's playlist"
+            width={250}
+            height={150}
+            priority
+          />
+        </a>
+      </Link>
     </div>
   );
 }

@@ -25,6 +25,7 @@ type TrackStateType = {
   selectionName: string;
   listOfTracks: Array<Track>;
   trackCurrentTimeState: number;
+  isLoading: boolean;
 };
 
 const initialState: TrackStateType = {
@@ -42,6 +43,7 @@ const initialState: TrackStateType = {
   selectionName: "",
   listOfTracks: [],
   trackCurrentTimeState: 0,
+  isLoading: true,
 };
 
 export const getTracks = createAsyncThunk("track/allTracks", async () => {
@@ -165,26 +167,47 @@ const trackSlice = createSlice({
     setTrackCurrentTime: (state, action: PayloadAction<number>) => {
       state.trackCurrentTimeState = action.payload;
     },
+    setIsLoading: (state, action) => {
+      state.isLoading = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
+      .addCase(getTracks.pending, (state) => {
+        state.isLoading = true;
+        state.errorMessage = "";
+      })
       .addCase(getTracks.fulfilled, (state, action) => {
         state.playlistState = action.payload;
+        state.isLoading = false;
       })
       .addCase(getTracks.rejected, (state, action) => {
         state.errorMessage = "Ошибка: " + action.error.message;
+        state.isLoading = false;
       })
+        .addCase(getListOfTracks.pending, (state) => {
+          state.isLoading = false;
+          state.errorMessage = "";
+        })
       .addCase(getListOfTracks.fulfilled, (state, action) => {
         state.listOfTracks = action.payload;
+        state.isLoading = false;
       })
       .addCase(getListOfTracks.rejected, (state, action) => {
         state.errorMessage = "Ошибка: " + action.error.message;
+        state.isLoading = false;
       })
       .addCase(getFavoriteTracks.fulfilled, (state, action) => {
         state.myPlaylistState = action.payload;
+        state.isLoading = false;
       })
       .addCase(getFavoriteTracks.rejected, (state, action) => {
         state.errorMessage = "Ошибка: " + action.error.message;
+        state.isLoading = false;
+      })
+      .addCase(getSelectedTracks.pending, (state) => {
+        state.isLoading = false;
+        state.errorMessage = "";
       })
       .addCase(
         getSelectedTracks.fulfilled,
@@ -217,5 +240,6 @@ export const {
   setDislike,
   setSelectionId,
   setTrackCurrentTime,
+  setIsLoading,
 } = trackSlice.actions;
 export const trackReducer = trackSlice.reducer;

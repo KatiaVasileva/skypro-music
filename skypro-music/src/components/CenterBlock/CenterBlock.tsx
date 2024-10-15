@@ -6,6 +6,8 @@ import Filter from "../Filter/Filter";
 import { useAppSelector } from "@/store/store";
 import { Track } from "@/types/Track.types";
 import Playlist from "../Playlist/Playlist";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 type CenterBlockProps = {
   allTracks: Array<Track>;
@@ -14,6 +16,10 @@ type CenterBlockProps = {
 
 const CenterBlock = ({ allTracks, title }: CenterBlockProps) => {
   const playlistState = useAppSelector((state) => state.track.playlistState);
+  const isLoading = useAppSelector((state) => state.track.isLoading);
+  const { searchState, genreState, performerState, dateState } = useAppSelector(
+    (state) => state.filter
+  );
 
   const performers: Array<string> = playlistState
     .map((track) => track.author)
@@ -28,16 +34,38 @@ const CenterBlock = ({ allTracks, title }: CenterBlockProps) => {
       return acc.includes(genre) ? acc : [...acc, genre];
     }, []);
 
+  const years: Array<string> = [
+    "По умолчанию",
+    "Сначала новые",
+    "Сначала старые",
+  ];
+
   return (
     <>
-      <h2 className={styles.title}>{title}</h2>
+      <h2 className={styles.title}>{isLoading ? <Skeleton /> : title}</h2>
 
-      <Filter performers={performers} genres={genres} />
+      <Filter performers={performers} genres={genres} years={years} />
 
-      <div className={styles.content}>
-        <TrackTitle />
-        <Playlist allTracks={allTracks} />
-      </div>
+      {isLoading ? (
+        <Skeleton
+          count={20}
+          width="100%"
+          height={51}
+          className={styles.skeleton}
+        />
+      ) : (
+        <div className={styles.content}>
+          <TrackTitle />
+          {allTracks.length === 0 &&
+            (searchState !== "" ||
+              dateState.length !== 0 ||
+              performerState.length !== 0 ||
+              genreState.length !== 0) && (
+              <div className={styles.textNotFound}>Треки не найдены</div>
+            )}
+          <Playlist allTracks={allTracks} />
+        </div>
+      )}
     </>
   );
 };

@@ -5,26 +5,31 @@ import Icon from "../Icon/Icon";
 import { logout } from "@/store/features/userSlice";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { useEffect, useState } from "react";
-import { getTracks, setMyPlaylistState } from "@/store/features/trackSlice";
+import { setMyPlaylistState } from "@/store/features/trackSlice";
 import SelectionItem from "../Selection/Selection";
+import Skeleton from "react-loading-skeleton";
+import { removeAccessTokenFromLocalStorage, removeUserFromLocalStorage } from "@/utils/helpers";
 
 function Sidebar() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.userState);
+  const isLoading = useAppSelector((state) => state.track.isLoading);
   const [name, setName] = useState("");
 
   const handleLogoutButton = () => {
     dispatch(logout());
-    dispatch(getTracks());
     dispatch(setMyPlaylistState([]));
+    if (typeof window !== "undefined") {
+      removeUserFromLocalStorage();
+      removeAccessTokenFromLocalStorage();
+    }
   };
 
   useEffect(() => {
     if (user) {
       setName(user.username);
     }
-    dispatch(getTracks()).unwrap();
-  }, [user, setName, dispatch]);
+  }, [user, setName]);
 
   return (
     <div className={styles.sidebar}>
@@ -35,12 +40,24 @@ function Sidebar() {
           name="logout"
           onClick={handleLogoutButton}
         />
-      </div>
+      </div> 
       <div className={styles.block}>
         <div className={styles.list}>
-          {[1, 2, 3].map((selection) => (
-            <SelectionItem id={selection.toString()} key={selection} />
-          ))}
+          {isLoading && (
+            <Skeleton
+              count={3}
+              width={250}
+              height={150}
+              className={styles.skeleton}
+            />
+          )}
+          {!isLoading && (
+            <>
+              {[1, 2, 3].map((selection) => (
+                <SelectionItem id={selection.toString()} key={selection} />
+              ))}
+            </>
+          )}
         </div>
       </div>
     </div>

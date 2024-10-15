@@ -49,6 +49,7 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 24px;
+    font-family: inherit;
 
     &::placeholder {
         font-style: normal;
@@ -108,6 +109,7 @@
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
+    font-family: inherit;
 
     &:hover {
         background-color: #3f007d;
@@ -124,6 +126,7 @@
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
+    font-family: inherit;
     line-height: 24px;
     letter-spacing: -0.05px;
     color: #FFFFFF;

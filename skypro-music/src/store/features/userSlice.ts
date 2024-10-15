@@ -8,14 +8,6 @@ import {
 } from "@/api/userApi";
 import { Tokens } from "@/types/Tokens.types";
 import { User } from "@/types/User.types";
-import {
-  getAccessTokenFromLocalStorage,
-  getUserFromLocalStorage,
-  removeAccessTokenFromLocalStorage,
-  removeUserFromLocalStorage,
-  saveAccessTokenToLocalStorage,
-  saveUserToLocalStorage,
-} from "@/utils/helpers";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type UserStateType = {
@@ -23,15 +15,15 @@ type UserStateType = {
   isAuthState: boolean;
   errorMessage: string;
   tokens: Tokens;
+  isRegisterClicked: boolean;
 };
 
-const userFromLocalStorage: User | null = getUserFromLocalStorage();
-
 const initialState: UserStateType = {
-  userState: userFromLocalStorage,
+  userState: { email: "", username: "", _id: 0 },
   isAuthState: false,
   errorMessage: "",
-  tokens: { access: getAccessTokenFromLocalStorage(), refresh: "" },
+  tokens: { access: "", refresh: ""},
+  isRegisterClicked: false,
 };
 
 export const signup = createAsyncThunk(
@@ -52,7 +44,6 @@ export const token = createAsyncThunk(
   "user/token",
   async ({ email, password }: GetTokenProps) => {
     const newToken = await getToken({ email, password });
-    saveAccessTokenToLocalStorage(newToken.access);
     return newToken;
   }
 );
@@ -63,18 +54,18 @@ const userSlice = createSlice({
   reducers: {
     setUser: (state, action: PayloadAction<User>) => {
       state.userState = action.payload;
-      saveUserToLocalStorage(state.userState);
     },
     setTokens: (state, action: PayloadAction<Tokens>) => {
       if (state.tokens) {
         state.tokens = action.payload;
       }
     },
+    setIsRegisterClicked: (state, action: PayloadAction<boolean>) => {
+      state.isRegisterClicked = action.payload;
+    },
     logout: (state) => {
       state.userState = null;
       state.isAuthState = false;
-      removeUserFromLocalStorage();
-      removeAccessTokenFromLocalStorage();
     },
   },
   extraReducers: (builder) => {
@@ -100,5 +91,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, setTokens, logout } = userSlice.actions;
+export const { setUser, setTokens, setIsRegisterClicked, logout } = userSlice.actions;
 export const userReducer = userSlice.reducer;

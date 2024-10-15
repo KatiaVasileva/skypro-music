@@ -1,0 +1,142 @@
+.wrapper {
+    width: 100%;
+    min-height: 100%;
+    overflow: hidden;
+    background-color: #383838;
+}
+
+.container {
+    max-width: 1920px;
+    height: 100vh;
+    margin: 0 auto;
+    position: relative;
+    background-color: #181818;
+}
+
+.main {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+    scrollbar-color: #4E4E4E #000000;
+    scrollbar-width: thin;
+}
+
+.mainCenterBlock {
+    width: auto;
+    -webkit-box-flex: 3;
+    -ms-flex-positive: 3;
+    flex-grow: 3;
+    padding: 20px 40px 20px 111px;
+}
+
+.boxContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 328px;
+}
+
+.box {
+    width: 431px;
+    height: 466px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.code {
+    font-size: 160px;
+    line-height: 168px;
+    font-weight: 400;
+    font-family: "Montserrat", sans-serif;
+}
+
+.notFoundBox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.notFoundBoxText {
+    font-size: 32px;
+    line-height: 40px;
+    font-weight: 400;
+}
+
+.text {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 400;
+    color: #4E4E4E;
+    letter-spacing: -0.3%;
+    text-align: center;
+}
+
+.mainPageButton {
+    width: 278px;
+    height: 62px;
+    background-color: #580EA2;
+    border-radius: 6px;
+    margin-left: 4px;
+    border: none;
+    margin-top: 30px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+
+    &:hover {
+        background-color: #3f007d;
+    }
+}
+
+.mainPageButtonLink {
+    width: 100%;
+    height: 100%;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -0.05px;
+    color: #FFFFFF;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+
+.sidebar {
+    max-width: 418px;
+    padding: 20px 90px 20px 78px;
+}
+
+.icon {
+    width: 43px;
+    height: 43px;
+    background-color: #313131;
+    border-radius: 50%;
+    cursor: pointer;
+}

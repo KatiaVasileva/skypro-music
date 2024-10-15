@@ -4,8 +4,7 @@ import Image from "next/image";
 import styles from "./SignUp.module.css";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { ChangeEventHandler, MouseEventHandler, useState } from "react";
-import { signup } from "@/store/features/userSlice";
-import { useRouter } from "next/navigation";
+import { setIsRegisterClicked, signup } from "@/store/features/userSlice";
 
 export default function SignUp() {
   const dispatch = useAppDispatch();
@@ -15,7 +14,6 @@ export default function SignUp() {
     username: "",
     passwordRepeat: "",
   });
-  const router = useRouter();
 
   const requestError = useAppSelector((state) => state.user.errorMessage);
   const [error, setError] = useState("");
@@ -30,17 +28,13 @@ export default function SignUp() {
   const handleSignUp: MouseEventHandler<HTMLButtonElement> = async (event) => {
     event.preventDefault();
 
-    console.log(formData.password);
-    console.log(formData.passwordRepeat);
-    console.log(formData.password !== formData.passwordRepeat);
-
     if (!formData.username.trim()) {
       setError("Введите имя");
       return;
     }
 
     if (formData.username.length < 3) {
-      setError("Имя пользователя должно быть более 3 символов");
+      setError("Имя пользователя должно быть не менее 3 символов");
       return;
     }
 
@@ -77,7 +71,7 @@ export default function SignUp() {
           username: formData.username,
         })
       ).unwrap();
-      router.push("/signin");
+      dispatch(setIsRegisterClicked(false));
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
